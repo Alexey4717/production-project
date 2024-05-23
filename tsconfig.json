@@ -1,8 +1,9 @@
 {
   "include": [
     "src/**/*.ts",
-    "webpack.config.ts"
-, "src/index.tsx"  ],
+    "webpack.config.ts",
+    "src/index.tsx"
+  ],
   "compilerOptions": {
     "outDir": "./dist/",
     // Подсвечивает все места где не указан тип
@@ -32,7 +33,13 @@
     // import React from 'react';
     "allowSyntheticDefaultImports": true,
     // Конфигурирование начала абсолютного пути, чтобы не указывать в импортах в начале точку
-    // "baseUrl": ".",
+    "baseUrl": ".",
+    // Указываем, что абсолютные импорты будут из src
+    "paths": {
+      // Скорее всего тут проблема
+      "*": ["./src/*"],
+      // "react/jsx-runtime": ["node_modules/react/jsx-runtime"]
+    }
   },
   "ts-node": {
     "compilerOptions": {
