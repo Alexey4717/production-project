@@ -1,17 +1,15 @@
+import webpack from "webpack";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import type { RuleSetRule } from "webpack";
 import { BuildOptions } from "./types/config";
 
-export function buildLoaders({ isDev }: BuildOptions): RuleSetRule[] {
+export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
   const cssLoader = {
     test: /\.s[ac]ss$/i,
     use: [
       // Порядок лоадеров важен (взят из доки)
       isDev
-        ? // create style nodes from JS strings
-          "style-loader"
-        : // Нужен для создания css файла для каждого js файла в папке билда (иначе будет находиться в js)
-          MiniCssExtractPlugin.loader,
+        ? "style-loader" // create style nodes from JS strings
+        : MiniCssExtractPlugin.loader, // Нужен для создания css файла для каждого js файла в папке билда (иначе будет находиться в js)
       {
         // Translates CSS into CommonJS
         loader: "css-loader",
@@ -20,7 +18,7 @@ export function buildLoaders({ isDev }: BuildOptions): RuleSetRule[] {
             // Это нужно, чтобы модульность стилей работала только для файлов с .module
             auto: (resPath: string) => Boolean(resPath.includes(".module.")),
             localIdentName: isDev
-              ? "[path][name]__[local] --[hash:base64:5]"
+              ? "[path][name]__[local]--[hash:base64:5]"
               : "[hash:base64:8]",
           },
         },

@@ -1,10 +1,7 @@
-import { Suspense } from "react";
-import { Link, Route, Routes } from "react-router-dom";
-import { MainPage } from "pages/MainPage";
-import { AboutPage } from "pages/AboutPage";
+import "./styles/index.scss";
+import { Navbar } from "widgets/Navbar";
 import { classNames } from "shared/lib/classNames/classNames";
 import { useTheme } from "./providers/ThemeProvider";
-import "./styles/index.scss";
 import { AppRouter } from "./providers/router";
 
 const App = () => {
@@ -12,8 +9,7 @@ const App = () => {
 
   return (
     <div className={classNames("app", {}, [theme])}>
-      <Link to="/">Главная</Link>
-      <Link to="/about">О сайте</Link>
+      <Navbar />
 
       <AppRouter />
 
