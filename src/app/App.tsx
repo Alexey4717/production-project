@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import "./styles/index.scss";
 import { Navbar } from "widgets/Navbar";
 import { classNames } from "shared/lib/classNames/classNames";
@@ -10,11 +11,14 @@ const App = () => {
 
   return (
     <div className={classNames("app", {}, [theme])}>
-      <Navbar />
-      <div className="content-page">
-        <Sidebar />
-        <AppRouter />
-      </div>
+      {/* Suspense нужен для i18n-backend, т.к. перевод асинхронный */}
+      <Suspense fallback="">
+        <Navbar />
+        <div className="content-page">
+          <Sidebar />
+          <AppRouter />
+        </div>
+      </Suspense>
     </div>
   );
 };
