@@ -1,11 +1,18 @@
 import HTMLWebpackPlugin from "html-webpack-plugin";
 import path from "path";
 import type { WebpackPluginInstance } from "webpack";
-import { ProgressPlugin, DefinePlugin } from "webpack";
+import {
+  ProgressPlugin,
+  DefinePlugin,
+  HotModuleReplacementPlugin,
+} from "webpack";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import { BuildOptions } from "./types/config";
 
-export function buildPlugins({ paths, isDev } : BuildOptions): WebpackPluginInstance[] {
+export function buildPlugins({
+  paths,
+  isDev,
+}: BuildOptions): WebpackPluginInstance[] {
   return [
     // вроде как порядок плагинов тут значения не имеет
     new ProgressPlugin(), // отображение % сборки в терминале
@@ -23,5 +30,13 @@ export function buildPlugins({ paths, isDev } : BuildOptions): WebpackPluginInst
     new DefinePlugin({
       __IS_DEV__: JSON.stringify(isDev),
     }),
+
+    // нужен для того, чтобы при изменении кода, в браузере не перезагружалась вся страница,
+    // а именения появлялись только по изменяемому коду
+    // Это удобно при разработке модалок, многоэтапных модулей, т.к. при перезагрузке стр. не обновляется состояние
+    // Можно с isDev
+    new HotModuleReplacementPlugin(),
+
+    // ReactRefreshWebpackPlugin - можно также поставить для более корректной работы c isDev
   ];
 }
