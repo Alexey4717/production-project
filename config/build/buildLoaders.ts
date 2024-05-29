@@ -8,6 +8,22 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
     use: ["@svgr/webpack"],
   };
 
+  // Babel это транспилятор js из одного стандарта в другой, чтобы поддерживался код во всех браузерах
+  const babelLoader = {
+    test: /\.(js|jsx|tsx)$/,
+    exclude: /node_modules/,
+    use: {
+      loader: "babel-loader",
+      options: {
+        presets: ["@babel/preset-env"],
+        "plugins": [
+          // плагин для автогенерации translations после билда (в папке extractedTranslations)
+          ["i18next-extract", { locales: ["en", "ru"], keyAsDefaultValue: true }],
+        ],
+      },
+    },
+  };
+
   const cssLoader = {
     test: /\.s[ac]ss$/i,
     use: [
@@ -48,5 +64,12 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
   };
 
   // Порядок в массиве лоадеров имеет значение
-  return [fileLoader, svgLoader, typescriptLoader, cssLoader];
+  return [
+    fileLoader,
+    svgLoader,
+    // babelLoader должен быть до typescriptLoader, иначе ошибка билда
+    babelLoader,
+    typescriptLoader,
+    cssLoader,
+  ];
 }
