@@ -1,6 +1,6 @@
-import { Configuration } from "webpack";
+import { Configuration } from 'webpack';
 
-export type BuildMode = Configuration["mode"];
+export type BuildMode = Configuration['mode'];
 export type Port = number;
 
 export interface BuildPaths {
