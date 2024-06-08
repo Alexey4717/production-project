@@ -15,3 +15,10 @@ npm init @eslint/config
 то можно просто указать его название в ключе rules со значением 'off'.
 Либо можно сменить отображение на предупреждение (значение 'warn')
 Команда eslint "**/*.{ts,tsx}" --fix должна фиксить все ошибки на проекте
+
+19. Stylelint для настройки правил css файлов, конфиг в .stylelintrc.json
+Для подсветки текста в jsx разметки для i18n (что нужен перевод) установлен eslint-plugin-i18next
+в конфиге .eslintrc.js нужно добавить murkupOnly: true
+в plugins: i18next
+в extends: plugin:i18next/recommended
+
