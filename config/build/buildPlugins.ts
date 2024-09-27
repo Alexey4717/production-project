@@ -6,6 +6,7 @@ import {
     HotModuleReplacementPlugin,
 } from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { BuildOptions } from './types/config';
 
 export function buildPlugins({
@@ -13,7 +14,7 @@ export function buildPlugins({
     isDev,
 }: BuildOptions): WebpackPluginInstance[] {
     return [
-    // вроде как порядок плагинов тут значения не имеет
+        // вроде как порядок плагинов тут значения не имеет
         new ProgressPlugin(), // отображение % сборки в терминале
         new HTMLWebpackPlugin({
             // файл будет использоваться как шаблон, чтобы в html из сборки
@@ -39,6 +40,10 @@ export function buildPlugins({
         // Можно с isDev
         new HotModuleReplacementPlugin(),
 
-    // ReactRefreshWebpackPlugin - можно также поставить для более корректной работы c isDev
+        new BundleAnalyzerPlugin({
+            openAnalyzer: false, // Чтобы не открывался каждый раз при запуске, ссылка будет в терминале
+        }),
+
+        // ReactRefreshWebpackPlugin - можно также поставить для более корректной работы c isDev
     ];
 }
