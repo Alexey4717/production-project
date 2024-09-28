@@ -55,3 +55,10 @@ loader cкопирован с источника https://loading.io/css/
 Для парсинга jest`ом css модулей установили identity-obj-proxy
 в конфиге jest добавили moduleNameMapper: { '\\.s?css$': 'identity-obj-proxy' }
 В babel конфиге изменили ["@babel/preset-react", {"runtime": "automatic"}]
+Можно добавить в тестах screen.debug(); Тогда в консоли отобразятся атрибуты элемента
+Для парсинга svg в jest.config в поле moduleNameMapper добавили '\\.svg': path.resolve(__dirname, 'jestEmptyComponent.tsx'),
+Грубо говоря это мок, который будет использоваться для всех импортов в которых используется svg. Создали рядом с конфигом этот компонент
+в setupTests.ts добавили import 'regenerator-runtime/runtime'; и установили зависимость regenerator-runtime
+В shared/config/i18n дабавили i18nForTests.ts (скопировали из https://react.i18next.com/misc/testing#example-configuration-for-testing  и немного изменили)
+создали в shared/lib/test/renderWithTranslation helper
+Эта функция оборачивает тестируемый компонент в обертку и добавляет нужную конфигурация для переводов
