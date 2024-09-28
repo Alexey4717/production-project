@@ -44,3 +44,14 @@ loader cкопирован с источника https://loading.io/css/
 которые используются в приложении.
 Если запускать сборки run build:dev run build:prod, то так же будет открываться страница с пакетами билдов
 Слева сверху можно посмотреть вес чанков в разных режимах
+
+24. React testing library. Файлы с тестами желательно располагать рядом с компонентами или функциями
+Чтобы jest тесты работали с абсолютными импортами добавили в jest.config modulePaths: ['<rootDir>src']
+возле jest config создали файл setupTests.ts (при create-react-app он так и называется)
+в jest.config добавили setupFilesAfterEnv: ['<rootDir>config/jest/setupTests.ts'],
+в tsconfig добавили "include": ["./config/jest/setupTests.ts"],
+после этого TS подхватывает все методы при написании кода в рантайме
+так же нужно установить пресет для парсинга tsx - @babel/preset-typescript и @babel/preset-react(эта версия не нашлась, возможна ошибка)
+Для парсинга jest`ом css модулей установили identity-obj-proxy
+в конфиге jest добавили moduleNameMapper: { '\\.s?css$': 'identity-obj-proxy' }
+В babel конфиге изменили ["@babel/preset-react", {"runtime": "automatic"}]

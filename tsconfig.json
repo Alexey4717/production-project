@@ -1,9 +1,7 @@
 {
-  // "include": [
-  //   "src/**/*.ts",
-  //   "webpack.config.ts",
-  //   "src/index.tsx"
-  // ],
+   "include": [
+     "./config/jest/setupTests.ts"
+   ],
   "compilerOptions": {
     "outDir": "./dist/",
     // Подсвечивает все места где не указан тип

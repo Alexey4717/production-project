@@ -22,6 +22,9 @@ export default {
     moduleDirectories: [
         'node_modules',
     ],
+    modulePaths: [
+        '<rootDir>src',
+    ],
     moduleFileExtensions: [
         'js',
         'jsx',
@@ -31,6 +34,7 @@ export default {
         'node',
     ],
     rootDir: '../../',
+    setupFilesAfterEnv: ['<rootDir>config/jest/setupTests.ts'],
     testMatch: [
         // Универсальная регулярка для мака и винды
         '<rootDir>src/**/*(*.)@(spec|test).[tj]s?(x)',
@@ -88,7 +92,9 @@ export default {
     // An array of file extensions your modules use
 
     // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-    // moduleNameMapper: {},
+    moduleNameMapper: {
+        '\\.s?css$': 'identity-obj-proxy',
+    },
 
     // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
     // modulePathIgnorePatterns: [],
