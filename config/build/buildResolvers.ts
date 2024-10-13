@@ -5,7 +5,6 @@ export function buildResolvers(options: BuildOptions): ResolveOptions {
     return {
         extensions: ['.tsx', '.ts', '.js'], // при импорте мы не будем указывать разширение компонента
         preferAbsolute: true, // для приоритета абсолютных импортов
-        // Вроде проблема тут
         modules: [
             // Указание абсолютного пути для вебпака из src
             options.paths.src,
