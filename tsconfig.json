@@ -1,9 +1,4 @@
 {
-  "include": [
-    "./config/jest/setupTests.ts",
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-  ],
   "compilerOptions": {
     "outDir": "./dist/",
     // Подсвечивает все места где не указан тип
@@ -40,13 +35,18 @@
     "paths": {
       "*": [
         "./src/*"
-      ]
+      ],
       // "react/jsx-runtime": ["node_modules/react/jsx-runtime"]
-    }
+    },
   },
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"
     }
-  }
+  },
+  "include": [
+    "./config/jest/setupTests.ts",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+  ],
 }

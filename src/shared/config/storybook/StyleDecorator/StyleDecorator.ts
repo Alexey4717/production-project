@@ -1,6 +1,4 @@
-import { ReactRenderer } from '@storybook/react/*';
 import 'app/styles/index.scss';
-import { DecoratorFunction } from 'storybook/internal/types';
-import { Args } from '@storybook/csf';
+import { Story } from '@storybook/react';
 
-export const StyleDecorator: DecoratorFunction<ReactRenderer, Args> = (story) => story();
+export const StyleDecorator = (story: () => Story) => story();

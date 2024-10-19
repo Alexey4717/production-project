@@ -27,7 +27,7 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
         },
     };
 
-    const cssLoader = buildCssLoader({ isDev });
+    const cssLoader = buildCssLoader(isDev);
 
     // Если не используем typescript, то нужен babel-loader (он умеет работать с jsx)
     // который берет новый стандарт js и билдит его в старый, чтобы во всех браузерах поддерживался

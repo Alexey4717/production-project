@@ -4,7 +4,7 @@ import {
 import { ErrorPage } from 'widgets/ErrorPage';
 
 interface ErrorBoundaryProps {
-    children: ReactNode;
+    children: React.JSX.Element; // Ругается ts, несовместимости типов
 }
 
 interface ErrorBoundaryState {
