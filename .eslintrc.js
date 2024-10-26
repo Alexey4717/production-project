@@ -61,7 +61,4 @@ module.exports = {
             },
         },
     ],
-    resolutions: {
-        "@types/react": "17.0.60"
-    },
 };

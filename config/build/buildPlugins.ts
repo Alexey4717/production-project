@@ -10,9 +10,9 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { BuildOptions } from './types/config';
 
 export function buildPlugins({
-                                 paths,
-                                 isDev,
-                             }: BuildOptions): WebpackPluginInstance[] {
+    paths,
+    isDev,
+}: BuildOptions): WebpackPluginInstance[] {
     const plugins = [
         // вроде как порядок плагинов тут значения не имеет
         new ProgressPlugin(), // отображение % сборки в терминале
@@ -49,7 +49,6 @@ export function buildPlugins({
             // ReactRefreshWebpackPlugin - можно также поставить для более корректной работы c isDev
         );
     }
-
 
     return plugins;
 }

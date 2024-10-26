@@ -4,5 +4,8 @@
   "Страница не найдена": "Page not found",
   "Произошла непредвиденная ошибка": "An unexpected error occurred",
   "Обновить страницу": "Refresh page",
-  "создать ошибку": "throw error"
+  "создать ошибку": "throw error",
+  "Главная": "Main",
+  "О сайте": "About",
+  "переключить": "toggle"
 }
