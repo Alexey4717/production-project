@@ -10,10 +10,10 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { BuildOptions } from './types/config';
 
 export function buildPlugins({
-    paths,
-    isDev,
-}: BuildOptions): WebpackPluginInstance[] {
-    return [
+                                 paths,
+                                 isDev,
+                             }: BuildOptions): WebpackPluginInstance[] {
+    const plugins = [
         // вроде как порядок плагинов тут значения не имеет
         new ProgressPlugin(), // отображение % сборки в терминале
         new HTMLWebpackPlugin({
@@ -32,18 +32,24 @@ export function buildPlugins({
         new DefinePlugin({
             __IS_DEV__: JSON.stringify(isDev),
         }),
+    ];
 
-        // нужен для того, чтобы при изменении кода, в браузере не перезагружалась вся страница,
-        // а именения появлялись только по изменяемому коду
+    // При prod сборке, этих плагинов в webpack сборке не будет
+    if (isDev) {
+        // Нужен для того, чтобы при изменении кода, в браузере не перезагружалась вся страница,
+        // а изменения появлялись только по изменяемому коду
         // Это удобно при разработке модалок, многоэтапных модулей,
         // т.к. при перезагрузке стр. не обновляется состояние
         // Можно с isDev
-        new HotModuleReplacementPlugin(),
+        plugins.push(new HotModuleReplacementPlugin());
+        plugins.push(
+            new BundleAnalyzerPlugin({
+                openAnalyzer: false, // Чтобы не открывался каждый раз при запуске, ссылка будет в терминале.
+            }),
+            // ReactRefreshWebpackPlugin - можно также поставить для более корректной работы c isDev
+        );
+    }
 
-        new BundleAnalyzerPlugin({
-            openAnalyzer: false, // Чтобы не открывался каждый раз при запуске, ссылка будет в терминале
-        }),
 
-        // ReactRefreshWebpackPlugin - можно также поставить для более корректной работы c isDev
-    ];
+    return plugins;
 }
