@@ -25,13 +25,13 @@ interface ButtonProps extends ButtonHTMLAttributes<any> {
 }
 
 export const Button = ({
-                           children,
-                           className,
-                           theme,
-                           square,
-                           size = ButtonSize.M,
-                           ...buttonProps
-                       }: ButtonProps) => {
+    children,
+    className,
+    theme,
+    square,
+    size = ButtonSize.M,
+    ...buttonProps
+}: ButtonProps) => {
     const mods: Record<string, boolean> = {
         [cls[theme]]: true,
         [cls.square]: square,
