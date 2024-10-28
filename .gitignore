@@ -5,3 +5,5 @@ node_modules
 *storybook.log
 .editorconfig
 /storybook-static
+.loki/report.html
+.loki/report.json
