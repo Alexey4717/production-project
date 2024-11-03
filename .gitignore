@@ -2,7 +2,6 @@
 node_modules
 .idea
 .vscode
-*storybook.log
 .editorconfig
 /storybook-static
 .loki/report.html
