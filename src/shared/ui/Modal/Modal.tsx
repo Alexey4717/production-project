@@ -17,7 +17,12 @@ interface ModalProps {
     onClose?: () => void;
 }
 
-export const Modal = ({ className, children, isOpen, onClose }: ModalProps) => {
+export const Modal = ({
+    className,
+    children,
+    isOpen,
+    onClose,
+}: ModalProps) => {
     // Это нужно для создания анимации плавного закрытия, т.к. css не справится
     const [isClosing, setIsClosing] = useState(false);
     const timerRef = useRef<ReturnType<typeof setTimeout>>();

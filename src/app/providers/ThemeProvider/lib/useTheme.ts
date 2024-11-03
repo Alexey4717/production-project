@@ -13,7 +13,7 @@ export function useTheme(): UseThemeResult {
         const newTheme = theme === Theme.LIGTH ? Theme.DARK : Theme.LIGTH;
         setTheme(newTheme);
         localStorage.setItem(LOCAL_STORAGE_THEME_KEY, newTheme);
-    }, [theme]);
+    }, [setTheme, theme]);
 
     return {
         theme,
