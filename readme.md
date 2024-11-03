@@ -284,8 +284,6 @@ await user.click(screen.getByTestId('some-element'));
 Изменили названия тем в енамке Theme (уникализировали), чтоб уменьшить вероятность ошибок (app_light_theme вместо light).
 И в themes стилях напрямую обращаемся к селектору .app-dark-theme (а не .app.dark).
 Пришлось очистить localStorage, чтоб обновить значение строки.
-В index.scss из body вынесли стили в .app,.app_modal.
-Сам класс добавляем additional массив после theme в компоненте Modal.
-Потом еще изменится по ходу курса. Но на данном этаме мне не понятно, где эти изменения 
-TODO - если что пересмотреть и вернуться.
+В хуке useTheme сделали document.body.className = newTheme вместе с сетом в состояние и localStorage.
+Тогда они действительно станут глобальными стилями в body.
 
