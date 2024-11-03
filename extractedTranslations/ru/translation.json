@@ -2,6 +2,8 @@
   "Lorem ipsum dolor sit amet, consectetur adipisicing elit": {
     "": ""
   },
+  "decrement": "decrement",
+  "increment": "increment",
   "Войти": "Войти",
   "Главная": "Главная",
   "Главная страница": "Главная страница",

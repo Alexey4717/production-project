@@ -279,3 +279,9 @@ import userEvent from '@testing-library/user-event';
 const user = userEvent.setup();
 await user.click(screen.getByTestId('some-element'));
 
+31. В этом модуле правки глобальных стилей для модалки.
+Передали theme в classNames, как строку в массив additional, т.к. это глобальный селектор класса, то он будет доступен.
+Изменили названия тем в енамке Theme (уникализировали), чтоб уменьшить вероятность ошибок (app_light_theme вместо light).
+И в themes стилях напрямую обращаемся к селектору .app-dark-theme (а не .app.dark).
+Пришлось очистить localStorage, чтоб обновить значение строки
+

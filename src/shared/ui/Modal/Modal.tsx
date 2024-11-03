@@ -1,3 +1,4 @@
+import { useTheme } from 'app/providers/ThemeProvider';
 import {
     type ReactNode,
     type MouseEvent,
@@ -23,6 +24,7 @@ export const Modal = ({
     isOpen,
     onClose,
 }: ModalProps) => {
+    const { theme } = useTheme();
     // Это нужно для создания анимации плавного закрытия, т.к. css не справится
     const [isClosing, setIsClosing] = useState(false);
     const timerRef = useRef<ReturnType<typeof setTimeout>>();
@@ -65,7 +67,7 @@ export const Modal = ({
 
     return (
         <Portal>
-            <div className={classNames(cls.Modal, mods, [className])}>
+            <div className={classNames(cls.Modal, mods, [className, theme])}>
                 {/* Это бэкграунд обложка, при нажатии на которую модалка закрывается */}
                 <div className={cls.overlay} onClick={closeHandler}>
                     {/* это содержимое модалки */}
