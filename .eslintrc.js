@@ -52,6 +52,7 @@ module.exports = {
         'max-len': ['error', { ignoreComments: true, code: 100 }],
         'jsx-a11y/no-static-element-interactions': 'off', // откл уведомления обработчиков событий на div
         'jsx-a11y/click-events-have-key-events': 'off',
+        'no-param-reassign': 'off', // отключаем для ImmerJs в redux-toolkit
         'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
         'react-hooks/exhaustive-deps': 'error', // Checks effect dependencies
     },

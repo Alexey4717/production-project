@@ -8,5 +8,7 @@
   "Главная": "Main",
   "О сайте": "About",
   "Короткий язык": "En",
-  "Войти": "Login"
+  "Войти": "Login",
+  "increment": "increment",
+  "decrement": "decrement"
 }
