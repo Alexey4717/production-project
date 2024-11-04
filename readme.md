@@ -30,6 +30,34 @@ export const $FILE_NAME$ = (props: $FILE_NAME$Props) => {
 Правой кнопкой мыши выделяется переменная, настройка. Выбрать fileNameWithoutExtension().
 Выбрать контекст JavaScrip/TypeScript (при наличии React JS/TS).
 
+Сниппет для .vscode/rc.code-snippets
+
+{
+"React Functional Component": {
+"prefix": [
+"rc"
+],
+"body": [
+"import { classNames } from \"shared/lib/classNames/classNames\";",
+"import cls from \"./$TM_FILENAME_BASE.module.scss\";",
+"",
+"interface $TM_FILENAME_BASE Props {",
+"  className?: string;",
+"}",
+"",
+"export const $TM_FILENAME_BASE = ({ className }: $TM_FILENAME_BASE Props) => {",
+"  return (",
+"    <div className={classNames(cls.$TM_FILENAME_BASE, {}, [className])}>",
+"      $2",
+"    </div>",
+"  )",
+"};",
+""
+],
+"description": "React Functional Component"
+}
+}
+
 В какой-то момент я начал использовать yarn вместо npm, т.к. с ним комфортнее работать со старыми версиями пакетов.
 Возникает меньше конфликтов версий, более стабильная работа.
 
@@ -287,3 +315,16 @@ await user.click(screen.getByTestId('some-element'));
 В хуке useTheme сделали document.body.className = newTheme вместе с сетом в состояние и localStorage.
 Тогда они действительно станут глобальными стилями в body.
 
+31.1. Имитация бекенда (JSON server).
+Есть сервис jsonplaceholder, с помощью которого можно получать разные данные (https://jsonplaceholder.typicode.com/).
+Он спроектирован на базе https://github.com/typicode/json-server, который можно быстро настроить и поднять.
+Установили пакет json-server, добавили в корень папку с файлом json-server/db.json.
+Запуск сервера командой json-server --watch ./json-server/db.json --port 8000
+Этот сервер можно гибко настраивать и поначалу в нём нет механизма авторизации, но её можно добавить.
+Сделана имитация авторизации. Создали json-server/index.js.
+С фронта будет отправляться захардкоженная строка, а сервер будет её проверять (подобие токена).
+При разлогинивании на фронте, будет эта строка удаляться.
+Создали скрипт "start:dev:server": "node ./json-server/index.js"
+Работать будет так. Отправляется post запрос на /login с указанием username и password.
+Если пользователь находится, то он возвращается с id. Этот id используется как ключ.
+Пока что проверка авторизации только по наличию строки в заголовке запроса (Authorization), без проверки.
