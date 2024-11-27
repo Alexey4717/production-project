@@ -1,7 +1,7 @@
 {
-  "name": "ulbi",
+  "name": "pet-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "Project for self education",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --env port=3000",
