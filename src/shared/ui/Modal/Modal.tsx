@@ -3,7 +3,9 @@ import {
     type ReactNode,
     type MouseEvent,
     useState,
-    useRef, useCallback, useEffect, KeyboardEvent,
+    useRef,
+    useCallback,
+    useEffect,
 } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Portal } from 'shared/ui/Portal/Portal';
@@ -16,6 +18,8 @@ interface ModalProps {
     children?: ReactNode;
     isOpen?: boolean;
     onClose?: () => void;
+    // Если в модалку будет помещаться асинхронный компонент
+    lazy?: boolean;
 }
 
 export const Modal = ({
@@ -23,11 +27,19 @@ export const Modal = ({
     children,
     isOpen,
     onClose,
+    lazy = false,
 }: ModalProps) => {
     const { theme } = useTheme();
     // Это нужно для создания анимации плавного закрытия, т.к. css не справится
     const [isClosing, setIsClosing] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
     const timerRef = useRef<ReturnType<typeof setTimeout>>();
+
+    useEffect(() => {
+        if (isOpen) {
+            setIsMounted(true);
+        }
+    }, [isOpen]);
 
     const closeHandler = useCallback(() => {
         if (typeof onClose === 'function') {
@@ -64,6 +76,8 @@ export const Modal = ({
         [cls.opened]: isOpen,
         [cls.isClosing]: isClosing,
     };
+
+    if (lazy && !isMounted) return null;
 
     return (
         <Portal>
