@@ -16,7 +16,7 @@ i18n
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-        fallbackLng: 'ru', // язык по-умолчанию
+        fallbackLng: 'en', // язык по-умолчанию
         debug: __IS_DEV__, // выбрасывание в консоль ворнингов для дебага
 
         interpolation: {

@@ -9,8 +9,11 @@
   "О сайте": "About",
   "Короткий язык": "En",
   "Войти": "Login",
+  "Выйти": "Logout",
   "increment": "increment",
   "decrement": "decrement",
   "Введите имя": "Enter name",
-  "Введите пароль": "Enter password"
+  "Введите пароль": "Enter password",
+  "Форма авторизации": "Authorization form",
+  "Вы ввели неверный логин или пароль": "You have entered an incorrect login or password."
 }
