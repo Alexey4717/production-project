@@ -33,7 +33,6 @@ export function buildPlugins({
             __IS_DEV__: JSON.stringify(isDev),
         }),
     ];
-
     // При prod сборке, этих плагинов в webpack сборке не будет
     if (isDev) {
         // Нужен для того, чтобы при изменении кода, в браузере не перезагружалась вся страница,
