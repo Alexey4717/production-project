@@ -55,6 +55,7 @@ module.exports = {
         'no-param-reassign': 'off', // отключаем для ImmerJs в redux-toolkit
         'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
         'react-hooks/exhaustive-deps': 'error', // Checks effect dependencies
+        'lines-between-class-members': 'off',
     },
     globals: {
         __IS_DEV__: true,
