@@ -9,6 +9,7 @@ export default {
     // Для определения глобальныз переменных
     globals: {
         __IS_DEV__: true,
+        __API__: '',
     },
     // All imported modules in your tests should be mocked automatically
     // automock: false,

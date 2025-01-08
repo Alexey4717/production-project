@@ -12,6 +12,7 @@ import { BuildOptions } from './types/config';
 export function buildPlugins({
     paths,
     isDev,
+    apiUrl,
 }: BuildOptions): WebpackPluginInstance[] {
     const plugins = [
         // вроде как порядок плагинов тут значения не имеет
@@ -31,6 +32,7 @@ export function buildPlugins({
         // для использования в коде, нужно в global.d.ts объявить константу с возвращаемым типом
         new DefinePlugin({
             __IS_DEV__: JSON.stringify(isDev),
+            __API__: JSON.stringify(apiUrl),
         }),
     ];
     // При prod сборке, этих плагинов в webpack сборке не будет
