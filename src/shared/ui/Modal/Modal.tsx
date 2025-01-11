@@ -7,7 +7,7 @@ import {
     useCallback,
     useEffect,
 } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames, type Mods } from 'shared/lib/classNames/classNames';
 import { Portal } from 'shared/ui/Portal/Portal';
 import cls from './Modal.module.scss';
 
@@ -33,7 +33,7 @@ export const Modal = ({
     // Это нужно для создания анимации плавного закрытия, т.к. css не справится
     const [isClosing, setIsClosing] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
-    const timerRef = useRef<ReturnType<typeof setTimeout>>();
+    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     useEffect(() => {
         if (isOpen) {
@@ -67,12 +67,12 @@ export const Modal = ({
             window.addEventListener('keydown', onKeyDown);
         }
         return () => {
-            clearTimeout(timerRef.current);
+            if (timerRef.current) clearTimeout(timerRef.current);
             window.removeEventListener('keydown', onKeyDown);
         };
     }, [isOpen, onKeyDown]);
 
-    const mods: Record<string, boolean> = {
+    const mods: Mods = {
         [cls.opened]: isOpen,
         [cls.isClosing]: isClosing,
     };

@@ -13,6 +13,7 @@
     // react-jsx, чтобы не импортить React from react и читался jsx
     // Компилятор будет обрабатывать не только TS файлы, но и JS файлы
     "allowJs": true,
+    "strict": true,
     "moduleResolution": "node",
     // esModuleInterop позволяет работать с пакетами, которые используют
     // common js как с обычными пакета с помощью import (require() module.export) = common js
