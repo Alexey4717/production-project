@@ -26,6 +26,7 @@ export const profileSlice = createSlice({
         cancelEdit: (state: ProfileSchema) => {
             state.readonly = true;
             state.form = state.data;
+            state.validateErrors = undefined;
         },
     },
     extraReducers: (builder) => {
@@ -47,7 +48,7 @@ export const profileSlice = createSlice({
                 state.error = action.payload; // из payload т.к. передали значение через thunkAPI.rejectWithValue
             })
             .addCase(updateProfileData.pending, (state) => {
-                state.error = undefined;
+                state.validateErrors = undefined;
                 state.isLoading = true;
             })
             .addCase(
@@ -57,11 +58,12 @@ export const profileSlice = createSlice({
                     state.data = action.payload;
                     state.form = action.payload;
                     state.readonly = true;
+                    state.validateErrors = undefined;
                 },
             )
             .addCase(updateProfileData.rejected, (state, action) => {
                 state.isLoading = false;
-                state.error = action.payload; // из payload т.к. передали значение через thunkAPI.rejectWithValue
+                state.validateErrors = action.payload; // из payload т.к. передали значение через thunkAPI.rejectWithValue
             });
     },
 });
