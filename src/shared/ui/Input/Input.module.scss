@@ -38,6 +38,10 @@
     animation: blink 0.7s forwards infinite;
 }
 
+.readonly {
+    opacity: 0.7;
+}
+
 // анимация моргания каретки
 @keyframes blink {
     // ключевые кадры
