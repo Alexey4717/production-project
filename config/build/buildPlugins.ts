@@ -13,6 +13,7 @@ export function buildPlugins({
     paths,
     isDev,
     apiUrl,
+    project,
 }: BuildOptions): WebpackPluginInstance[] {
     const plugins = [
         // вроде как порядок плагинов тут значения не имеет
@@ -33,6 +34,7 @@ export function buildPlugins({
         new DefinePlugin({
             __IS_DEV__: JSON.stringify(isDev),
             __API__: JSON.stringify(apiUrl),
+            __PROJECT__: JSON.stringify(project),
         }),
     ];
     // При prod сборке, этих плагинов в webpack сборке не будет
