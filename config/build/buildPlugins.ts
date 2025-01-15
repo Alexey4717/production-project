@@ -7,6 +7,7 @@ import {
 } from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import { BuildOptions } from './types/config';
 
 export function buildPlugins({
@@ -44,6 +45,7 @@ export function buildPlugins({
         // Это удобно при разработке модалок, многоэтапных модулей,
         // т.к. при перезагрузке стр. не обновляется состояние
         // Можно с isDev
+        plugins.push(new ReactRefreshWebpackPlugin());
         plugins.push(new HotModuleReplacementPlugin());
         plugins.push(
             new BundleAnalyzerPlugin({
