@@ -23,6 +23,7 @@ export const ThemeSwitcher = memo(({ className }: ThemeSwitcherProps) => {
                 {
                     [Theme.DARK]: <DarkIcon />,
                     [Theme.LIGHT]: <LightIcon />,
+                    [Theme.ORANGE]: <DarkIcon />,
                 }[theme]
             }
         </Button>

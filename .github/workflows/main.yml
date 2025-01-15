@@ -33,7 +33,8 @@ jobs:
         if: always()
       - name: build storybook
         run: yarn storybook:build
-      - name: Update Loki reference files
-        run: yarn loki update --storiesFilter="^entities\\/ProfileCard Primary|pages\\/ProfilePage Normal|pages\\/ProfilePage Dark\$" --reactUri="file:./storybook-static"
+      # Use it, if need to update reference loki screens with errors
+      # - name: Update Loki reference files
+      #   run: yarn loki update --reactUri="file:./storybook-static"
       - name: screenshot testing
         run: yarn test:ui:ci
