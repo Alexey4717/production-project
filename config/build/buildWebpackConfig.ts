@@ -20,6 +20,7 @@ export function buildWebpackConfig(
             filename: '[name].[contenthash].js',
             path: paths?.build,
             clean: true, // для подчищения папки build при каждой сборке
+            publicPath: '/', // Указывает корень для загрузки всех статических файлов, для обеспечения корректного определение пути независимо от текущего URL
         },
         plugins: buildPlugins(options),
         module: {

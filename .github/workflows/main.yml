@@ -34,7 +34,7 @@ jobs:
       - name: build storybook
         run: yarn storybook:build
       # Use it, if need to update reference loki screens with errors
-      # - name: Update Loki reference files
-      #   run: yarn loki update --reactUri="file:./storybook-static"
+      - name: Update Loki reference files
+        run: yarn loki update --reactUri="file:./storybook-static"
       - name: screenshot testing
         run: yarn test:ui:ci
