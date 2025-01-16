@@ -9,4 +9,6 @@ export interface User {
 // Если нет, то не авторизован
 export interface UserSchema {
     authData?: User;
+
+    _inited: boolean; // флаг, который показывает, что пользователь проинициализирован (в редьюсере initAuthData)
 }
