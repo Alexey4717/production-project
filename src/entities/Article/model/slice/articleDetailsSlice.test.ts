@@ -1,17 +1,7 @@
-import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Article, ArticleDetails } from 'entities/Article';
-import { ArticleBlockType, ArticleType } from 'entities/Article/model/types/article';
-import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
-import ArticleDetailsPage from './ArticleDetailsPage';
-
-export default {
-    title: 'pages/ArticleDetailsPage',
-    component: ArticleDetailsPage,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
-} as ComponentMeta<typeof ArticleDetailsPage>;
+import { fetchArticleById } from '../services/fetchArticleById/fetchArticleById';
+import { Article, ArticleBlockType, ArticleType } from '../types/article';
+import { ArticleDetailsSchema } from '../types/articleDetailsSchema';
+import { articleDetailsReducer } from './articleDetailsSlice';
 
 const article: Article = {
     id: '1',
@@ -83,12 +73,31 @@ const article: Article = {
     ],
 };
 
-const Template: ComponentStory<typeof ArticleDetails> = (args) => <ArticleDetails {...args} />;
+describe('articleDetailsSlice.test', () => {
+    test('test fetchArticleById service pending', () => {
+        const state: DeepPartial<ArticleDetailsSchema> = {
+            isLoading: false,
+        };
 
-export const Normal = Template.bind({});
-Normal.args = {};
-Normal.decorators = [StoreDecorator({
-    articleDetails: {
-        data: article,
-    },
-})];
+        expect(articleDetailsReducer(
+            state as ArticleDetailsSchema,
+            fetchArticleById.pending, // по-сути это экшен
+        )).toEqual({
+            isLoading: true,
+        });
+    });
+
+    test('test fetchArticleById service fulfilled', () => {
+        const state: DeepPartial<ArticleDetailsSchema> = {
+            isLoading: true,
+        };
+
+        expect(articleDetailsReducer(
+            state as ArticleDetailsSchema,
+            fetchArticleById.fulfilled(article, '', ''),
+        )).toEqual({
+            isLoading: false,
+            data: article,
+        });
+    });
+});
