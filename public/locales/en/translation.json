@@ -19,5 +19,6 @@
   "Форма авторизации": "Authorization form",
   "Вы ввели неверный логин или пароль": "You have entered an incorrect login or password.",
   "Укажите валюту": "Enter currency",
-  "Укажите страну": "Enter country"
+  "Укажите страну": "Enter country",
+  "Комментарии отсутствуют": "No comments"
 }
