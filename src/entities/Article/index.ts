@@ -1,9 +1,9 @@
-export {
-    ArticleDetails,
-} from './ui/ArticleDetails/ArticleDetails';
+export { ArticleDetails } from './ui/ArticleDetails/ArticleDetails';
+export { ArticleList } from './ui/ArticleList/ArticleList';
 
-export type {
-    Article,
+export {
+    type Article,
+    ArticleView,
 } from './model/types/article';
 
 export type {
