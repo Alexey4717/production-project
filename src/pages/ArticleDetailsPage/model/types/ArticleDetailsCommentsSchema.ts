@@ -5,6 +5,7 @@ import { Comment } from 'entities/Comment';
 export interface ArticleDetailsCommentsSchema extends EntityState<Comment> {
     isLoading?: boolean;
     error?: string;
-    ids: string[];
-    entities: Record<any, any>;
+    // Это больше не нужно, т.к. extends от EntityState (там эти типы есть)
+    // ids: string[];
+    // entities: Record<any, any>;
 }

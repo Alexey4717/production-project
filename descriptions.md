@@ -763,3 +763,8 @@ shared/lib/hooks/useInitialEffect.
 Реализовали shared/ui/Card.
 Реализовали shared/lib/hooks/useHover для ховер эффекта с помощью js.
 
+55. Статьи. EntityAdapter, thunks, slices. View selector.
+Наполнили pages/articlesPage/model кодовой базой (редакс, фетчинг данных).
+Добавили ArticleViewSelector в entity/Article. Но можно было и в фичу (там было бы лучше, потом отрефакторим), и в page.
+Сделали сохранение выбранного значения view в localStorage, чтобы пользователь после перезагрузки страницы заного не менял его.
+В LocalStorage.ts сделали еще одну константу.
