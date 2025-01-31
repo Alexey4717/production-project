@@ -11,4 +11,6 @@ export interface ArticlesPageSchema extends EntityState<Article> {
     page: number;
     limit?: number;
     hasMore: boolean; // По-хорошему это поле должен возвращать бэк, но у нас фейковый сервер.
+
+    _inited: boolean;
 }

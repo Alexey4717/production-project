@@ -17,7 +17,7 @@ i18n
     .use(initReactI18next)
     .init({
         fallbackLng: 'en', // язык по-умолчанию
-        debug: __IS_DEV__, // выбрасывание в консоль ворнингов для дебага
+        debug: __IS_DEV__, // выбрасывание в консоль ворнингов для дебага (указать false если не нужны)
 
         interpolation: {
             escapeValue: false, // not needed for react as it escapes by default
