@@ -3,25 +3,26 @@ import {
     memo,
     useCallback,
     useMemo,
+    JSX,
 } from 'react';
 import { classNames, type Mods } from 'shared/lib/classNames/classNames';
 import cls from './Select.module.scss';
 
-export interface SelectOption {
-    value: string;
+export interface SelectOption<T extends string = string> {
+    value: T;
     content: string;
 }
 
-interface SelectProps {
+interface SelectProps<T extends string> {
     className?: string;
     label?: string;
-    options?: SelectOption[];
-    value?: string; // Выбранное значение
-    onChange?: (value: string) => void;
+    options?: SelectOption<T>[];
+    value?: T; // Выбранное значение
+    onChange?: (value: T) => void;
     readonly?: boolean;
 }
 
-export const Select = memo((props: SelectProps) => {
+const SelectComponent = <T extends string>(props: SelectProps<T>) => {
     const {
         className,
         label,
@@ -32,10 +33,10 @@ export const Select = memo((props: SelectProps) => {
     } = props;
 
     const onChangeHandler = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
-        onChange?.(e.target?.value);
+        onChange?.(e.target?.value as T);
     }, [onChange]);
 
-    const optionsList = useMemo(() => (options ?? [])?.map((opt: SelectOption) => (
+    const optionsList = useMemo(() => (options ?? [])?.map((opt: SelectOption<T>) => (
         <option
             key={opt.value}
             value={opt.value}
@@ -61,4 +62,7 @@ export const Select = memo((props: SelectProps) => {
             </select>
         </div>
     );
-});
+};
+
+// из-за того, что теряются типы в memo
+export const Select = memo(SelectComponent) as typeof SelectComponent;
