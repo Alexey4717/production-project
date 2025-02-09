@@ -2,5 +2,6 @@
   "Статья не найдена": "article not found",
   "Произошла ошибка при загрузке статьи.": "Error fetching article is occurred.",
   "Комментарии": "Comments",
-  "Назад к списку": "Back to list"
+  "Назад к списку": "Back to list",
+  "Рекомендуем": "recommend"
 }

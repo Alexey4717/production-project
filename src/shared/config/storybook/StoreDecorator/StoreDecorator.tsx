@@ -1,13 +1,11 @@
 import type { ReducersMapObject } from '@reduxjs/toolkit';
 import { Story } from '@storybook/react';
 import { StateSchema, StoreProvider } from 'app/providers/StoreProvider';
-import { articleDetailsReducer } from 'entities/Article';
+import { articleDetailsPageReducer } from 'pages/ArticleDetailsPage/model/slices';
 import { addCommentFormReducer } from 'features/addCommentForm/model/slice/addCommentFormSlice';
 import { loginReducer } from 'features/AuthByUsername/model/slice/loginSlice';
+import { articleDetailsReducer } from 'entities/Article';
 import { profileReducer } from 'entities/Profile';
-import {
-    articleDetailsCommentsReducer,
-} from 'pages/ArticleDetailsPage/model/slices/articleDetailsCommentsSlice';
 import { ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 
 // Для сторибука
@@ -16,7 +14,7 @@ const defaultAsyncReducers: ReducersList = {
     profile: profileReducer,
     articleDetails: articleDetailsReducer,
     addCommentForm: addCommentFormReducer,
-    articleDetailsComments: articleDetailsCommentsReducer,
+    articleDetailsPage: articleDetailsPageReducer,
 };
 
 export const StoreDecorator = (

@@ -46,7 +46,7 @@ module.exports = {
             'error',
             {
                 markupOnly: true,
-                ignoreAttribute: ['data-testid', 'to'],
+                ignoreAttribute: ['data-testid', 'to', 'target'],
             },
         ],
         'max-len': ['error', { ignoreComments: true, code: 100 }],
@@ -57,6 +57,7 @@ module.exports = {
         'react-hooks/exhaustive-deps': 'error', // Checks effect dependencies
         'lines-between-class-members': 'off',
         'no-undef': 'off',
+        'arrow-body-style': 'off',
     },
     globals: {
         __IS_DEV__: true,
