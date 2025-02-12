@@ -969,8 +969,8 @@ https://medium.com/@md.alishanali/how-to-deploy-your-node-js-backend-project-to-
 Потом запустим vercel --prod (должен быть глобально установлен).
 Возможно нужно будет залогиниться. Прикреплять к текущим проектам не надо, все остальное принимаем на enter.
 В конце после деплоя вернется в терминале 2 ссылки
-1 ссылка это типа личного кабинета, настройки проекта (https://vercel.com/alexey4717s-projects/production-project-server/GFYmJE6avM5ypXJbjXFVY2izzrBH).
-2 ссылка на задеплоенное приложение (https://production-project-server-cp4j20w77-alexey4717s-projects.vercel.app/).
+1 ссылка это типа личного кабинета, настройки проекта (https://vercel.com/alexey4717s-projects/production-project-server/hk2pnRvC8d4yfcN4tivYjt883fwd).
+2 ссылка на задеплоенное приложение (https://production-project-server-oqn2xb2nf-alexey4717s-projects.vercel.app/).
 Если добавить в адрес /articles, то получим 401 error, так можно понять что сервер работает.
 Эту ссылку на сервер копируем.
 apiUrl мы прокидывали в переменные окружения в конфиге.
@@ -984,3 +984,9 @@ https://www.netlify.com/blog/2016/07/22/deploy-react-apps-in-less-than-30-second
 Вначале зарегистрироваться или авторизоваться.
 
 Потом запушить все изменения для подготовки к продакшену в репозиторий.
+В настройках конфигурации на netlify нужно указать 
+Build command: yarn build:prod,
+Publish directory: build,
+Можно было там же прокинуть переменные окружения, но мы указали их в скрипте в package.json.
+После успешного деплоя вернется ссылка на развернутое приложение https://stately-raindrop-4d6059.netlify.app/
+Так же я добавил в сервере разрешения cors. Передеплоил сервер и клиент.
