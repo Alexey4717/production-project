@@ -7259,6 +7259,13 @@ eslint-module-utils@^2.12.0:
   dependencies:
     debug "^3.2.7"
 
+eslint-plugin-alexey4717-plugin@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-alexey4717-plugin/-/eslint-plugin-alexey4717-plugin-0.0.1.tgz#708e5b8243742561627ec2209ef18128402adca9"
+  integrity sha512-J62GJjQeTP9Tq0UeS0S2uapinWmdW3+kdYlsg+VOkiiGMTzTS5cORe/DZrLz8Z6HXL0Tpgtd3/GHsnjbFStJmw==
+  dependencies:
+    requireindex "^1.2.0"
+
 eslint-plugin-i18next@^5.1.2:
   version "5.2.1"
   resolved "https://registry.npmjs.org/eslint-plugin-i18next/-/eslint-plugin-i18next-5.2.1.tgz#9ce619f4958e9c58c70e4900585ec3b1c8065614"
@@ -13034,6 +13041,11 @@ require-from-string@^2.0.2:
   version "2.0.2"
   resolved "https://registry.npmjs.org/require-from-string/-/require-from-string-2.0.2.tgz#89a7fdd938261267318eafe14f9c32e598c36909"
   integrity sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==
+
+requireindex@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/requireindex/-/requireindex-1.2.0.tgz#3463cdb22ee151902635aa6c9535d4de9c2ef1ef"
+  integrity sha512-L9jEkOi3ASd9PYit2cwRfyppc9NoABujTP8/5gFcbERmo5jUoAKovIC3fsF17pkTnGsrByysqX+Kxd2OTNI1ww==
 
 requireindex@~1.1.0:
   version "1.1.0"

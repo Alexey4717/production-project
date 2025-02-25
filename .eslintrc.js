@@ -22,6 +22,7 @@ module.exports = {
         '@typescript-eslint',
         'i18next',
         'react-hooks',
+        'alexey4717-plugin',
     ],
     rules: {
         'react/jsx-indent': [2, 4],
@@ -58,6 +59,7 @@ module.exports = {
         'lines-between-class-members': 'off',
         'no-undef': 'off',
         'arrow-body-style': 'off',
+        'alexey4717-plugin/path-checker': 'error'
     },
     globals: {
         __IS_DEV__: true,
