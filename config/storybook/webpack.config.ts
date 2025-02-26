@@ -9,6 +9,10 @@ export default ({ config }: {config: webpack.Configuration}) => {
         html: '',
         entry: '',
         src: path.resolve(__dirname, '..', '..', 'src'),
+        // Тут локали особо не нужны, т.к. в качестве переводов используются ключи на русском
+        // TODO - Но если использовать английские ключи и перевод, то тут стоит указать путь до папки public
+        locales: '',
+        buildLocales: '',
     };
     config!.resolve!.modules!.push(paths.src);
     config!.resolve!.extensions!.push('.ts', '.tsx');
