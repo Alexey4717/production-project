@@ -9,21 +9,59 @@ export default {
     argTypes: {
         backgroundColor: { control: 'color' },
     },
+    // Так передаются декораторы для всех сторикейсов
+    decorators: [
+        (Story) => <div style={{ padding: 100 }}><Story /></div>,
+    ],
 } as ComponentMeta<typeof ListBox>;
 
 const Template: ComponentStory<typeof ListBox> = (args) => <ListBox {...args} />;
 
 export const Normal = Template.bind({});
 Normal.args = {
-    // value: '1',
-    // direction: 'top',
-    defaultValue: 'Выберите значение',
-    label: 'list box label',
+    value: '123',
     items: [
-        { value: '1', content: 'Durward Reynolds' },
-        { value: '2', content: 'Kenton Towne' },
-        { value: '3', content: 'Therese Wunsch', disabled: true },
-        { value: '4', content: 'Benedict Kessler' },
-        { value: '5', content: 'Katelyn Rohan' },
+        { content: '1asfasfasf23', value: '123' },
+        { content: '1asfasfasf21233', value: '1232' },
+    ],
+};
+
+export const topLeft = Template.bind({});
+topLeft.args = {
+    direction: 'top left',
+    value: '123',
+    items: [
+        { content: '1asfasfasf23', value: '123' },
+        { content: '1asfasfasf21233', value: '1232' },
+    ],
+};
+
+export const topRight = Template.bind({});
+topRight.args = {
+    direction: 'top right',
+    value: '123',
+    items: [
+        { content: '1asfasfasf23', value: '123' },
+        { content: '1asfasfasf21233', value: '1232' },
+    ],
+};
+
+export const bottomLeft = Template.bind({});
+bottomLeft.args = {
+    direction: 'bottom left',
+    value: '123',
+    items: [
+        { content: '1asfasfasf23', value: '123' },
+        { content: '1asfasfasf21233', value: '1232' },
+    ],
+};
+
+export const bottomRight = Template.bind({});
+bottomRight.args = {
+    direction: 'bottom right',
+    value: '123',
+    items: [
+        { content: '1asfasfasf23', value: '123' },
+        { content: '1asfasfasf21233', value: '1232' },
     ],
 };

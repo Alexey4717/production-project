@@ -1,6 +1,7 @@
 import { Fragment, memo, type ReactNode } from 'react';
 import { Listbox as HListBox } from '@headlessui/react';
 import { classNames } from 'shared/lib/classNames/classNames';
+import { DropdownDirection } from 'shared/types/ui';
 import { HStack } from '../Stack';
 import { Button } from '../Button/Button';
 import cls from './ListBox.module.scss';
@@ -11,11 +12,11 @@ export interface ListBoxItem {
     disabled?: boolean;
 }
 
-type DropdownDirection = 'top' | 'bottom'; // Для UX-ности, чтоб не было дерганий экрана, когда снизу ListBox конец страницы
-
 const mapDirectionClass: Record<DropdownDirection, string> = {
-    bottom: cls.optionsBottom,
-    top: cls.optionsTop,
+    'bottom left': cls.optionsBottomLeft,
+    'bottom right': cls.optionsBottomRight,
+    'top left': cls.optionsTopLeft,
+    'top right': cls.optionsTopRight,
 };
 
 interface ListBoxProps {
@@ -37,7 +38,7 @@ export const ListBox = memo((props: ListBoxProps) => {
         defaultValue,
         onChange,
         readonly,
-        direction = 'bottom',
+        direction = 'bottom right',
         label,
     } = props;
 
