@@ -133,6 +133,17 @@ To run the project, follow these steps:
 
 ---
 
+### **Generating slices in layers**
+- **`generage:slice`**  
+  Launches script in node environment which create structure with directories and files.
+  You have to pass args <layerName> and <cliseName> for successful script execution.
+  Acceptable layers names are: features, entities, pages.
+  ```bash
+  yarn generage:slice feature featureName
+  ```
+
+---
+
 ## 🛠 **Technologies Used**
 - **Build System**: Webpack
 - **Linting**: ESLint, Stylelint
