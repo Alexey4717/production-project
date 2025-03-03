@@ -2,5 +2,6 @@
   "Айти": "It",
   "Все статьи": "All articles",
   "Экономика": "Economics",
-  "Наука": "Science"
+  "Наука": "Science",
+  "Ошибка загрузки статей": "Error fetching articles"
 }

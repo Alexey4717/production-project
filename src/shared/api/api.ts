@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { USER_LOCALSTORAGE_KEY } from 'shared/consts/localStorage';
+import { USER_LOCALSTORAGE_KEY } from '../consts/localStorage';
 
 // Можно так, но мы сделали через новую глобал переменную __API__
 // const baseUrl = __IS_DEV__ ? 'http://localhost:8000' : 'https://production.ru';
