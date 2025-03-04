@@ -34,5 +34,7 @@
   "просмотрам": "views",
   "Статьи не найдены": "Articles not found",
   "Учебный проект": "Educational project",
-  "Создать статью": "Create an article"
+  "Создать статью": "Create an article",
+  "Админка": "Admin",
+  "У вас нет доступа к этой странице": "You do not have access to this page"
 }
