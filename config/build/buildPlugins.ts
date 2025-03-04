@@ -57,7 +57,6 @@ export function buildPlugins({
             new BundleAnalyzerPlugin({
                 openAnalyzer: false, // Чтобы не открывался каждый раз при запуске, ссылка будет в терминале.
             }),
-            // ReactRefreshWebpackPlugin - можно также поставить для более корректной работы c isDev
         );
     }
 

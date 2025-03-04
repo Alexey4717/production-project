@@ -47,6 +47,15 @@ export default {
         // Универсальная регулярка для мака и винды
         '<rootDir>src/**/*(*.)@(spec|test).[tj]s?(x)',
     ],
+    reporters: [
+        'default',
+        ['jest-html-reporters', {
+            publicPath: '<rootDir>/reports/unit',
+            filename: 'report.html',
+            openReport: true,
+            inlineSource: true,
+        }],
+    ],
 
     // Indicates whether the coverage information should be collected while executing the test
     // collectCoverage: false,

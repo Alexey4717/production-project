@@ -9870,6 +9870,14 @@ jest-haste-map@^27.5.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
+jest-html-reporters@3.0.10:
+  version "3.0.10"
+  resolved "https://registry.yarnpkg.com/jest-html-reporters/-/jest-html-reporters-3.0.10.tgz#a521afccf98e66d7deffb374fce9d50d22a4013f"
+  integrity sha512-tkLqYadTi0wGwiFkAUv3cV+IcmdE1YeJC/+BOzutVNeudRZk34GFPGYAKBFVYN6HyJGLaEG0TTf5WCySxwAB5g==
+  dependencies:
+    fs-extra "^9.0.1"
+    open "^8.0.3"
+
 jest-jasmine2@^27.5.1:
   version "27.5.1"
   resolved "https://registry.npmjs.org/jest-jasmine2/-/jest-jasmine2-27.5.1.tgz#a037b0034ef49a9f3d71c4375a796f3b230d1ac4"
@@ -11605,7 +11613,7 @@ open@^7.0.3:
     is-docker "^2.0.0"
     is-wsl "^2.1.1"
 
-open@^8.0.9, open@^8.4.0:
+open@^8.0.3, open@^8.0.9, open@^8.4.0:
   version "8.4.2"
   resolved "https://registry.npmjs.org/open/-/open-8.4.2.tgz#5b5ffe2a8f793dcd2aad73e550cb87b59cb084f9"
   integrity sha512-7x81NCL719oNbsq/3mh+hVrAWmFuEYUqrq/Iw3kUzH8ReypT9QQ0BLoJS7/G9k6N81XjW4qHWtjWwe/9eLy1EQ==
