@@ -3,7 +3,6 @@ import {
     memo,
     useCallback,
     useMemo,
-    JSX,
 } from 'react';
 import { classNames, type Mods } from 'shared/lib/classNames/classNames';
 import cls from './Select.module.scss';

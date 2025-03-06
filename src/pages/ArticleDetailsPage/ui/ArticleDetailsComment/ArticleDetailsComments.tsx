@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, Suspense, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { AddCommentForm } from 'features/addCommentForm';
@@ -6,6 +6,7 @@ import { CommentList } from 'entities/Comment';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { Loader } from 'shared/ui/Loader/Loader';
 import { VStack } from 'shared/ui/Stack';
 import { Text, TextSize } from 'shared/ui/Text/Text';
 import {
@@ -23,7 +24,7 @@ import {
 
 interface ArticleDetailsCommentProps {
     className?: string;
-    id: string;
+    id?: string;
 }
 
 export const ArticleDetailsComments = memo((props: ArticleDetailsCommentProps) => {
@@ -56,7 +57,9 @@ export const ArticleDetailsComments = memo((props: ArticleDetailsCommentProps) =
                 size={TextSize.L}
                 title={t('Комментарии')}
             />
-            <AddCommentForm onSendComment={handleSendComment} />
+            <Suspense fallback={<Loader />}>
+                <AddCommentForm onSendComment={handleSendComment} />
+            </Suspense>
             <CommentList
                 isLoading={commentsIsLoading}
                 comments={comments}

@@ -1,10 +1,10 @@
-import React, {
+import {
     Component, type ReactNode, type ErrorInfo, Suspense,
 } from 'react';
 import { ErrorPage } from 'widgets/ErrorPage';
 
 interface ErrorBoundaryProps {
-    children: React.JSX.Element; // Ругается ts, несовместимости типов
+    children: ReactNode;
 }
 
 interface ErrorBoundaryState {

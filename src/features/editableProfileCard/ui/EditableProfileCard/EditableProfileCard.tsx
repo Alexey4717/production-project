@@ -31,7 +31,7 @@ const reducers: ReducersList = { profile: profileReducer };
 
 interface EditableProfileCardProps {
     className?: string;
-    id: string; // фича должна знать с каким профилем работать, но принимать id извне
+    id?: string; // фича должна знать с каким профилем работать, но принимать id извне
 }
 
 export const EditableProfileCard = memo((props: EditableProfileCardProps) => {

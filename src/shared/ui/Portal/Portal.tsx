@@ -11,5 +11,7 @@ export const Portal = (props: PortalProps) => {
         children,
         element = document.body, // Если не указано куда, то телепорт в самый корень (body)
     } = props;
+    // TODO
+    // @ts-ignore
     return createPortal(children, element);
 };
