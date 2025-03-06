@@ -31,9 +31,9 @@ import {
 } from '../../model/selectors/articleDetails';
 import { fetchArticleById } from '../../model/services/fetchArticleById/fetchArticleById';
 import { articleDetailsReducer } from '../../model/slice/articleDetailsSlice';
+import { ArticleBlockType } from '../../model/consts/articleConsts';
 import {
     ArticleBlock,
-    ArticleBlockType,
     ArticleCodeBlock,
     ArticleImageBlock,
     ArticleTextBlock,

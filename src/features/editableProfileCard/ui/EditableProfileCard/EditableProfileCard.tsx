@@ -15,7 +15,6 @@ import { VStack } from 'shared/ui/Stack';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { getProfileError } from '../../model/selectors/getProfileError/getProfileError';
 import { getProfileForm } from '../../model/selectors/getProfileForm/getProfileForm';
-import { ValidateProfileError } from '../../model/types/editableProfileCardSchema';
 import { profileActions, profileReducer } from '../../model/slice/profileSlice';
 import {
     getProfileIsLoading,
@@ -26,6 +25,7 @@ import {
 } from '../../model/selectors/getProfileValidateErrors/getProfileValidateErrors';
 import { fetchProfileData } from '../../model/services/fetchProfileData/fetchProfileData';
 import { EditableProfileCardHeader } from '../EditableProfileCardHeader/EditableProfileCardHeader';
+import { ValidateProfileError } from '../../model/consts/editableProfileCardConsts';
 
 const reducers: ReducersList = { profile: profileReducer };
 

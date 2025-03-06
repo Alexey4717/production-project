@@ -30,15 +30,16 @@
     // можно писать такой
     // import React from 'react';
     "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
     // Конфигурирование начала абсолютного пути, чтобы не указывать в импортах в начале точку
     "baseUrl": ".",
     // Указываем, что абсолютные импорты будут из src
     "paths": {
       "*": [
         "./src/*"
-      ],
+      ]
       // "react/jsx-runtime": ["node_modules/react/jsx-runtime"]
-    },
+    }
   },
   "ts-node": {
     "compilerOptions": {
