@@ -11,17 +11,19 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
 
     // Babel это транспилятор js из одного стандарта в другой,
     // чтобы поддерживался код во всех браузерах
-    const babelLoader = buildBabelLoader(options);
+    const codeBabelLoader = buildBabelLoader({ ...options, isTsx: false });
+    const tsxCodeBabelLoader = buildBabelLoader({ ...options, isTsx: true });
+
     const cssLoader = buildCssLoader(options);
 
     // Если не используем typescript, то нужен babel-loader (он умеет работать с jsx)
     // который берет новый стандарт js и билдит его в старый, чтобы во всех браузерах поддерживался
-    const typescriptLoader = {
-        // можно проверить определение регулярки (между //) на https://regex101.com/
-        test: /\.tsx?$/, // находит соответствие ts и tsx
-        use: 'ts-loader', // какой лоадер использовать
-        exclude: /node_modules/, // исключение для обработки
-    };
+    // const typescriptLoader = {
+    //     // можно проверить определение регулярки (между //) на https://regex101.com/
+    //     test: /\.tsx?$/, // находит соответствие ts и tsx
+    //     use: 'ts-loader', // какой лоадер использовать
+    //     exclude: /node_modules/, // исключение для обработки
+    // };
 
     const fileLoader = {
         test: /\.(png|jpe?g|gif|woff2|woff)$/i,
@@ -33,8 +35,9 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
         fileLoader,
         svgLoader,
         // babelLoader должен быть до typescriptLoader, иначе ошибка билда
-        babelLoader,
-        typescriptLoader,
+        codeBabelLoader,
+        tsxCodeBabelLoader,
+        // typescriptLoader, // заменили только babelLoader с доп плагинами для ускорения сборки (78l)
         cssLoader,
     ];
 }
