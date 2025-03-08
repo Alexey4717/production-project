@@ -1,14 +1,14 @@
-import { useTheme } from 'app/providers/ThemeProvider';
 import {
     type ReactNode,
-    type MouseEvent,
     useState,
     useRef,
     useCallback,
     useEffect,
 } from 'react';
+import { useTheme } from 'app/providers/ThemeProvider';
 import { classNames, type Mods } from 'shared/lib/classNames/classNames';
 import cls from './Modal.module.scss';
+import { Overlay } from '../Overlay/Overlay';
 import { Portal } from '../Portal/Portal';
 
 const ANIMATION_DELAY = 300;
@@ -51,10 +51,6 @@ export const Modal = ({
         }
     }, [onClose]);
 
-    const onContentClick = (event: MouseEvent<HTMLDivElement>) => {
-        event.stopPropagation();
-    };
-
     const onKeyDown = useCallback((event: globalThis.KeyboardEvent) => {
         if (event.key === 'Escape') {
             closeHandler();
@@ -82,15 +78,9 @@ export const Modal = ({
     return (
         <Portal>
             <div className={classNames(cls.Modal, mods, [className])}>
-                {/* Это бэкграунд обложка, при нажатии на которую модалка закрывается */}
-                <div className={cls.overlay} onClick={closeHandler}>
-                    {/* это содержимое модалки */}
-                    <div
-                        className={cls.content}
-                        onClick={onContentClick}
-                    >
-                        {children}
-                    </div>
+                <Overlay onClick={closeHandler} />
+                <div className={cls.content}>
+                    {children}
                 </div>
             </div>
         </Portal>
