@@ -58,6 +58,7 @@ module.exports = {
                     'role',
                     'as',
                     'fallback',
+                    'border'
                 ],
             },
         ],

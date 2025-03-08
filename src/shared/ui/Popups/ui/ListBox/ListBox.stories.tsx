@@ -9,7 +9,6 @@ export default {
     argTypes: {
         backgroundColor: { control: 'color' },
     },
-    // Так передаются декораторы для всех сторикейсов
     decorators: [
         (Story) => <div style={{ padding: 100 }}><Story /></div>,
     ],
