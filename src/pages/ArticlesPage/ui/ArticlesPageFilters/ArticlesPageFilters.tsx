@@ -8,14 +8,14 @@ import {
     ArticleSortField,
     ArticleTypeTabs,
     ArticleType,
-} from 'entities/Article';
-import { classNames } from 'shared/lib/classNames/classNames';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useDebounce } from 'shared/lib/hooks/useDebounce/useDebounce';
-import { SortOrder } from 'shared/types';
-import { Card } from 'shared/ui/Card/Card';
-import { Input } from 'shared/ui/Input/Input';
-import { TabItem } from 'shared/ui/Tabs/Tabs';
+} from '@/entities/Article';
+import { classNames } from '@/shared/lib/classNames/classNames';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useDebounce } from '@/shared/lib/hooks/useDebounce/useDebounce';
+import { SortOrder } from '@/shared/types';
+import { Card } from '@/shared/ui/Card/Card';
+import { Input } from '@/shared/ui/Input/Input';
+import { TabItem } from '@/shared/ui/Tabs/Tabs';
 import cls from './ArticlesPageFilters.module.scss';
 import {
     getArticlesPageOrder,

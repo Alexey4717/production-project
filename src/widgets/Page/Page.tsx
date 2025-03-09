@@ -1,4 +1,3 @@
-import { StateSchema } from 'app/providers/StoreProvider';
 import {
     memo,
     type MutableRefObject,
@@ -8,12 +7,13 @@ import {
 } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { getUIScrollByPath, uiActions } from 'features/UI';
-import { classNames } from 'shared/lib/classNames/classNames';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useInfinityScroll } from 'shared/lib/hooks/useInfinityScroll/useInfinityScroll';
-import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
-import { useThrottle } from 'shared/lib/hooks/useThrottle/useThrottle';
+import { StateSchema } from '@/app/providers/StoreProvider';
+import { getUIScrollByPath, uiActions } from '@/features/UI';
+import { classNames } from '@/shared/lib/classNames/classNames';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useInfinityScroll } from '@/shared/lib/hooks/useInfinityScroll/useInfinityScroll';
+import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { useThrottle } from '@/shared/lib/hooks/useThrottle/useThrottle';
 import cls from './Page.module.scss';
 
 export const PAGE_ID = 'PAGE_ID';

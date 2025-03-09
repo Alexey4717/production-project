@@ -15,6 +15,8 @@ export function buildResolvers(options: BuildOptions): ResolveOptions {
         mainFiles: ['index'],
         // можно указывать (@/features/feat),
         // если оставить пустой объект, то алиас не нужно указывать (features/feat)
-        alias: {},
+        alias: {
+            '@': options.paths.src,
+        },
     };
 }

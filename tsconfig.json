@@ -35,7 +35,7 @@
     "baseUrl": ".",
     // Указываем, что абсолютные импорты будут из src
     "paths": {
-      "*": [
+      "@*": [
         "./src/*"
       ]
       // "react/jsx-runtime": ["node_modules/react/jsx-runtime"]

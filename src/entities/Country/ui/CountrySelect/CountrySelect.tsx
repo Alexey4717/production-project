@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { classNames } from 'shared/lib/classNames/classNames';
-import { ListBox } from 'shared/ui/Popups/ui/ListBox/ListBox';
-import { Select } from 'shared/ui/Select/Select';
+import { classNames } from '@/shared/lib/classNames/classNames';
+import { ListBox } from '@/shared/ui/Popups/ui/ListBox/ListBox';
+import { Select } from '@/shared/ui/Select/Select';
 import { Country } from '../../model/types/country';
 
 const options = [

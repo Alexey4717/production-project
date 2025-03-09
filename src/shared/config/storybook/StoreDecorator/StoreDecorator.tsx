@@ -1,12 +1,12 @@
 import type { ReducersMapObject } from '@reduxjs/toolkit';
 import { Story } from '@storybook/react';
-import { StateSchema, StoreProvider } from 'app/providers/StoreProvider';
-import { profileReducer } from 'features/editableProfileCard/model/slice/profileSlice';
-import { articleDetailsPageReducer } from 'pages/ArticleDetailsPage/model/slices';
-import { addCommentFormReducer } from 'features/addCommentForm/model/slice/addCommentFormSlice';
-import { loginReducer } from 'features/AuthByUsername/model/slice/loginSlice';
-import { articleDetailsReducer } from 'entities/Article';
-import { ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { StateSchema, StoreProvider } from '@/app/providers/StoreProvider';
+import { profileReducer } from '@/features/editableProfileCard/model/slice/profileSlice';
+import { articleDetailsPageReducer } from '@/pages/ArticleDetailsPage/model/slices';
+import { addCommentFormReducer } from '@/features/addCommentForm/model/slice/addCommentFormSlice';
+import { loginReducer } from '@/features/AuthByUsername/model/slice/loginSlice';
+import { articleDetailsReducer } from '@/entities/Article';
+import { ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 
 // Для сторибука
 const defaultAsyncReducers: ReducersList = {

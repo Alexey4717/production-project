@@ -4,7 +4,7 @@ import {
     useCallback,
     useMemo,
 } from 'react';
-import { classNames, type Mods } from 'shared/lib/classNames/classNames';
+import { classNames, type Mods } from '@/shared/lib/classNames/classNames';
 import cls from './Select.module.scss';
 
 export interface SelectOption<T extends string = string> {

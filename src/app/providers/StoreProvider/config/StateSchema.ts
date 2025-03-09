@@ -1,5 +1,3 @@
-import { ProfileSchema } from 'features/editableProfileCard';
-import { ArticleDetailsPageSchema } from 'pages/ArticleDetailsPage/model/types';
 import { CombinedState } from 'redux';
 import {
     AnyAction,
@@ -8,18 +6,20 @@ import {
     ReducersMapObject,
 } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
+import { ArticleDetailsPageSchema } from '@/pages/ArticleDetailsPage/model/types';
+import { ProfileSchema } from '@/features/editableProfileCard';
 import {
     ArticleDetailsCommentsSchema,
     ArticleDetailsRecommendationsSchema,
-} from 'pages/ArticleDetailsPage';
-import { ArticlesPageSchema } from 'pages/ArticlesPage';
-import { LoginSchema } from 'features/AuthByUsername';
-import { AddCommentFormSchema } from 'features/addCommentForm';
-import { UISchema } from 'features/UI';
-import { ArticleDetailsSchema } from 'entities/Article';
-import { CounterSchema } from 'entities/Counter';
-import { UserSchema } from 'entities/User';
-import { rtkApi } from 'shared/api/rtkApi';
+} from '@/pages/ArticleDetailsPage';
+import { ArticlesPageSchema } from '@/pages/ArticlesPage';
+import { LoginSchema } from '@/features/AuthByUsername';
+import { AddCommentFormSchema } from '@/features/addCommentForm';
+import { UISchema } from '@/features/UI';
+import { ArticleDetailsSchema } from '@/entities/Article';
+import { CounterSchema } from '@/entities/Counter';
+import { UserSchema } from '@/entities/User';
+import { rtkApi } from '@/shared/api/rtkApi';
 
 export interface StateSchema {
     counter: CounterSchema;
