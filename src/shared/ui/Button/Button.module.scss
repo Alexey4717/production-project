@@ -10,8 +10,7 @@
     }
 }
 
-.clear,
-.clearInverted {
+.clear {
     padding: 0;
     border: none;
     background: none;
@@ -19,6 +18,10 @@
 }
 
 .clearInverted {
+    padding: 0;
+    border: none;
+    background: none;
+    outline: none;
     color: var(--inverted-primary-color);
 }
 
@@ -28,15 +31,15 @@
     background: none;
 }
 
-.outlineRed {
+.outline_red {
     border: 1px solid var(--red-light);
     color: var(--red-light);
     background: none;
 }
 
 .background {
-    background: var(-bg-color);
-    color: var(-primary-color);
+    background: var(--bg-color);
+    color: var(--primary-color);
     border: none;
 }
 
@@ -66,17 +69,21 @@
 }
 
 .size_m {
-    font-size: var(--font-size-m);
+    font: var(--font-m);
 }
 
 .size_l {
-    font-size: var(--font-size-l);
+    font: var(--font-l);
 }
 
 .size_xl {
-    font-size: var(--font-size-xl);
+    font: var(--font-xl);
 }
 
 .disabled {
     opacity: 0.5;
+}
+
+.fullWidth {
+    width: 100%;
 }

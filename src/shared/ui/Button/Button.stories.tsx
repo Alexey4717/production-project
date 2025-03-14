@@ -45,8 +45,8 @@ OutlineSizeL.args = {
     size: ButtonSize.L,
 };
 
-export const OutlineSizeXL = Template.bind({});
-OutlineSizeXL.args = {
+export const OutlineSizeXl = Template.bind({});
+OutlineSizeXl.args = {
     children: 'Text',
     theme: ButtonTheme.OUTLINE,
     size: ButtonSize.XL,
@@ -65,8 +65,8 @@ BackgroundTheme.args = {
     theme: ButtonTheme.BACKGROUND,
 };
 
-export const InvertedBackgroundTheme = Template.bind({});
-InvertedBackgroundTheme.args = {
+export const BackgroundInverted = Template.bind({});
+BackgroundInverted.args = {
     children: 'Text',
     theme: ButtonTheme.BACKGROUND_INVERTED,
 };
@@ -81,15 +81,15 @@ Square.args = {
 export const SquareSizeL = Template.bind({});
 SquareSizeL.args = {
     children: '>',
-    theme: ButtonTheme.BACKGROUND,
+    theme: ButtonTheme.BACKGROUND_INVERTED,
     square: true,
     size: ButtonSize.L,
 };
 
-export const SquareSizeXL = Template.bind({});
-SquareSizeXL.args = {
+export const SquareSizeXl = Template.bind({});
+SquareSizeXl.args = {
     children: '>',
-    theme: ButtonTheme.BACKGROUND,
+    theme: ButtonTheme.BACKGROUND_INVERTED,
     square: true,
     size: ButtonSize.XL,
 };
