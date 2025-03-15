@@ -8000,10 +8000,10 @@ eslint-module-utils@^2.12.0:
   dependencies:
     debug "^3.2.7"
 
-eslint-plugin-alexey4717-plugin@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-alexey4717-plugin/-/eslint-plugin-alexey4717-plugin-0.0.1.tgz#708e5b8243742561627ec2209ef18128402adca9"
-  integrity sha512-J62GJjQeTP9Tq0UeS0S2uapinWmdW3+kdYlsg+VOkiiGMTzTS5cORe/DZrLz8Z6HXL0Tpgtd3/GHsnjbFStJmw==
+eslint-plugin-alexey4717-plugin@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-alexey4717-plugin/-/eslint-plugin-alexey4717-plugin-0.0.2.tgz#d03936fe2250e305b079ed3dca0e9f798f216aa5"
+  integrity sha512-tr5YofdWwffnLGvAJE6xPybCk9tu1OKj5kf8ZGYHpz3EMGwvxyjGYN9/raEy7HZLmEevQKriNIpxvwXukC4lPg==
   dependencies:
     requireindex "^1.2.0"
 

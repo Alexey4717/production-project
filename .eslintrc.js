@@ -71,7 +71,7 @@ module.exports = {
         'lines-between-class-members': 'off',
         'no-undef': 'off',
         'arrow-body-style': 'off',
-        'alexey4717-plugin/path-checker': 'error',
+        'alexey4717-plugin/path-checker': ['error', { alias: '@' }],
     },
     globals: {
         __IS_DEV__: true,
