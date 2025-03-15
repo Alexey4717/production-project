@@ -1,4 +1,7 @@
-module.exports = {
+// Пришлось заменить module.export на export default
+// т.к. после включения isolatedModules в ts конфиге
+// появилась ошибка, что импорт в CommonJS
+export default {
     stories: [
         '../../src/**/*.stories.@(js|jsx|ts|tsx)',
     ],
