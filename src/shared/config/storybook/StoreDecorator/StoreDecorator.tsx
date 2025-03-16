@@ -1,15 +1,10 @@
 import type { ReducersMapObject } from '@reduxjs/toolkit';
 import { Story } from '@storybook/react';
 import { StateSchema, StoreProvider } from '@/app/providers/StoreProvider';
-// TODO
-// eslint-disable-next-line alexey4717-plugin/public-api-imports
-import { profileReducer } from '@/features/editableProfileCard/model/slice/profileSlice';
-// eslint-disable-next-line alexey4717-plugin/public-api-imports
-import { articleDetailsPageReducer } from '@/pages/ArticleDetailsPage/model/slices';
-// eslint-disable-next-line alexey4717-plugin/public-api-imports
-import { addCommentFormReducer } from '@/features/addCommentForm/model/slice/addCommentFormSlice';
-// eslint-disable-next-line alexey4717-plugin/public-api-imports
-import { loginReducer } from '@/features/AuthByUsername/model/slice/loginSlice';
+import { profileReducer } from '@/features/editableProfileCard/testing';
+import { articleDetailsPageReducer } from '@/pages/ArticleDetailsPage/testing';
+import { addCommentFormReducer } from '@/features/addCommentForm/testing';
+import { loginReducer } from '@/features/AuthByUsername/testing';
 import { articleDetailsReducer } from '@/entities/Article';
 import { ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 
