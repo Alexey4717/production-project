@@ -58,7 +58,7 @@ module.exports = {
                     'role',
                     'as',
                     'fallback',
-                    'border'
+                    'border',
                 ],
             },
         ],
@@ -72,6 +72,7 @@ module.exports = {
         'no-undef': 'off',
         'arrow-body-style': 'off',
         'alexey4717-plugin/path-checker': ['error', { alias: '@' }],
+        'alexey4717-plugin/public-api-imports': ['error', { alias: '@' }],
     },
     globals: {
         __IS_DEV__: true,

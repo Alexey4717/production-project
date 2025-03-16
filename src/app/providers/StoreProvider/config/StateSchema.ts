@@ -6,12 +6,8 @@ import {
     ReducersMapObject,
 } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { ArticleDetailsPageSchema } from '@/pages/ArticleDetailsPage/model/types';
+import { ArticleDetailsPageSchema } from '@/pages/ArticleDetailsPage';
 import { ProfileSchema } from '@/features/editableProfileCard';
-import {
-    ArticleDetailsCommentsSchema,
-    ArticleDetailsRecommendationsSchema,
-} from '@/pages/ArticleDetailsPage';
 import { ArticlesPageSchema } from '@/pages/ArticlesPage';
 import { LoginSchema } from '@/features/AuthByUsername';
 import { AddCommentFormSchema } from '@/features/addCommentForm';

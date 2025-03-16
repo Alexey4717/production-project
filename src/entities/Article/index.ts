@@ -10,7 +10,9 @@ export type {
     ArticleDetailsSchema,
 } from './model/types/articleDetailsSchema';
 
-export { ArticleSortField, ArticleView, ArticleType } from './model/consts/articleConsts';
+export {
+    ArticleSortField, ArticleView, ArticleType, ArticleBlockType,
+} from './model/consts/articleConsts';
 
 export {
     articleDetailsActions,
