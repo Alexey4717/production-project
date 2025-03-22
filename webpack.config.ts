@@ -1,7 +1,7 @@
 // После установки ts-node typescript @types/node @types/webpack @types/webpack-dev-server
 // и замены расширения конфига на .ts можно писать привычные импорты, до этого момента require
 import path from 'path';
-import webpack, { DefinePlugin } from 'webpack';
+import webpack from 'webpack';
 
 import { buildWebpackConfig } from './config/build/buildWebpackConfig';
 import { BuildEnv } from './config/build/types/config';

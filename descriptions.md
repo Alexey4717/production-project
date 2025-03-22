@@ -1621,3 +1621,13 @@ ThemeSwitcher и LangSwitcher перенесли в фичи, т.к. они ис
 с помощью которого автоматизированно поправим импорты shared/ui, создадим там publicApi (index.ts).
 Для запуска ts-node ./scripts/refactoring/createPublicApiForSharedUi.ts
 Потом yarn lint:ts --fix
+
+95. ESLINT Плагин на неиспользуемые импорты.
+Вообще webpack умеет делать tree-shaking кода и избавляться от неиспользуемых импортов в сборке.
+Но тем-не-мение такие импорты засоряют код.
+Есть плагин для линта eslint-plugin-unused-imports, установили его как devDep.
+Добавили в конфиг в массив plugins unused-imports. В rules 'unused-imports/no-unused-imports': 'error'.
+Потом yarn lint:ts --fix
+Еще есть популярный плагин eslint-plugin-import (TODO скачать потом и настроить под себя).
+Можно делать особый порядок (сначала с библиотек, потом с исходников абсолютные и относительные, можно отдельно импорт типов, пробелы между ними).
+
