@@ -1,6 +1,6 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
-import { Theme } from '@/app/providers/ThemeProvider';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Theme } from '@/shared/consts/theme';
 import { ThemeDecorator } from '@/shared/config/storybook/ThemeDecorator/ThemeDecorator';
 import { Skeleton } from './Skeleton';
 

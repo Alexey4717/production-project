@@ -5,7 +5,7 @@ import { profileReducer } from '@/features/editableProfileCard/testing';
 import { articleDetailsPageReducer } from '@/pages/ArticleDetailsPage/testing';
 import { addCommentFormReducer } from '@/features/addCommentForm/testing';
 import { loginReducer } from '@/features/AuthByUsername/testing';
-import { articleDetailsReducer } from '@/entities/Article';
+import { articleDetailsReducer } from '@/entities/Article/testing';
 import { ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 
 // Для сторибука
