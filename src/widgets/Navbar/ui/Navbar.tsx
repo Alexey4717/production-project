@@ -1,7 +1,7 @@
 import { memo, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { RoutePaths } from '@/shared/consts/router';
+import { getRouteArticleCreate } from '@/shared/consts/router';
 import {
     getUserAuthData,
     userActions,
@@ -49,7 +49,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                     theme={TextTheme.INVERTED}
                 />
                 <AppLink
-                    to={RoutePaths.article_create}
+                    to={getRouteArticleCreate()}
                     theme={AppLinkTheme.SECONDARY}
                 >
                     {t('Создать статью')}

@@ -1,7 +1,7 @@
 import { type ReactNode, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
-import { RoutePaths } from '@/shared/consts/router';
+import { getRouteForbidden, getRouteMain } from '@/shared/consts/router';
 import { getUserAuthData, getUserRoles, UserRole } from '@/entities/User';
 
 interface RequireAuthProps {
@@ -26,11 +26,11 @@ export const RequireAuth = ({ children, roles }: RequireAuthProps) => {
     }, [roles, userRoles]);
 
     if (!isAuth) {
-        return <Navigate to={RoutePaths.main} state={{ path: location.pathname }} replace />;
+        return <Navigate to={getRouteMain()} state={{ path: location.pathname }} replace />;
     }
 
     if (!hasRequiredRoles) {
-        return <Navigate to={RoutePaths.forbidden} state={{ path: location.pathname }} replace />;
+        return <Navigate to={getRouteForbidden()} state={{ path: location.pathname }} replace />;
     }
 
     // eslint-disable-next-line react/jsx-no-useless-fragment
