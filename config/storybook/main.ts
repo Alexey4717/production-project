@@ -7,9 +7,15 @@ export default {
     ],
     addons: [
         '@storybook/addon-links',
-        '@storybook/addon-essentials',
+        {
+            name: '@storybook/addon-essentials',
+            options: {
+                backgrounds: false,
+            },
+        },
         '@storybook/addon-interactions',
         'storybook-addon-mock', // TODO тут должна быть storybook-addon-mock/register, но падает ошибка, вероятно нужно обновление до 7 версии сторибука
+        'storybook-addon-themes',
     ],
     framework: '@storybook/react',
     core: {
