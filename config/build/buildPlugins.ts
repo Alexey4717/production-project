@@ -19,6 +19,7 @@ export function buildPlugins({
     apiUrl,
     project,
 }: BuildOptions): WebpackPluginInstance[] {
+    const isProd = !isDev;
     const plugins = [
         // вроде как порядок плагинов тут значения не имеет
         new ProgressPlugin(), // отображение % сборки в терминале
@@ -27,11 +28,6 @@ export function buildPlugins({
             // присутствовал div с id="root", иначе body будет пустой
             template: paths.html,
         }),
-        new MiniCssExtractPlugin({
-            filename: 'css/[name].[contenthash:8].css',
-            // для асинхронных подгрузок чанок
-            chunkFilename: 'css/[name].[contenthash:8].css',
-        }),
         // нужен для того, чтобы в исходниках приложения прокидывать
         // глобальные переменные (например isDev)
         // для использования в коде, нужно в global.d.ts объявить константу с возвращаемым типом
@@ -39,11 +35,6 @@ export function buildPlugins({
             __IS_DEV__: JSON.stringify(isDev),
             __API__: JSON.stringify(apiUrl),
             __PROJECT__: JSON.stringify(project),
-        }),
-        new CopyPlugin({
-            patterns: [
-                { from: paths.locales, to: paths.buildLocales },
-            ],
         }),
         // Для обнаружения кольцевой зависимости
         new CircularDependencyPlugin({
@@ -73,6 +64,23 @@ export function buildPlugins({
         plugins.push(
             new BundleAnalyzerPlugin({
                 openAnalyzer: false, // Чтобы не открывался каждый раз при запуске, ссылка будет в терминале.
+            }),
+        );
+    }
+
+    if (isProd) {
+        plugins.push(
+            new MiniCssExtractPlugin({
+                filename: 'css/[name].[contenthash:8].css',
+                // для асинхронных подгрузок чанок
+                chunkFilename: 'css/[name].[contenthash:8].css',
+            }),
+        );
+        plugins.push(
+            new CopyPlugin({
+                patterns: [
+                    { from: paths.locales, to: paths.buildLocales },
+                ],
             }),
         );
     }

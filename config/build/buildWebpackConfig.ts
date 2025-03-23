@@ -32,7 +32,7 @@ export function buildWebpackConfig(
         resolve: buildResolvers(options),
         // добавляет коммент в сборку о карте стектрейса,
         // чтобы выявлять местонахождение ошибки из исходников
-        devtool: isDev ? 'inline-source-map' : undefined,
+        devtool: isDev ? 'eval-cheap-module-source-map' : undefined,
         // сервер разработки, который ребилдит сборку и отображает изменения в браузере
         devServer: isDev ? buildDevServer(options) : undefined,
     };
