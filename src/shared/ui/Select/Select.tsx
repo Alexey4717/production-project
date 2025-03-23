@@ -1,13 +1,8 @@
-import {
-    ChangeEvent,
-    memo,
-    useCallback,
-    useMemo,
-} from 'react';
-import { classNames, type Mods } from '@/shared/lib/classNames/classNames';
+import { ChangeEvent, useMemo } from 'react';
+import { classNames, Mods } from '@/shared/lib/classNames/classNames';
 import cls from './Select.module.scss';
 
-export interface SelectOption<T extends string = string> {
+export interface SelectOption<T extends string> {
     value: T;
     content: string;
 }
@@ -16,30 +11,32 @@ interface SelectProps<T extends string> {
     className?: string;
     label?: string;
     options?: SelectOption<T>[];
-    value?: T; // Выбранное значение
+    value?: T;
     onChange?: (value: T) => void;
     readonly?: boolean;
 }
 
-const SelectComponent = <T extends string>(props: SelectProps<T>) => {
+export const Select = <T extends string>(props: SelectProps<T>) => {
     const {
         className,
         label,
         options,
-        value,
         onChange,
+        value,
         readonly,
     } = props;
 
-    const onChangeHandler = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
-        onChange?.(e.target?.value as T);
-    }, [onChange]);
+    const onChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+        if (onChange) {
+            onChange(e.target.value as T);
+        }
+    };
 
-    const optionsList = useMemo(() => (options ?? [])?.map((opt: SelectOption<T>) => (
+    const optionsList = useMemo(() => options?.map((opt) => (
         <option
-            key={opt.value}
-            value={opt.value}
             className={cls.option}
+            value={opt.value}
+            key={opt.value}
         >
             {opt.content}
         </option>
@@ -49,19 +46,19 @@ const SelectComponent = <T extends string>(props: SelectProps<T>) => {
 
     return (
         <div className={classNames(cls.Wrapper, mods, [className])}>
-            {label && <span className={cls.label}>{`${label}>`}</span>}
-
+            {label && (
+                <span className={cls.label}>
+                    {`${label}>`}
+                </span>
+            )}
             <select
+                disabled={readonly}
+                className={cls.select}
                 value={value}
                 onChange={onChangeHandler}
-                className={cls.select}
-                disabled={readonly}
             >
                 {optionsList}
             </select>
         </div>
     );
 };
-
-// из-за того, что теряются типы в memo
-export const Select = memo(SelectComponent) as typeof SelectComponent;
