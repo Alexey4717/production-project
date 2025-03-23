@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import {
     ArticleView,
-    ArticleViewSelector,
-    ArticleSortSelector,
     ArticleSortField,
-    ArticleTypeTabs,
     ArticleType,
 } from '@/entities/Article';
+import { ArticleSortSelector } from '@/features/ArticleSortSelector';
+import { ArticleTypeTabs } from '@/features/ArticleTypeTabs';
+import { ArticleViewSelector } from '@/features/ArticleViewSelector';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useDebounce } from '@/shared/lib/hooks/useDebounce/useDebounce';
@@ -89,7 +89,7 @@ export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
                     onChangeSort={handleChangeSort}
                 />
                 <ArticleViewSelector
-                    currentView={view}
+                    view={view}
                     onViewClick={handleChangeView}
                 />
             </div>
@@ -100,7 +100,7 @@ export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
                     onChange={handleChangeSearch}
                 />
             </Card>
-            <ArticleTypeTabs value={type} onChange={handleChangeType} />
+            <ArticleTypeTabs value={type} onChangeType={handleChangeType} />
         </div>
     );
 });
