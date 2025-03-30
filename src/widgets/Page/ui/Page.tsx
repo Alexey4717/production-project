@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { StateSchema } from '@/app/providers/StoreProvider';
 import { getUIScrollByPath, uiActions } from '@/features/UI';
+import { TestProps } from '@/shared/types/tests';
 import { PAGE_ID } from '@/shared/consts/page';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -17,7 +18,7 @@ import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitial
 import { useThrottle } from '@/shared/lib/hooks/useThrottle/useThrottle';
 import cls from './Page.module.scss';
 
-interface PageProps {
+interface PageProps extends TestProps {
     className?: string;
     children: ReactNode;
     onScrollEnd?: () => void;
@@ -61,6 +62,7 @@ export const Page = memo((props: PageProps) => {
 
     return (
         <main
+            data-testid={props['data-testid'] ?? 'Page'}
             ref={wrapperRef}
             className={classNames(cls.Page, {}, [className])}
             onScroll={onScroll}
