@@ -61,7 +61,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     strategy:
       matrix:
-        node-version: [ 17.x ]
+        node-version: [ 18.x ]
     steps:
       - uses: actions/checkout@v2
       - name: Staring Node.js ${{ matrix.node-version }}
@@ -69,18 +69,18 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: install modules
-        run: npm ci --force
+        run: yarn ci
       - name: build production project
-        run: npm run build:prod
+        run: yarn build:prod
         if: always()
       - name: build storybook
-        run: npm run storybook:build
+        run: yarn storybook:build
         if: always()
       - name: screenshot testing
-        run: npm run test:ui:ci
+        run: yarn test:ui:ci
         if: always()
       - name: Generate HTML report
-        run: npm run test:ui:report
+        run: yarn test:ui:report
         if: always()
       - name: Setup Pages
         uses: actions/configure-pages@v2
@@ -99,7 +99,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 17.x ]
+        node-version: [ 18.x ]
     steps:
       - uses: actions/checkout@v2
       - name: Staring Node.js ${{ matrix.node-version }}
@@ -107,12 +107,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: install modules
-        run: npm ci --force
+        run: yarn ci
       - name: linting typescript
-        run: npm run lint:ts
+        run: yarn lint:ts
         if: always()
       - name: linting css
-        run: npm run lint:scss
+        run: yarn lint:scss
       - name: unit testing
         if: always()
-        run: npm run test:unit
+        run: yarn test:unit
