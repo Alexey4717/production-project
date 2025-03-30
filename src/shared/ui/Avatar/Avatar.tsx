@@ -1,31 +1,49 @@
 import { CSSProperties, useMemo } from 'react';
 import { classNames, type Mods } from '@/shared/lib/classNames/classNames';
 import cls from './Avatar.module.scss';
+import { AppImage } from '../AppImage';
+import { Skeleton } from '../Skeleton';
+import UserIcon from '../../assets/icons/user-filled.svg';
+import { Icon } from '../Icon';
 
 interface AvatarProps {
     className?: string;
     src?: string;
     size?: number;
     alt?: string;
+    fallbackInverted?: boolean; // На случай, если используем аватар где-то в сайдбаре, навбаре или другом месте, где инвертированные цвета
 }
 
 export const Avatar = (props: AvatarProps) => {
     const {
         className,
         src,
-        size,
+        size = 100,
         alt,
+        fallbackInverted,
     } = props;
 
     const mods: Mods = {};
 
     const styles = useMemo<CSSProperties>(() => ({
-        width: size || 100,
-        height: size || 100, // Одинаковые, т.к. иконка будет круглая
+        width: size,
+        height: size, // Одинаковые, т.к. иконка будет круглая
     }), [size]);
 
+    const fallback = <Skeleton width={size} height={size} border="50%" />;
+    const errorFallback = (
+        <Icon
+            inverted={fallbackInverted}
+            Svg={UserIcon}
+            width={size}
+            height={size}
+        />
+    );
+
     return (
-        <img
+        <AppImage
+            fallback={fallback}
+            errorFallback={errorFallback}
             src={src}
             alt={alt}
             className={classNames(cls.Avatar, mods, [className])}
