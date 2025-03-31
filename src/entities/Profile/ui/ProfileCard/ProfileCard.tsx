@@ -51,6 +51,7 @@ export const ProfileCard = (props: ProfileCardProps) => {
                 className={classNames(cls.ProfileCard, { [cls.loading]: true }, [className])}
                 justify="center"
                 max
+                data-testid="ProfileCard"
             >
                 <Loader />
             </HStack>
@@ -63,6 +64,7 @@ export const ProfileCard = (props: ProfileCardProps) => {
                 className={classNames(cls.ProfileCard, {}, [className, cls.error])}
                 justify="center"
                 max
+                data-testid="ProfileCard"
             >
                 <Text
                     theme={TextTheme.ERROR}
@@ -83,6 +85,7 @@ export const ProfileCard = (props: ProfileCardProps) => {
             className={classNames(cls.ProfileCard, mods, [className])}
             gap="8"
             max
+            data-testid="ProfileCard"
         >
             {data?.avatar && (
                 <HStack justify="center">
