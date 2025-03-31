@@ -50,6 +50,7 @@ const ArticlesPage = (props: ArticlesPageProps) => {
             <Page
                 className={classNames(cls.ArticlesPage, {}, [className])}
                 onScrollEnd={onLoadNextPart}
+                data-testid="ArticlesPage"
             >
                 <ArticlesPageFilters />
                 <ArticleInfiniteList className={cls.list} />
