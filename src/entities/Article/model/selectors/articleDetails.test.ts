@@ -18,8 +18,12 @@ describe('getArticleDetailsData.test', () => {
             },
         };
 
-        expect(getArticleDetailsData(state as StateSchema)).toEqual(articleDetailsTestData);
-        expect(getArticleDetailsIsLoading(state as StateSchema)).toBe(undefined);
+        expect(getArticleDetailsData(state as StateSchema)).toEqual(
+            articleDetailsTestData,
+        );
+        expect(getArticleDetailsIsLoading(state as StateSchema)).toBe(
+            undefined,
+        );
     });
 
     test('should return isLoading', () => {
@@ -46,7 +50,9 @@ describe('getArticleDetailsData.test', () => {
     test('should work with empty state', () => {
         const state: DeepPartial<StateSchema> = {};
         expect(getArticleDetailsData(state as StateSchema)).toEqual(undefined);
-        expect(getArticleDetailsIsLoading(state as StateSchema)).toEqual(undefined);
+        expect(getArticleDetailsIsLoading(state as StateSchema)).toEqual(
+            undefined,
+        );
         expect(getArticleDetailsError(state as StateSchema)).toEqual(undefined);
     });
 });

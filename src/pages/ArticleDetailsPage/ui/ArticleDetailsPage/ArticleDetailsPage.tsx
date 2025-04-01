@@ -11,9 +11,7 @@ import {
 import { VStack } from '@/shared/ui/Stack';
 import { Page } from '@/widgets/Page';
 import cls from './ArticleDetailsPage.module.scss';
-import {
-    ArticleDetailsPageHeader,
-} from '../ArticleDetailsPageHeader/ArticleDetailsPageHeader';
+import { ArticleDetailsPageHeader } from '../ArticleDetailsPageHeader/ArticleDetailsPageHeader';
 import { articleDetailsPageReducer } from '../../model/slices';
 import { ArticleDetailsComments } from '../ArticleDetailsComment/ArticleDetailsComments';
 
@@ -26,11 +24,9 @@ interface ArticleDetailsPageProps {
 }
 
 const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
-    const {
-        className,
-    } = props;
+    const { className } = props;
 
-    const { id } = useParams<{ id: string; }>();
+    const { id } = useParams<{ id: string }>();
 
     if (!id) {
         return null;
@@ -38,7 +34,9 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
 
     return (
         <DynamicModuleLoader reducers={reducers}>
-            <Page className={classNames(cls.ArticleDetailsPage, {}, [className])}>
+            <Page
+                className={classNames(cls.ArticleDetailsPage, {}, [className])}
+            >
                 <VStack gap="16" max>
                     <ArticleDetailsPageHeader />
                     <ArticleDetails id={id} />
@@ -48,7 +46,6 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
                 </VStack>
             </Page>
         </DynamicModuleLoader>
-
     );
 };
 

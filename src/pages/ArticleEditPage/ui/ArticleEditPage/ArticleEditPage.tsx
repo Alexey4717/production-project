@@ -10,9 +10,7 @@ interface ArticleEditPageProps {
 }
 
 const ArticleEditPage = memo((props: ArticleEditPageProps) => {
-    const {
-        className,
-    } = props;
+    const { className } = props;
 
     const { t } = useTranslation('article-management');
     const { id } = useParams<{ id: string }>();
@@ -21,11 +19,9 @@ const ArticleEditPage = memo((props: ArticleEditPageProps) => {
 
     return (
         <Page className={classNames(cls.ArticleEditPage, {}, [className])}>
-            {
-                isEdit
-                    ? `${t('Редактирование статьи с id = ')}${id}`
-                    : t('Создание новой статьи')
-            }
+            {isEdit
+                ? `${t('Редактирование статьи с id = ')}${id}`
+                : t('Создание новой статьи')}
         </Page>
     );
 });

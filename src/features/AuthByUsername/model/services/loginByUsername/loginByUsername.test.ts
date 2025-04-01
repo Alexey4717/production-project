@@ -19,7 +19,9 @@ describe('loginByUsername.test', () => {
         const result = await thunk.callThunk(userValue);
 
         // Проверяем что был вызов диспатча именно с таким аргументом
-        expect(thunk.dispatch).toHaveBeenCalledWith(userActions.setAuthData(userPayload));
+        expect(thunk.dispatch).toHaveBeenCalledWith(
+            userActions.setAuthData(userPayload),
+        );
         expect(thunk.dispatch).toHaveBeenCalledTimes(3); // Почему 3 описано в descriptions.md (36 пункт)
         expect(thunk.api.post).toHaveBeenCalled();
         expect(result.meta.requestStatus).toBe('fulfilled');

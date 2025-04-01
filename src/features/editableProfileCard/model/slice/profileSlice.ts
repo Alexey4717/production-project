@@ -18,7 +18,10 @@ export const profileSlice = createSlice({
         setReadonly: (state: ProfileSchema, action: PayloadAction<boolean>) => {
             state.readonly = action.payload;
         },
-        updateProfile: (state: ProfileSchema, action: PayloadAction<Profile>) => {
+        updateProfile: (
+            state: ProfileSchema,
+            action: PayloadAction<Profile>,
+        ) => {
             state.form = {
                 ...(state?.form ?? {}),
                 ...action.payload,

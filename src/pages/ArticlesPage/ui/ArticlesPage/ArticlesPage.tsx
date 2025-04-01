@@ -10,16 +10,10 @@ import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitial
 import { Page } from '@/widgets/Page';
 import cls from './ArticlesPage.module.scss';
 import { ArticlesPageFilters } from '../ArticlesPageFilters/ArticlesPageFilters';
-import {
-    initArticlesPage,
-} from '../../model/services/initArticlesPage/initArticlesPage';
-import {
-    articlesPageReducer,
-} from '../../model/slices/articlesPageSlice';
+import { initArticlesPage } from '../../model/services/initArticlesPage/initArticlesPage';
+import { articlesPageReducer } from '../../model/slices/articlesPageSlice';
 import { ArticleInfiniteList } from '../ArticleInfiniteList/ArticleInfiniteList';
-import {
-    fetchNextArticlesPage,
-} from '../../model/services/fetchNextArticlesPage/fetchNextArticlesPage';
+import { fetchNextArticlesPage } from '../../model/services/fetchNextArticlesPage/fetchNextArticlesPage';
 
 const reducers: ReducersList = {
     articlesPage: articlesPageReducer,
@@ -30,9 +24,7 @@ interface ArticlesPageProps {
 }
 
 const ArticlesPage = (props: ArticlesPageProps) => {
-    const {
-        className,
-    } = props;
+    const { className } = props;
 
     const [searchParams] = useSearchParams();
     const dispatch = useAppDispatch();

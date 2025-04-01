@@ -9,9 +9,7 @@ interface ProfilePageProps {
 }
 
 const ProfilePage = (props: ProfilePageProps) => {
-    const {
-        className,
-    } = props;
+    const { className } = props;
 
     const { id } = useParams<{ id: string }>();
 

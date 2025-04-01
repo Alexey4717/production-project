@@ -75,9 +75,7 @@ export const Input = memo((props: InputProps) => {
     return (
         <div className={classNames(cls.InputWrapper, mods, [className])}>
             {placeholder && (
-                <div className={cls.placeholder}>
-                    {`${placeholder}>`}
-                </div>
+                <div className={cls.placeholder}>{`${placeholder}>`}</div>
             )}
 
             <div className={cls.carriageWrapper}>
@@ -94,7 +92,10 @@ export const Input = memo((props: InputProps) => {
                     {...otherProps}
                 />
                 {isCarriageVisible && (
-                    <span className={cls.carriage} style={{ left: `${carriagePosition * 9}px` }} />
+                    <span
+                        className={cls.carriage}
+                        style={{ left: `${carriagePosition * 9}px` }}
+                    />
                 )}
             </div>
         </div>

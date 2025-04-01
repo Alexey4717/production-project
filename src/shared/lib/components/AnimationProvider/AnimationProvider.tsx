@@ -49,16 +49,17 @@ export const AnimationProvider = ({ children }: { children: ReactNode }) => {
         });
     }, []);
 
-    const value = useMemo(() => ({
-        Gesture: GestureRef.current,
-        Spring: SpringRef.current,
-        isLoaded,
-    }), [isLoaded]);
+    const value = useMemo(
+        () => ({
+            Gesture: GestureRef.current,
+            Spring: SpringRef.current,
+            isLoaded,
+        }),
+        [isLoaded],
+    );
 
     return (
-        <AnimationContext.Provider
-            value={value}
-        >
+        <AnimationContext.Provider value={value}>
             {children}
         </AnimationContext.Provider>
     );

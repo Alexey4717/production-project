@@ -21,7 +21,9 @@ describe('getProfileForm.test', () => {
             },
         };
 
-        expect(getProfileForm(state as StateSchema)).toEqual(profileFormTestData);
+        expect(getProfileForm(state as StateSchema)).toEqual(
+            profileFormTestData,
+        );
     });
 
     test('should work with empty state', () => {

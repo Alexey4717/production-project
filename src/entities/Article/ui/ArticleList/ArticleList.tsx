@@ -12,16 +12,15 @@ import { ArticleView } from '../../model/consts/articleConsts';
 
 interface ArticleListProps {
     className?: string;
-    articles: Article[]
+    articles: Article[];
     isLoading?: boolean;
     target?: HTMLAttributeAnchorTarget;
     view?: ArticleView;
     virtualized?: boolean;
 }
 
-const getSkeletons = (view: ArticleView) => new Array(view === ArticleView.SMALL ? 9 : 3)
-    .fill(0)
-    .map((item, index) => (
+const getSkeletons = (view: ArticleView) =>
+    new Array(view === ArticleView.SMALL ? 9 : 3).fill(0).map((item, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <ArticleListItemSkeleton className={cls.card} key={index} view={view} />
     ));
@@ -43,11 +42,11 @@ export const ArticleList = memo((props: ArticleListProps) => {
     // ширину страницы / ширину каждой плитки
     // const itemsPerRow = isBig ? 1 : ref.currentWidth / ITEM_WIDTH;
     const itemsPerRow = isBig ? 1 : 3;
-    const rowCount = isBig ? articles.length : Math.ceil(articles.length / itemsPerRow);
+    const rowCount = isBig
+        ? articles.length
+        : Math.ceil(articles.length / itemsPerRow);
 
-    const rowRender = ({
-        index, isScrolling, key, style,
-    }: ListRowProps) => {
+    const rowRender = ({ index, isScrolling, key, style }: ListRowProps) => {
         const items = [];
         const fromIndex = index * itemsPerRow;
         const toIndex = Math.min(fromIndex + itemsPerRow, articles.length); // чтоб не выйти за пределы массива
@@ -66,11 +65,7 @@ export const ArticleList = memo((props: ArticleListProps) => {
         }
 
         return (
-            <div
-                key={key}
-                style={style}
-                className={cls.row}
-            >
+            <div key={key} style={style} className={cls.row}>
                 {items}
             </div>
         );
@@ -79,7 +74,10 @@ export const ArticleList = memo((props: ArticleListProps) => {
     if (!isLoading && !articles.length) {
         return (
             <div
-                className={classNames(cls.ArticleList, {}, [className, cls[view]])}
+                className={classNames(cls.ArticleList, {}, [
+                    className,
+                    cls[view],
+                ])}
                 data-testid="ArticleList"
             >
                 <Text size={TextSize.L} title={t('Статьи не найдены')} />
@@ -103,7 +101,10 @@ export const ArticleList = memo((props: ArticleListProps) => {
                 <div
                     // @ts-ignore
                     ref={registerChild}
-                    className={classNames(cls.ArticleList, {}, [className, cls[view]])}
+                    className={classNames(cls.ArticleList, {}, [
+                        className,
+                        cls[view],
+                    ])}
                     data-testid="ArticleList"
                 >
                     {virtualized ? (

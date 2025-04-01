@@ -50,7 +50,7 @@ const article: Article = {
         {
             id: '3',
             type: ArticleBlockType.CODE,
-            code: 'const path = require(\'path\');\n\nconst server = jsonServer.create();\n\nconst router = jsonServer.router(path.resolve(__dirname, \'db.json\'));\n\nserver.use(jsonServer.defaults({}));\nserver.use(jsonServer.bodyParser);',
+            code: "const path = require('path');\n\nconst server = jsonServer.create();\n\nconst router = jsonServer.router(path.resolve(__dirname, 'db.json'));\n\nserver.use(jsonServer.defaults({}));\nserver.use(jsonServer.bodyParser);",
         },
         {
             id: '7',
@@ -84,10 +84,12 @@ describe('articleDetailsSlice.test', () => {
             isLoading: false,
         };
 
-        expect(articleDetailsReducer(
-            state as ArticleDetailsSchema,
-            fetchArticleById.pending, // по-сути это экшен
-        )).toEqual({
+        expect(
+            articleDetailsReducer(
+                state as ArticleDetailsSchema,
+                fetchArticleById.pending, // по-сути это экшен
+            ),
+        ).toEqual({
             isLoading: true,
         });
     });
@@ -97,10 +99,12 @@ describe('articleDetailsSlice.test', () => {
             isLoading: true,
         };
 
-        expect(articleDetailsReducer(
-            state as ArticleDetailsSchema,
-            fetchArticleById.fulfilled(article, '', ''),
-        )).toEqual({
+        expect(
+            articleDetailsReducer(
+                state as ArticleDetailsSchema,
+                fetchArticleById.fulfilled(article, '', ''),
+            ),
+        ).toEqual({
             isLoading: false,
             data: article,
         });

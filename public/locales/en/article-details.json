@@ -1,9 +1,9 @@
 {
-  "Произошла ошибка при загрузке статьи.": "Error fetching article is occurred.",
-  "Комментарии": "Comments",
-  "Назад к списку": "Back to list",
-  "Рекомендуем": "recommend",
-  "Редактировать": "Edit",
-  "Оцените статью": "Rate this article",
-  "Оставьте свой отзыв о статье, это поможет улучшить качество": "Leave your feedback on the article, it will help improve the quality"
+    "Произошла ошибка при загрузке статьи.": "Error fetching article is occurred.",
+    "Комментарии": "Comments",
+    "Назад к списку": "Back to list",
+    "Рекомендуем": "recommend",
+    "Редактировать": "Edit",
+    "Оцените статью": "Rate this article",
+    "Оставьте свой отзыв о статье, это поможет улучшить качество": "Leave your feedback on the article, it will help improve the quality"
 }

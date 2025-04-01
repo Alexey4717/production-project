@@ -48,7 +48,11 @@ export const ProfileCard = (props: ProfileCardProps) => {
     if (isLoading) {
         return (
             <HStack
-                className={classNames(cls.ProfileCard, { [cls.loading]: true }, [className])}
+                className={classNames(
+                    cls.ProfileCard,
+                    { [cls.loading]: true },
+                    [className],
+                )}
                 justify="center"
                 max
                 data-testid="ProfileCard"
@@ -61,7 +65,10 @@ export const ProfileCard = (props: ProfileCardProps) => {
     if (error) {
         return (
             <HStack
-                className={classNames(cls.ProfileCard, {}, [className, cls.error])}
+                className={classNames(cls.ProfileCard, {}, [
+                    className,
+                    cls.error,
+                ])}
                 justify="center"
                 max
                 data-testid="ProfileCard"

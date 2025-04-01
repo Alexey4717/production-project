@@ -30,10 +30,7 @@ export interface AddCommentFormProps {
 }
 
 const AddCommentForm = memo((props: AddCommentFormProps) => {
-    const {
-        className,
-        onSendComment,
-    } = props;
+    const { className, onSendComment } = props;
 
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
@@ -41,9 +38,12 @@ const AddCommentForm = memo((props: AddCommentFormProps) => {
     const text = useSelector(getAddCommentFromText);
     const error = useSelector(getAddCommentFromError);
 
-    const handleCommentTextChange = useCallback((value: string) => {
-        dispatch(addCommentFormActions.setText(value));
-    }, [dispatch]);
+    const handleCommentTextChange = useCallback(
+        (value: string) => {
+            dispatch(addCommentFormActions.setText(value));
+        },
+        [dispatch],
+    );
 
     const onSendHandler = useCallback(() => {
         onSendComment(text || '');

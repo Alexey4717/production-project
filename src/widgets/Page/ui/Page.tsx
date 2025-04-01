@@ -25,11 +25,7 @@ interface PageProps extends TestProps {
 }
 
 export const Page = memo((props: PageProps) => {
-    const {
-        className,
-        children,
-        onScrollEnd,
-    } = props;
+    const { className, children, onScrollEnd } = props;
 
     const { pathname } = useLocation();
     const dispatch = useAppDispatch();
@@ -69,7 +65,9 @@ export const Page = memo((props: PageProps) => {
             id={PAGE_ID}
         >
             {children}
-            {onScrollEnd ? <div ref={triggerRef} className={cls.trigger} /> : null}
+            {onScrollEnd ? (
+                <div ref={triggerRef} className={cls.trigger} />
+            ) : null}
         </main>
     );
 });

@@ -26,11 +26,23 @@ export const RequireAuth = ({ children, roles }: RequireAuthProps) => {
     }, [roles, userRoles]);
 
     if (!isAuth) {
-        return <Navigate to={getRouteMain()} state={{ path: location.pathname }} replace />;
+        return (
+            <Navigate
+                to={getRouteMain()}
+                state={{ path: location.pathname }}
+                replace
+            />
+        );
     }
 
     if (!hasRequiredRoles) {
-        return <Navigate to={getRouteForbidden()} state={{ path: location.pathname }} replace />;
+        return (
+            <Navigate
+                to={getRouteForbidden()}
+                state={{ path: location.pathname }}
+                replace
+            />
+        );
     }
 
     // eslint-disable-next-line react/jsx-no-useless-fragment

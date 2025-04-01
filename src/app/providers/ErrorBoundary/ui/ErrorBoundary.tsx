@@ -1,6 +1,4 @@
-import {
-    Component, type ReactNode, type ErrorInfo, Suspense,
-} from 'react';
+import { Component, type ReactNode, type ErrorInfo, Suspense } from 'react';
 import { ErrorPage } from '@/widgets/ErrorPage';
 
 interface ErrorBoundaryProps {

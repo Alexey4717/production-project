@@ -1,11 +1,7 @@
 import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import {
-    ArticleView,
-    ArticleSortField,
-    ArticleType,
-} from '@/entities/Article';
+import { ArticleView, ArticleSortField, ArticleType } from '@/entities/Article';
 import { ArticleSortSelector } from '@/features/ArticleSortSelector';
 import { ArticleTypeTabs } from '@/features/ArticleTypeTabs';
 import { ArticleViewSelector } from '@/features/ArticleViewSelector';
@@ -32,9 +28,7 @@ interface ArticlesPageFiltersProps {
 }
 
 export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
-    const {
-        className,
-    } = props;
+    const { className } = props;
 
     const { t } = useTranslation('articles');
     const dispatch = useAppDispatch();
@@ -51,33 +45,48 @@ export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
 
     const debouncedFetchData = useDebounce(fetchData, 1000);
 
-    const handleChangeView = useCallback((newView: ArticleView) => {
-        dispatch(articlesPageActions.setView(newView));
-    }, [dispatch]);
+    const handleChangeView = useCallback(
+        (newView: ArticleView) => {
+            dispatch(articlesPageActions.setView(newView));
+        },
+        [dispatch],
+    );
 
-    const handleChangeOrder = useCallback((newOrder: SortOrder) => {
-        dispatch(articlesPageActions.setOrder(newOrder));
-        dispatch(articlesPageActions.setPage(1));
-        fetchData();
-    }, [dispatch, fetchData]);
+    const handleChangeOrder = useCallback(
+        (newOrder: SortOrder) => {
+            dispatch(articlesPageActions.setOrder(newOrder));
+            dispatch(articlesPageActions.setPage(1));
+            fetchData();
+        },
+        [dispatch, fetchData],
+    );
 
-    const handleChangeSort = useCallback((newSort: ArticleSortField) => {
-        dispatch(articlesPageActions.setSort(newSort));
-        dispatch(articlesPageActions.setPage(1));
-        fetchData();
-    }, [dispatch, fetchData]);
+    const handleChangeSort = useCallback(
+        (newSort: ArticleSortField) => {
+            dispatch(articlesPageActions.setSort(newSort));
+            dispatch(articlesPageActions.setPage(1));
+            fetchData();
+        },
+        [dispatch, fetchData],
+    );
 
-    const handleChangeSearch = useCallback((newSearch: string) => {
-        dispatch(articlesPageActions.setSearch(newSearch));
-        dispatch(articlesPageActions.setPage(1));
-        debouncedFetchData();
-    }, [dispatch, debouncedFetchData]);
+    const handleChangeSearch = useCallback(
+        (newSearch: string) => {
+            dispatch(articlesPageActions.setSearch(newSearch));
+            dispatch(articlesPageActions.setPage(1));
+            debouncedFetchData();
+        },
+        [dispatch, debouncedFetchData],
+    );
 
-    const handleChangeType = useCallback((tab: TabItem<ArticleType>) => {
-        dispatch(articlesPageActions.setType(tab.value));
-        dispatch(articlesPageActions.setPage(1));
-        fetchData();
-    }, [dispatch, fetchData]);
+    const handleChangeType = useCallback(
+        (tab: TabItem<ArticleType>) => {
+            dispatch(articlesPageActions.setType(tab.value));
+            dispatch(articlesPageActions.setPage(1));
+            fetchData();
+        },
+        [dispatch, fetchData],
+    );
 
     return (
         <div className={classNames('', {}, [className])}>

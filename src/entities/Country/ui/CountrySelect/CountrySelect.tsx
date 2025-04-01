@@ -20,12 +20,7 @@ interface CountrySelectProps {
 }
 
 export const CountrySelect = memo((props: CountrySelectProps) => {
-    const {
-        className,
-        value,
-        onChange,
-        readonly,
-    } = props;
+    const { className, value, onChange, readonly } = props;
 
     const { t } = useTranslation();
 
@@ -34,7 +29,7 @@ export const CountrySelect = memo((props: CountrySelectProps) => {
             className={classNames('', {}, [className])}
             defaultValue={t('Укажите страну')}
             value={value as string}
-            onChange={onChange as ((value: string) => void)}
+            onChange={onChange as (value: string) => void}
             label={t('Укажите страну')}
             items={options}
             readonly={readonly}

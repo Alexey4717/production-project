@@ -41,42 +41,73 @@ const options = {
 describe('features/EditableProfileCard', () => {
     test('readonly must switch', async () => {
         componentRender(<EditableProfileCard id="1" />, options);
-        await userEvent.click(screen.getByTestId('EditableProfileCardHeader.EditButton'));
-        expect(screen.getByTestId('EditableProfileCardHeader.CancelButton')).toBeInTheDocument();
+        await userEvent.click(
+            screen.getByTestId('EditableProfileCardHeader.EditButton'),
+        );
+        expect(
+            screen.getByTestId('EditableProfileCardHeader.CancelButton'),
+        ).toBeInTheDocument();
     });
 
     test('After cancel editing values must return on initials', async () => {
         componentRender(<EditableProfileCard id="1" />, options);
-        await userEvent.click(screen.getByTestId('EditableProfileCardHeader.EditButton'));
+        await userEvent.click(
+            screen.getByTestId('EditableProfileCardHeader.EditButton'),
+        );
         await userEvent.clear(screen.getByTestId('ProfileCard.firstname'));
         await userEvent.clear(screen.getByTestId('ProfileCard.lastname'));
 
-        await userEvent.type(screen.getByTestId('ProfileCard.firstname'), 'user');
-        await userEvent.type(screen.getByTestId('ProfileCard.lastname'), 'user');
+        await userEvent.type(
+            screen.getByTestId('ProfileCard.firstname'),
+            'user',
+        );
+        await userEvent.type(
+            screen.getByTestId('ProfileCard.lastname'),
+            'user',
+        );
 
         expect(screen.getByTestId('ProfileCard.firstname')).toHaveValue('user');
         expect(screen.getByTestId('ProfileCard.lastname')).toHaveValue('user');
 
-        await userEvent.click(screen.getByTestId('EditableProfileCardHeader.CancelButton'));
+        await userEvent.click(
+            screen.getByTestId('EditableProfileCardHeader.CancelButton'),
+        );
 
-        expect(screen.getByTestId('ProfileCard.firstname')).toHaveValue(profile.first);
-        expect(screen.getByTestId('ProfileCard.lastname')).toHaveValue(profile.lastname);
+        expect(screen.getByTestId('ProfileCard.firstname')).toHaveValue(
+            profile.first,
+        );
+        expect(screen.getByTestId('ProfileCard.lastname')).toHaveValue(
+            profile.lastname,
+        );
     });
 
     test('Error has to occur', async () => {
         componentRender(<EditableProfileCard id="1" />, options);
-        await userEvent.click(screen.getByTestId('EditableProfileCardHeader.EditButton'));
+        await userEvent.click(
+            screen.getByTestId('EditableProfileCardHeader.EditButton'),
+        );
         await userEvent.clear(screen.getByTestId('ProfileCard.firstname'));
-        await userEvent.click(screen.getByTestId('EditableProfileCardHeader.SaveButton'));
-        expect(screen.getByTestId('EditableProfileCard.Error.Paragraph')).toBeInTheDocument();
+        await userEvent.click(
+            screen.getByTestId('EditableProfileCardHeader.SaveButton'),
+        );
+        expect(
+            screen.getByTestId('EditableProfileCard.Error.Paragraph'),
+        ).toBeInTheDocument();
     });
 
     test('If there are not errors, the PUT query must fetching on server', async () => {
         const mockPutReq = jest.spyOn($api, 'put');
         componentRender(<EditableProfileCard id="1" />, options);
-        await userEvent.click(screen.getByTestId('EditableProfileCardHeader.EditButton'));
-        await userEvent.type(screen.getByTestId('ProfileCard.firstname'), 'user');
-        await userEvent.click(screen.getByTestId('EditableProfileCardHeader.SaveButton'));
+        await userEvent.click(
+            screen.getByTestId('EditableProfileCardHeader.EditButton'),
+        );
+        await userEvent.type(
+            screen.getByTestId('ProfileCard.firstname'),
+            'user',
+        );
+        await userEvent.click(
+            screen.getByTestId('EditableProfileCardHeader.SaveButton'),
+        );
         expect(mockPutReq).toHaveBeenCalled();
     });
 });

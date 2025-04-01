@@ -18,10 +18,10 @@ interface UseModalProps {
  * @param isOpen
  * @param onClose
  */
-export function useModal({
-    animationDelay, isOpen, onClose,
-}: UseModalProps) {
-    const timerRef = useRef() as MutableRefObject<ReturnType<typeof setTimeout>>;
+export function useModal({ animationDelay, isOpen, onClose }: UseModalProps) {
+    const timerRef = useRef() as MutableRefObject<
+        ReturnType<typeof setTimeout>
+    >;
 
     const [isClosing, setIsClosing] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
@@ -43,11 +43,14 @@ export function useModal({
     }, [animationDelay, onClose]);
 
     // Новые ссылки!!!
-    const onKeyDown = useCallback((e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-            close();
-        }
-    }, [close]);
+    const onKeyDown = useCallback(
+        (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                close();
+            }
+        },
+        [close],
+    );
 
     useEffect(() => {
         if (isOpen) {

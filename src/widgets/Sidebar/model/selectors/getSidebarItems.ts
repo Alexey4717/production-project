@@ -12,40 +12,36 @@ import MainIcon from '@/shared/assets/icons/main-20-20.svg';
 import ProfileIcon from '@/shared/assets/icons/profile-20-20.svg';
 import { SidebarItemType } from '../types/sidebar';
 
-export const getSidebarItems = createSelector(
-    getUserAuthData,
-    (userData) => {
-        const sidebarItemsList: SidebarItemType[] = [
+export const getSidebarItems = createSelector(getUserAuthData, (userData) => {
+    const sidebarItemsList: SidebarItemType[] = [
+        {
+            path: getRouteMain(),
+            text: 'Главная',
+            Icon: MainIcon,
+        },
+        {
+            path: getRouteAbout(),
+            text: 'О сайте',
+            Icon: AboutIcon,
+        },
+    ];
+
+    if (userData) {
+        sidebarItemsList.push(
             {
-                path: getRouteMain(),
-                text: 'Главная',
-                Icon: MainIcon,
+                path: getRouteProfile(userData.id),
+                text: 'Профиль',
+                Icon: ProfileIcon,
+                authOnly: true,
             },
             {
-                path: getRouteAbout(),
-                text: 'О сайте',
-                Icon: AboutIcon,
+                path: getRouteArticles(),
+                text: 'Статьи',
+                Icon: ArticleIcon,
+                authOnly: true,
             },
+        );
+    }
 
-        ];
-
-        if (userData) {
-            sidebarItemsList.push(
-                {
-                    path: getRouteProfile(userData.id),
-                    text: 'Профиль',
-                    Icon: ProfileIcon,
-                    authOnly: true,
-                },
-                {
-                    path: getRouteArticles(),
-                    text: 'Статьи',
-                    Icon: ArticleIcon,
-                    authOnly: true,
-                },
-            );
-        }
-
-        return sidebarItemsList;
-    },
-);
+    return sidebarItemsList;
+});

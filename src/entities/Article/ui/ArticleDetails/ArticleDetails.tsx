@@ -1,9 +1,4 @@
-import {
-    Fragment,
-    memo,
-    useCallback,
-    useEffect,
-} from 'react';
+import { Fragment, memo, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -16,12 +11,7 @@ import { Avatar } from '@/shared/ui/Avatar';
 import { Icon } from '@/shared/ui/Icon';
 import { Skeleton } from '@/shared/ui/Skeleton';
 import { HStack, VStack } from '@/shared/ui/Stack';
-import {
-    Text,
-    TextAlign,
-    TextSize,
-    TextTheme,
-} from '@/shared/ui/Text';
+import { Text, TextAlign, TextSize, TextTheme } from '@/shared/ui/Text';
 import EyeIcon from '@/shared/assets/icons/eye-20-20.svg';
 import CalendarIcon from '@/shared/assets/icons/calendar-20-20.svg';
 import {
@@ -40,9 +30,7 @@ import {
 } from '../../model/types/article';
 import cls from './ArticleDetails.module.scss';
 import { ArticleCodeBlockComponent } from '../ArticleCodeBlockComponent/ArticleCodeBlockComponent';
-import {
-    ArticleImageBlockComponent,
-} from '../ArticleImageBlockComponent/ArticleImageBlockComponent';
+import { ArticleImageBlockComponent } from '../ArticleImageBlockComponent/ArticleImageBlockComponent';
 import { ArticleTextBlockComponent } from '../ArticleTextBlockComponent/ArticleTextBlockComponent';
 
 const reducers: ReducersList = {
@@ -55,10 +43,7 @@ interface ArticleDetailsProps {
 }
 
 export const ArticleDetails = memo((props: ArticleDetailsProps) => {
-    const {
-        className,
-        id,
-    } = props;
+    const { className, id } = props;
 
     const { t } = useTranslation('article-details');
     const dispatch = useAppDispatch();
@@ -69,23 +54,31 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
 
     const renderBlock = useCallback((block: ArticleBlock, index: number) => {
         const key = block?.id;
-        return ({
-            [ArticleBlockType.CODE]: <ArticleCodeBlockComponent
-                className={cls.block}
-                key={key}
-                block={block as ArticleCodeBlock}
-            />,
-            [ArticleBlockType.IMAGE]: <ArticleImageBlockComponent
-                className={cls.block}
-                key={key}
-                block={block as ArticleImageBlock}
-            />,
-            [ArticleBlockType.TEXT]: <ArticleTextBlockComponent
-                className={cls.block}
-                key={key}
-                block={block as ArticleTextBlock}
-            />,
-        }[block?.type] ?? <Fragment key={key} />);
+        return (
+            {
+                [ArticleBlockType.CODE]: (
+                    <ArticleCodeBlockComponent
+                        className={cls.block}
+                        key={key}
+                        block={block as ArticleCodeBlock}
+                    />
+                ),
+                [ArticleBlockType.IMAGE]: (
+                    <ArticleImageBlockComponent
+                        className={cls.block}
+                        key={key}
+                        block={block as ArticleImageBlock}
+                    />
+                ),
+                [ArticleBlockType.TEXT]: (
+                    <ArticleTextBlockComponent
+                        className={cls.block}
+                        key={key}
+                        block={block as ArticleTextBlock}
+                    />
+                ),
+            }[block?.type] ?? <Fragment key={key} />
+        );
     }, []);
 
     useEffect(() => {
@@ -99,13 +92,17 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
     if (isLoading) {
         content = (
             <>
-                <Skeleton className={cls.avatar} width={200} height={200} border="50%" />
+                <Skeleton
+                    className={cls.avatar}
+                    width={200}
+                    height={200}
+                    border="50%"
+                />
                 <Skeleton className={cls.title} width={300} height={32} />
                 <Skeleton className={cls.skeleton} width={600} height={24} />
                 <Skeleton className={cls.skeleton} width="100%" height={200} />
                 <Skeleton className={cls.skeleton} width="100%" height={200} />
             </>
-
         );
     } else if (error) {
         content = (

@@ -2,10 +2,7 @@ import { memo, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRouteArticleCreate } from '@/shared/consts/router';
-import {
-    getUserAuthData,
-    userActions,
-} from '@/entities/User';
+import { getUserAuthData, userActions } from '@/entities/User';
 import { LoginModal } from '@/features/AuthByUsername';
 import { NotificationButton } from '@/features/notificationButton';
 import { AvatarDropdown } from '@/features/avatarDropdown';

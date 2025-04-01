@@ -18,12 +18,7 @@ interface CurrencySelectProps {
 }
 
 export const CurrencySelect = memo((props: CurrencySelectProps) => {
-    const {
-        className,
-        value,
-        onChange,
-        readonly,
-    } = props;
+    const { className, value, onChange, readonly } = props;
 
     const { t } = useTranslation();
 
@@ -32,7 +27,7 @@ export const CurrencySelect = memo((props: CurrencySelectProps) => {
             className={classNames('', {}, [className])}
             defaultValue={t('Укажите валюту')}
             value={value as string}
-            onChange={onChange as ((value: string) => void)}
+            onChange={onChange as (value: string) => void}
             label={t('Укажите валюту')}
             items={options}
             readonly={readonly}

@@ -9,10 +9,12 @@ describe('loginSlice.test', () => {
 
         const usernameString = '123456';
 
-        expect(loginReducer(
-            state as LoginSchema,
-            loginActions.setUsername(usernameString),
-        )).toEqual({ username: usernameString });
+        expect(
+            loginReducer(
+                state as LoginSchema,
+                loginActions.setUsername(usernameString),
+            ),
+        ).toEqual({ username: usernameString });
     });
 
     test('test set password', () => {
@@ -22,9 +24,11 @@ describe('loginSlice.test', () => {
 
         const passwordString = '123456';
 
-        expect(loginReducer(
-            state as LoginSchema,
-            loginActions.setPassword(passwordString),
-        )).toEqual({ password: passwordString });
+        expect(
+            loginReducer(
+                state as LoginSchema,
+                loginActions.setPassword(passwordString),
+            ),
+        ).toEqual({ password: passwordString });
     });
 });
