@@ -8203,10 +8203,10 @@ eslint-module-utils@^2.12.0:
   dependencies:
     debug "^3.2.7"
 
-eslint-plugin-alexey4717-plugin@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-alexey4717-plugin/-/eslint-plugin-alexey4717-plugin-0.0.8.tgz#c8e4e1d2e7ce394f2c59bc3443a55f7e72dd16b5"
-  integrity sha512-QTxPA46qmr7D9NsZ4FsR6J8z/J0kqhYlFRp83ayf0pGUkyWR4UdvOHx7VMSOMjiYspWtwrtSAUAYFQNpxc0Rqw==
+eslint-plugin-alexey4717-plugin@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-alexey4717-plugin/-/eslint-plugin-alexey4717-plugin-0.0.9.tgz#0d41d0883a4f433444338dd7f0b5e7ba50884f2a"
+  integrity sha512-PzGv4Dkl8MrwRdc+5WQfKk11FVyYlKiI/dxIG76ZVY3lrA/N9oAGUIR4wnAbpVJOl5pOsipj8RTsea5pRIFJwQ==
   dependencies:
     micromatch "4.0.5"
     requireindex "^1.2.0"

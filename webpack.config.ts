@@ -16,9 +16,9 @@ export default (env: BuildEnv) => {
         buildLocales: path.resolve(__dirname, 'build', 'locales'),
     };
 
-    const mode = env.mode || 'development'; // production for public, zip, remove comments and other minifications
-    const PORT = env.port ?? 3000;
-    const apiUrl = env.apiUrl ?? 'http://localhost:8000';
+    const mode = env?.mode || 'development'; // production for public, zip, remove comments and other minifications
+    const PORT = env?.port ?? 3000;
+    const apiUrl = env?.apiUrl ?? 'http://localhost:8000';
 
     const isDev = mode === 'development';
 
