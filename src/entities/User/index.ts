@@ -6,6 +6,10 @@ export { UserRole } from './model/consts/userConsts';
 
 export { getUserAuthData } from './model/selectors/getUserAuthData/getUserAuthData';
 export { getUserInited } from './model/selectors/getUserInited/getUserInited';
+export { useJsonSettings } from './model/selectors/jsonSettings';
+
+export { saveJsonSettings } from './model/services/saveJsonSettings';
+
 export {
     getUserRoles,
     isUserAdmin,
