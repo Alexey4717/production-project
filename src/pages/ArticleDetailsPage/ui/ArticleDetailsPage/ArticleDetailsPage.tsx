@@ -1,5 +1,7 @@
 import { memo } from 'react';
 import { useParams } from 'react-router-dom';
+import { Counter } from '@/entities/Counter';
+import { getFeatureFlag } from '@/shared/lib/features';
 import { ArticleRecommendationsList } from '@/features/articleRecommendationsList';
 import { ArticleDetails } from '@/entities/Article';
 import { ArticleRating } from '@/features/articleRating';
@@ -28,6 +30,9 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
 
     const { id } = useParams<{ id: string }>();
 
+    const isArticleDetailsEnabled = getFeatureFlag('isArticleRatingEnabled');
+    const isCounterEnabled = getFeatureFlag('isCounterEnabled');
+
     if (!id) {
         return null;
     }
@@ -40,7 +45,10 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
                 <VStack gap="16" max>
                     <ArticleDetailsPageHeader />
                     <ArticleDetails id={id} />
-                    <ArticleRating articleId={id} />
+                    {isCounterEnabled && <Counter />}
+                    {isArticleDetailsEnabled && (
+                        <ArticleRating articleId={id} />
+                    )}
                     <ArticleRecommendationsList />
                     <ArticleDetailsComments id={id} />
                 </VStack>
