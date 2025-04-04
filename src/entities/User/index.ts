@@ -15,3 +15,5 @@ export {
     isUserAdmin,
     isUserManager,
 } from './model/selectors/roleSelectors';
+
+export { initAuthData } from './model/services/initAuthData';

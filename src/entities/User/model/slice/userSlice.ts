@@ -1,12 +1,12 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { setFeatureFlags } from '@/shared/lib/features';
 import { USER_LOCALSTORAGE_KEY } from '@/shared/consts/localStorage';
-import { type User, type UserSchema } from '../types/user';
-import { JsonSettings } from '../types/jsonSettings';
+import { setFeatureFlags } from '@/shared/lib/features';
+import { UserSchema, User } from '../types/user';
 import { saveJsonSettings } from '../services/saveJsonSettings';
+import { JsonSettings } from '../types/jsonSettings';
+import { initAuthData } from '../services/initAuthData';
 
 const initialState: UserSchema = {
-    authData: undefined,
     _inited: false,
 };
 
@@ -16,18 +16,8 @@ export const userSlice = createSlice({
     reducers: {
         setAuthData: (state, action: PayloadAction<User>) => {
             state.authData = action.payload;
-            setFeatureFlags(action.payload?.features);
-        },
-        initAuthData: (state) => {
-            const user = localStorage.getItem(USER_LOCALSTORAGE_KEY);
-
-            if (user) {
-                const json = JSON.parse(user) as User;
-                state.authData = json;
-                setFeatureFlags(json?.features);
-            }
-
-            state._inited = true;
+            setFeatureFlags(action.payload.features);
+            localStorage.setItem(USER_LOCALSTORAGE_KEY, action.payload.id);
         },
         logout: (state) => {
             state.authData = undefined;
@@ -43,8 +33,20 @@ export const userSlice = createSlice({
                 }
             },
         );
+        builder.addCase(
+            initAuthData.fulfilled,
+            (state, { payload }: PayloadAction<User>) => {
+                state.authData = payload;
+                setFeatureFlags(payload.features);
+                state._inited = true;
+            },
+        );
+        builder.addCase(initAuthData.rejected, (state) => {
+            state._inited = true;
+        });
     },
 });
 
+// Action creators are generated for each case reducer function
 export const { actions: userActions } = userSlice;
 export const { reducer: userReducer } = userSlice;
