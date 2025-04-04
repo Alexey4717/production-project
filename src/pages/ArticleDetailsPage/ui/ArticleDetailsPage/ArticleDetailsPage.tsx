@@ -1,7 +1,7 @@
-import { memo, ReactNode } from 'react';
+import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { getFeatureFlag, toggleFeatures } from '@/shared/lib/features';
+import { getFeatureFlag, ToggleFeatures } from '@/shared/lib/features';
 import { Card } from '@/shared/ui/Card';
 import { ArticleRecommendationsList } from '@/features/articleRecommendationsList';
 import { ArticleDetails } from '@/entities/Article';
@@ -38,12 +38,6 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
         return null;
     }
 
-    const articleRating = toggleFeatures<ReactNode>({
-        name: 'isArticleRatingEnabled',
-        on: () => <ArticleRating articleId={id} />,
-        off: () => <Card>{t('Оценка статей скоро появится')}</Card>, // старая фича
-    });
-
     return (
         <DynamicModuleLoader reducers={reducers}>
             <Page
@@ -52,7 +46,11 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
                 <VStack gap="16" max>
                     <ArticleDetailsPageHeader />
                     <ArticleDetails id={id} />
-                    {articleRating}
+                    <ToggleFeatures
+                        feature="isArticleRatingEnabled"
+                        on={<ArticleRating articleId={id} />}
+                        off={<Card>{t('Оценка статей скоро появится')}</Card>}
+                    />
                     <ArticleRecommendationsList />
                     <ArticleDetailsComments id={id} />
                 </VStack>
