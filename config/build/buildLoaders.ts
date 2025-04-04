@@ -6,7 +6,23 @@ import { buildCssLoader } from './loaders/buildCssLoader';
 export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
     const svgLoader = {
         test: /\.svg$/,
-        use: ['@svgr/webpack'],
+        use: [{
+            loader: '@svgr/webpack',
+            options: {
+                icon: true, // для замены ширины и высоты кастомным значением
+                svgoConfig: {
+                    // плагин для конвертации цветов (автоматически заменяет цвета в файлах на current color)
+                    plugins: [
+                        {
+                            name: 'convertColors',
+                            params: {
+                                currentColor: true,
+                            },
+                        },
+                    ],
+                },
+            },
+        }],
     };
 
     // Babel это транспилятор js из одного стандарта в другой,
