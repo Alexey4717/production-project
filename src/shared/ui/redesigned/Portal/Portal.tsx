@@ -6,10 +6,6 @@ interface PortalProps {
     element?: HTMLElement; // Куда телепортируем
 }
 
-/**
- * Устарел, используем новые компоненты из папки redesigned
- * @deprecated
- */
 export const Portal = (props: PortalProps) => {
     const {
         children,

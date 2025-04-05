@@ -1,4 +1,4 @@
-import { Fragment, memo, type ReactNode } from 'react';
+import { Fragment, ReactNode } from 'react';
 import { Listbox as HListBox } from '@headlessui/react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { DropdownDirection } from '@/shared/types/ui';
@@ -25,11 +25,7 @@ interface ListBoxProps {
     label?: string;
 }
 
-/**
- * Устарел, используем новые компоненты из папки redesigned
- * @deprecated
- */
-export const ListBox = memo((props: ListBoxProps) => {
+export function ListBox(props: ListBoxProps) {
     const {
         className,
         items,
@@ -41,7 +37,7 @@ export const ListBox = memo((props: ListBoxProps) => {
         label,
     } = props;
 
-    const optionsClasses = [mapDirectionClass[direction]];
+    const optionsClasses = [mapDirectionClass[direction], popupCls.menu];
 
     return (
         <HStack gap="4">
@@ -62,22 +58,22 @@ export const ListBox = memo((props: ListBoxProps) => {
                 <HListBox.Options
                     className={classNames(cls.options, {}, optionsClasses)}
                 >
-                    {items?.map(({ value, content, disabled }) => (
+                    {items?.map((item) => (
                         <HListBox.Option
-                            key={value}
-                            value={value}
-                            disabled={disabled}
-                            as={Fragment} // Чтоб не создавалась лишняя нода
+                            key={item.value}
+                            value={item.value}
+                            disabled={item.disabled}
+                            as={Fragment}
                         >
                             {({ active, selected }) => (
                                 <li
                                     className={classNames(cls.item, {
                                         [popupCls.active]: active,
-                                        [popupCls.disabled]: disabled,
+                                        [popupCls.disabled]: item.disabled,
                                     })}
                                 >
                                     {selected && '!!!'}
-                                    {content}
+                                    {item.content}
                                 </li>
                             )}
                         </HListBox.Option>
@@ -86,4 +82,4 @@ export const ListBox = memo((props: ListBoxProps) => {
             </HListBox>
         </HStack>
     );
-});
+}

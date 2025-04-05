@@ -47,10 +47,6 @@ export interface FlexProps extends DivProps {
     max?: boolean;
 }
 
-/**
- * Устарел, используем новые компоненты из папки redesigned
- * @deprecated
- */
 export const Flex = (props: FlexProps) => {
     const {
         className,
@@ -60,7 +56,7 @@ export const Flex = (props: FlexProps) => {
         direction = 'row',
         gap,
         max,
-        ...rest
+        ...otherProps
     } = props;
 
     const classes = [
@@ -76,7 +72,7 @@ export const Flex = (props: FlexProps) => {
     };
 
     return (
-        <div className={classNames(cls.Flex, mods, classes)} {...rest}>
+        <div className={classNames(cls.Flex, mods, classes)} {...otherProps}>
             {children}
         </div>
     );
