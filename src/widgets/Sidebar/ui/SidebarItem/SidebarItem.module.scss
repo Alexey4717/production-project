@@ -4,8 +4,8 @@
 }
 
 .link {
-    opacity: 1;
     margin-left: 10px;
+    opacity: 1;
 }
 
 .icon {
@@ -38,7 +38,7 @@
 }
 
 .active {
-    background: linear-gradient(89.97deg, rgb(29 89 255 / 30%) 1.15%, rgb(94 211 243 / 0%) 99.97%);
+    background: linear-gradient(89.97deg, rgb(94 211 243 / 30%) 1.15%, rgb(94 211 243 / 0%) 99.97%);
     position: relative;
 
     &::before {
