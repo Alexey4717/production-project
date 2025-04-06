@@ -1,14 +1,9 @@
-import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { classNames } from '@/shared/lib/classNames/classNames';
-import { ListBox } from '@/shared/ui/deprecated/Popups';
+import { memo, useCallback } from 'react';
+import { ListBox as ListBoxDeprecated } from '@/shared/ui/deprecated/Popups';
 import { Currency } from '../../model/types/currency';
-
-const options = [
-    { value: Currency.EUR, content: Currency.EUR },
-    { value: Currency.USD, content: Currency.USD },
-    { value: Currency.RUB, content: Currency.RUB },
-];
+import { ToggleFeatures } from '@/shared/lib/features';
+import { ListBox } from '@/shared/ui/redesigned/Popups';
 
 interface CurrencySelectProps {
     className?: string;
@@ -17,20 +12,40 @@ interface CurrencySelectProps {
     readonly?: boolean;
 }
 
-export const CurrencySelect = memo((props: CurrencySelectProps) => {
-    const { className, value, onChange, readonly } = props;
+const options = [
+    { value: Currency.RUB, content: Currency.RUB },
+    { value: Currency.EUR, content: Currency.EUR },
+    { value: Currency.USD, content: Currency.USD },
+];
 
-    const { t } = useTranslation();
+export const CurrencySelect = memo(
+    ({ className, value, onChange, readonly }: CurrencySelectProps) => {
+        const { t } = useTranslation();
 
-    return (
-        <ListBox
-            className={classNames('', {}, [className])}
-            defaultValue={t('Укажите валюту')}
-            value={value as string}
-            onChange={onChange as (value: string) => void}
-            label={t('Укажите валюту')}
-            items={options}
-            readonly={readonly}
-        />
-    );
-});
+        const onChangeHandler = useCallback(
+            (value: string) => {
+                onChange?.(value as Currency);
+            },
+            [onChange],
+        );
+
+        const props = {
+            className,
+            value,
+            defaultValue: t('Укажите валюту'),
+            label: t('Укажите валюту'),
+            items: options,
+            onChange: onChangeHandler,
+            readonly,
+            direction: 'top right' as const,
+        };
+
+        return (
+            <ToggleFeatures
+                feature="isAppRedesigned"
+                on={<ListBox {...props} />}
+                off={<ListBoxDeprecated {...props} />}
+            />
+        );
+    },
+);

@@ -1,8 +1,7 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Country } from '@/entities/Country';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Currency } from '@/entities/Currency';
-import TestAvatar from '@/shared/assets/tests/storybook.jpg';
+import avatar from '@/shared/assets/tests/storybook.jpg';
 import { ProfileCard } from './ProfileCard';
 
 export default {
@@ -24,17 +23,13 @@ Primary.args = {
         lastname: 'Moiseenko',
         age: 33,
         currency: Currency.USD,
-        country: Country.Armenia,
-        city: 'Moscow',
-        username: 'admin',
-        avatar: TestAvatar,
+        avatar,
     },
 };
 
 export const withError = Template.bind({});
 withError.args = {
-    // error: [ValidateProfileError.NO_DATA],
-    error: 'error',
+    error: 'true',
 };
 
 export const Loading = Template.bind({});
