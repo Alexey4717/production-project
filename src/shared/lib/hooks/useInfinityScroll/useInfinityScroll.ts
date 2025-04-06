@@ -3,7 +3,7 @@ import { type MutableRefObject, useEffect } from 'react';
 interface UseInfinityScrollOptions {
     callback?: () => void;
     triggerRef: MutableRefObject<HTMLElement>; // ссылка на элемент, после пересечения которого будет вызываться callback
-    wrapperRef: MutableRefObject<HTMLElement>; // враппер, внутри которого находится скролл (Page или document)
+    wrapperRef?: MutableRefObject<HTMLElement>; // враппер, внутри которого находится скролл (Page или document)
 }
 
 export function useInfinityScroll({
@@ -15,7 +15,7 @@ export function useInfinityScroll({
         let observer: IntersectionObserver | null = null;
         // Нужно замкнуть domNodes внутри колбека в useEffect;
         // Так они будут доступны и в случае когда компонент демонтировался.
-        const wrapperElement = wrapperRef.current;
+        const wrapperElement = wrapperRef?.current || null; // Если null, то берется дефолтный браузерный viewPort согласно доке
         const triggerElement = triggerRef.current;
 
         if (callback) {
