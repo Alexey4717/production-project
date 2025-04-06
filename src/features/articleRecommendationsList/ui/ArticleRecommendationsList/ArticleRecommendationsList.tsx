@@ -34,7 +34,7 @@ export const ArticleRecommendationsList = memo(
                 <ArticleList
                     articles={articles}
                     target="_blank"
-                    virtualized={false}
+                    // virtualized={false} // TODO вернуть виртуализацию
                 />
             </VStack>
         );
