@@ -9,6 +9,8 @@
   "Ulbi TV App": "",
   "decrement": "decrement",
   "increment": "increment",
+  "{{count}} просмотров": "",
+  "{{count}} просмотров_plural": "",
   "Админ панель": "Админ панель",
   "Админка": "Админка",
   "Айти": "Айти",
