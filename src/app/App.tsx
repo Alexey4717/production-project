@@ -1,19 +1,18 @@
 import { Suspense, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { MainLayout } from '@/shared/layouts/MainLayout';
-import { ToggleFeatures } from '@/shared/lib/features';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useTheme } from '@/shared/lib/hooks/useTheme/useTheme';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import { getUserInited, initAuthData } from '@/entities/User';
 import { Navbar } from '@/widgets/Navbar';
-import { PageLoader } from '@/widgets/PageLoader';
-import { classNames } from '@/shared/lib/classNames/classNames';
 import { Sidebar } from '@/widgets/Sidebar';
+import { useTheme } from '@/shared/lib/hooks/useTheme/useTheme';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { PageLoader } from '@/widgets/PageLoader';
+import { ToggleFeatures } from '@/shared/lib/features';
+import { MainLayout } from '@/shared/layouts/MainLayout';
 import { AppRouter } from './providers/router';
 
-const App = () => {
+function App() {
     const { theme } = useTheme();
-
     const dispatch = useAppDispatch();
     const inited = useSelector(getUserInited);
 
@@ -29,7 +28,7 @@ const App = () => {
         <ToggleFeatures
             feature="isAppRedesigned"
             off={
-                <div className={classNames('app', {}, [theme])}>
+                <div id="app" className={classNames('app', {}, [theme])}>
                     <Suspense fallback="">
                         <Navbar />
                         <div className="content-page">
@@ -40,7 +39,10 @@ const App = () => {
                 </div>
             }
             on={
-                <div className={classNames('app_redesigned', {}, [theme])}>
+                <div
+                    id="app"
+                    className={classNames('app_redesigned', {}, [theme])}
+                >
                     <Suspense fallback="">
                         <MainLayout
                             header={<Navbar />}
@@ -52,6 +54,6 @@ const App = () => {
             }
         />
     );
-};
+}
 
 export default App;
