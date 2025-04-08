@@ -1,10 +1,12 @@
-import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ArticleList } from '@/entities/Article';
+import { memo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
+import { Text as TextDeprecated, TextSize } from '@/shared/ui/deprecated/Text';
+import { ArticleList } from '@/entities/Article';
 import { VStack } from '@/shared/ui/redesigned/Stack';
-import { Text, TextSize } from '@/shared/ui/deprecated/Text';
 import { useArticleRecommendationsList } from '../../api/articleRecommendationsApi';
+import { ToggleFeatures } from '@/shared/lib/features';
+import { Text } from '@/shared/ui/redesigned/Text';
 
 interface ArticleRecommendationsListProps {
     className?: string;
@@ -13,29 +15,34 @@ interface ArticleRecommendationsListProps {
 export const ArticleRecommendationsList = memo(
     (props: ArticleRecommendationsListProps) => {
         const { className } = props;
-        const { t } = useTranslation('article-details');
-
+        const { t } = useTranslation();
         const {
-            data: articles,
             isLoading,
-            isError,
+            data: articles,
+            error,
         } = useArticleRecommendationsList(3);
 
-        // TODO add loader
-        if (isLoading || isError || !articles) return null;
+        if (isLoading || error || !articles) {
+            return null;
+        }
 
         return (
             <VStack
-                className={classNames('', {}, [className])}
-                gap="8"
                 data-testid="ArticleRecommendationsList"
+                gap="8"
+                className={classNames('', {}, [className])}
             >
-                <Text size={TextSize.L} title={t('Рекомендуем')} />
-                <ArticleList
-                    articles={articles}
-                    target="_blank"
-                    // virtualized={false} // TODO вернуть виртуализацию
+                <ToggleFeatures
+                    feature="isAppRedesigned"
+                    on={<Text size="l" title={t('Рекомендуем')} />}
+                    off={
+                        <TextDeprecated
+                            size={TextSize.L}
+                            title={t('Рекомендуем')}
+                        />
+                    }
                 />
+                <ArticleList articles={articles} target="_blank" />
             </VStack>
         );
     },
