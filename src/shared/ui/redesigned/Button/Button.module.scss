@@ -1,14 +1,15 @@
 .Button {
     cursor: pointer;
     color: var(--text-redesigned);
-    padding: 8px 16px;
+    padding: 6px 16px;
     display: flex;
     align-items: center;
 
     &:hover {
         color: var(--accent-redesigned);
 
-        .addonLeft svg, .addonRight svg {
+        .addonLeft svg,
+        .addonRight svg {
             color: var(--accent-redesigned);
         }
     }
@@ -18,14 +19,15 @@
     padding: 0 16px;
 }
 
-.addonLeft, .addonRight {
+.addonLeft,
+.addonRight {
     display: flex;
 }
 
-.addonRight svg, .addonLeft svg {
+.addonRight svg,
+.addonLeft svg {
     color: var(--hint-redesigned);
 }
-
 
 .clear {
     padding: 0;
@@ -41,13 +43,25 @@
     border-radius: 34px;
 }
 
+// TODO добавить для filled класса стили
 .outline {
     background: none;
-    border: 1px solid var(--icon-redesigned);
     border-radius: 34px;
 
     &:hover {
-        border: 1px solid var(--accent-redesigned);
+        border: 2px solid var(--accent-redesigned);
+    }
+
+    &.normal {
+        border: 2px solid var(--icon-redesigned);
+    }
+
+    &.error {
+        border: 2px solid var(--cancel-redesigned);
+    }
+
+    &.success {
+        border: 2px solid var(--save-redesigned);
     }
 }
 
