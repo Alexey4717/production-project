@@ -1,4 +1,4 @@
-import { USER_LOCALSTORAGE_KEY } from '../../../src/shared/consts/localStorage';
+import { USER_LOCALSTORAGE_KEY } from '@/shared/consts/localStorage';
 import { User } from '../../../src/entities/User';
 import { selectByTestId } from '../../helpers/selectByTestId';
 
