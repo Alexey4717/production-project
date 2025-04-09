@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useForceUpdate } from '@/shared/lib/render/forceUpdate';
 import { ListBox } from '@/shared/ui/redesigned/Popups';
 import { Text } from '@/shared/ui/redesigned/Text';
 import { getFeatureFlag, updateFeatureFlag } from '@/shared/lib/features';
@@ -20,6 +21,7 @@ export const UiDesignSwitcher = memo((props: UiDesignSwitcherProps) => {
     const dispatch = useAppDispatch();
     const authData = useSelector(getUserAuthData);
     const [isLoading, setIsLoading] = useState(false);
+    const forceUpdate = useForceUpdate();
 
     const items = [
         {
@@ -46,6 +48,8 @@ export const UiDesignSwitcher = memo((props: UiDesignSwitcherProps) => {
                     },
                 }),
             ).unwrap();
+            forceUpdate();
+            setIsLoading(false);
         } catch (error) {
             console.error(error);
             setIsLoading(false);
