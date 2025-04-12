@@ -43,17 +43,17 @@ export function buildLoaders(options: BuildOptions): RuleSetRule[] {
 
     const fileLoader = {
         test: /\.(png|jpe?g|gif|woff2|woff)$/i,
-        use: [{ loader: 'file-loader' }],
+        type: 'asset/resource', // file-loader уже не обязателен в 5 версии webpack
     };
 
     // Порядок в массиве лоадеров имеет значение
     return [
-        fileLoader,
         svgLoader,
         // babelLoader должен быть до typescriptLoader, иначе ошибка билда
         codeBabelLoader,
         tsxCodeBabelLoader,
         // typescriptLoader, // заменили только babelLoader с доп плагинами для ускорения сборки (78l)
         cssLoader,
+        fileLoader,
     ];
 }

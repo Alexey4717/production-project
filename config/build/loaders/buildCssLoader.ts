@@ -21,6 +21,8 @@ export function buildCssLoader({ isDev }: Partial<BuildOptions>) {
                         localIdentName: isDev
                             ? '[path][name]__[local]--[hash:base64:5]'
                             : '[hash:base64:8]',
+                        namedExport: false, // чтоб не писать import * as styles from "./ххх.module.scss";
+                        exportLocalsConvention: 'asIs', // По-дефолту camelCase, т.е. .Component преобразует в .component
                     },
                 },
             },

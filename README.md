@@ -1,6 +1,8 @@
 ## Запуск проекта
 
 ```
+Версия yarn - 1.22.22
+Версия node - 22.14.0
 yarn install - устанавливаем зависимости
 yarn start:dev или yarn start:dev:vite - запуск сервера + frontend проекта в dev режиме
 ```
