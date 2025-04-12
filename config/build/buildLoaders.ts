@@ -1,9 +1,9 @@
-import webpack from 'webpack';
+import { type RuleSetRule } from 'webpack';
 import { BuildOptions } from './types/config';
 import { buildBabelLoader } from './loaders/buildBabelLoader';
 import { buildCssLoader } from './loaders/buildCssLoader';
 
-export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
+export function buildLoaders(options: BuildOptions): RuleSetRule[] {
     const svgLoader = {
         test: /\.svg$/,
         use: [{

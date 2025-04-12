@@ -3,7 +3,7 @@ import { BuildOptions } from './types/config';
 
 export function buildResolvers(options: BuildOptions): ResolveOptions {
     return {
-        extensions: ['.tsx', '.ts', '.js'], // при импорте мы не будем указывать разширение компонента
+        extensions: ['.tsx', '.ts', '.js'], // чтоб при импорте не нужно было указывать расширение компонента
         preferAbsolute: true, // для приоритета абсолютных импортов
         modules: [
             // Указание абсолютного пути для вебпака из src

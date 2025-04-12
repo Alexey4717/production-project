@@ -1,11 +1,11 @@
 import { BuildOptions } from '../types/config';
 import babelRemovePropsPlugin from '../../babel/babelRemovePropsPlugin';
 
-interface BabelBuildLoaderProps extends BuildOptions {
+interface BuildBabelLoaderProps extends BuildOptions {
     isTsx?: boolean;
 }
 
-export function buildBabelLoader({ isDev, isTsx }: BabelBuildLoaderProps) {
+export function buildBabelLoader({ isDev, isTsx }: BuildBabelLoaderProps) {
     const isProd = !isDev;
     return {
         test: isTsx ? /\.(jsx|tsx)$/ : /\.(js|ts)$/,

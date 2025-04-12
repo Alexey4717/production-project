@@ -1,3 +1,48 @@
+Старый скрипт main.yml
+
+<pre>
+name: linting, testing, building
+on:
+    push:
+        branches: [ master ]
+    pull_request:
+        branches: [ master ]
+jobs:
+    pipeline:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [ 18.x ]
+
+        steps:
+            - uses: actions/checkout@v2
+            - name: Staring Node.js ${{ matrix.node-version }}
+                uses: actions/setup-node@v1
+                with:
+                    node-version: ${{ matrix.node-version }}
+            - name: install modules
+                run: yarn install --frozen-lockfile
+            - name: build production project
+                run: yarn build:prod
+                if: always()
+            - name: linting typescript
+                run: yarn lint:ts
+                if: always()
+            - name: linting css
+                run: yarn lint:scss
+                if: always()
+            - name: unit testing
+                run: yarn test:unit
+                if: always()
+            - name: build storybook
+                run: yarn storybook:build
+            # Use it, if need to update reference loki screens with errors
+            - name: Update Loki reference files
+                run: yarn loki update --reactUri="file:./storybook-static"
+            - name: screenshot testing
+                run: yarn test:ui:ci
+</pre>
+
 У нас стало появляться много скриптов (линтеры, сборка, разные виды тестирования, сборка сторибука).
 Запускать это вручную становится неудобно. Хочется автоматизировать процесс запуска этих скриптов.
 Будем использовать Github-actions для настройки CI/CD.

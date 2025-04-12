@@ -1,7 +1,6 @@
 import { Configuration, DefinePlugin, RuleSetRule } from 'webpack';
 import path from 'path';
 import { buildCssLoader } from '../build/loaders/buildCssLoader';
-import { BuildOptions } from '../build/types/config';
 
 export default {
     stories: ['../../src/**/*.stories.@(js|jsx|ts|tsx)'],
@@ -55,9 +54,7 @@ export default {
             test: /\.svg$/,
             use: ['@svgr/webpack'],
         });
-        config!.module!.rules.push(
-            buildCssLoader({ isDev: true } as BuildOptions),
-        );
+        config!.module!.rules.push(buildCssLoader({ isDev: true }));
 
         config!.plugins!.push(
             new DefinePlugin({
@@ -66,7 +63,7 @@ export default {
                 __PROJECT__: JSON.stringify('storybook'),
             }),
         );
-        // Return the altered config
+
         return config;
     },
 };
