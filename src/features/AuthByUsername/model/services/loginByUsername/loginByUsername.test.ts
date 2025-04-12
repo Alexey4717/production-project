@@ -22,7 +22,7 @@ describe('loginByUsername.test', () => {
         expect(thunk.dispatch).toHaveBeenCalledWith(
             userActions.setAuthData(userPayload),
         );
-        expect(thunk.dispatch).toHaveBeenCalledTimes(3); // Почему 3 описано в descriptions.md (36 пункт)
+        expect(thunk.dispatch).toHaveBeenCalledTimes(3); // Почему 3 описано в lessons.md (36 пункт)
         expect(thunk.api.post).toHaveBeenCalled();
         expect(result.meta.requestStatus).toBe('fulfilled');
         expect(result.payload).toEqual(userPayload);

@@ -61,7 +61,7 @@ yarn start:dev или yarn start:dev:vite - запуск сервера + fronte
 3) Скриншотное тестирование с loki `yarn test:ui`
 4) e2e тестирование с Cypress `yarn test:e2e`
 
-Подробнее о тестах - [документация тестирование](/docs/tests.md)
+Подробнее о тестах - [документация тестирование](/docs/tests/tests.md)
 
 ----
 
