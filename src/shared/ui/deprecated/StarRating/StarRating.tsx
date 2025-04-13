@@ -68,7 +68,6 @@ export const StarRating = memo((props: StarRatingProps) => {
                         ],
                     ),
                     Svg: StarIcon,
-                    key: starNumber,
                     width: size,
                     height: size,
                     onMouseLeave: onLeave,
