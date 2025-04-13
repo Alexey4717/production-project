@@ -1,4 +1,4 @@
-import { memo, ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './StickyContentLayout.module.scss';
 
@@ -9,7 +9,7 @@ interface StickyContentLayoutProps {
     right?: ReactElement;
 }
 
-export const StickyContentLayout = memo((props: StickyContentLayoutProps) => {
+export const StickyContentLayout = (props: StickyContentLayoutProps) => {
     const { className, content, left, right } = props;
 
     return (
@@ -19,4 +19,4 @@ export const StickyContentLayout = memo((props: StickyContentLayoutProps) => {
             {right && <div className={cls.right}>{right}</div>}
         </div>
     );
-});
+};

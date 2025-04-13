@@ -1,6 +1,5 @@
-import React, {
+import {
     type InputHTMLAttributes,
-    memo,
     type ReactNode,
     useEffect,
     useRef,
@@ -30,7 +29,7 @@ interface InputProps extends HTMLInputProps {
     size?: InputSize;
 }
 
-export const Input = memo((props: InputProps) => {
+export const Input = (props: InputProps) => {
     const {
         className,
         value,
@@ -108,4 +107,4 @@ export const Input = memo((props: InputProps) => {
     }
 
     return input;
-});
+};

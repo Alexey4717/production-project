@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card } from '@/shared/ui/redesigned/Card';
 import { HStack, VStack } from '@/shared/ui/redesigned/Stack';
@@ -52,7 +51,7 @@ export const ProfileCardRedesignedSkeleton = () => {
     );
 };
 
-export const ProfileCardRedesigned = memo((props: ProfileCardProps) => {
+export const ProfileCardRedesigned = (props: ProfileCardProps) => {
     const {
         className,
         data,
@@ -133,4 +132,4 @@ export const ProfileCardRedesigned = memo((props: ProfileCardProps) => {
             </VStack>
         </Card>
     );
-});
+};

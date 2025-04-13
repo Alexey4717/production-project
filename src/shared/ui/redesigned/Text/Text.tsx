@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Text.module.scss';
 
@@ -33,7 +32,7 @@ const mapSizeToHeaderTag: Record<TextSize, HeaderTagType> = {
     l: 'h1',
 };
 
-export const Text = memo((props: TextProps) => {
+export const Text = (props: TextProps) => {
     const {
         className,
         text,
@@ -73,4 +72,4 @@ export const Text = memo((props: TextProps) => {
             )}
         </div>
     );
-});
+};

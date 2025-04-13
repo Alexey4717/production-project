@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { memo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Card } from '@/shared/ui/deprecated/Card';
 import { Input } from '@/shared/ui/deprecated/Input';
@@ -14,7 +13,7 @@ interface ArticlesPageFiltersProps {
     className?: string;
 }
 
-export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
+export const ArticlesPageFilters = (props: ArticlesPageFiltersProps) => {
     const { className } = props;
     const { t } = useTranslation();
     const {
@@ -55,4 +54,4 @@ export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
             />
         </div>
     );
-});
+};

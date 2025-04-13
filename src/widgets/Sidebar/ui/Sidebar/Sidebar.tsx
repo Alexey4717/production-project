@@ -1,4 +1,4 @@
-import { memo, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { ThemeSwitcher } from '@/features/ThemeSwitcher';
 import { LangSwitcher } from '@/features/LangSwitcher';
@@ -16,7 +16,7 @@ interface SidebarProps {
     className?: string;
 }
 
-export const Sidebar = memo(({ className }: SidebarProps) => {
+export const Sidebar = ({ className }: SidebarProps) => {
     const [collapsed, setCollapsed] = useState(false);
     const sidebarItemsList = useSidebarItems();
 
@@ -25,17 +25,9 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
         setCollapsed((prev) => !prev);
     };
 
-    const itemsList = useMemo(
-        () =>
-            sidebarItemsList.map((item) => (
-                <SidebarItem
-                    item={item}
-                    collapsed={collapsed}
-                    key={item.path}
-                />
-            )),
-        [collapsed, sidebarItemsList],
-    );
+    const itemsList = sidebarItemsList.map((item) => (
+        <SidebarItem item={item} collapsed={collapsed} key={item.path} />
+    ));
 
     return (
         <ToggleFeatures
@@ -99,4 +91,4 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
             }
         />
     );
-});
+};

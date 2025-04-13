@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Card as CardDeprecated, CardTheme } from '@/shared/ui/deprecated/Card';
 import { Text as TextDeprecated } from '@/shared/ui/deprecated/Text';
@@ -13,7 +12,7 @@ interface NotificationItemProps {
     item: Notification;
 }
 
-export const NotificationItem = memo((props: NotificationItemProps) => {
+export const NotificationItem = (props: NotificationItemProps) => {
     const { className, item } = props;
 
     const content = (
@@ -58,4 +57,4 @@ export const NotificationItem = memo((props: NotificationItemProps) => {
     }
 
     return content;
-});
+};

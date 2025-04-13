@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import SearchIcon from '@/shared/assets/icons/search.svg';
@@ -24,7 +23,7 @@ interface ArticlesFiltersProps {
     onChangeType: (type: ArticleType) => void;
 }
 
-export const ArticlesFilters = memo((props: ArticlesFiltersProps) => {
+export const ArticlesFilters = (props: ArticlesFiltersProps) => {
     const {
         className,
         onChangeType,
@@ -65,4 +64,4 @@ export const ArticlesFilters = memo((props: ArticlesFiltersProps) => {
             </VStack>
         </Card>
     );
-});
+};

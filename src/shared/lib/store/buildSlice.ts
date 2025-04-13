@@ -1,6 +1,5 @@
 import { bindActionCreators, createSlice } from '@reduxjs/toolkit';
 import { SliceCaseReducers, CreateSliceOptions } from '@reduxjs/toolkit/dist'; // папка куда билдится redux
-import { useMemo } from 'react';
 import { useAppDispatch } from '../hooks/useAppDispatch/useAppDispatch';
 
 export function buildSlice<
@@ -12,14 +11,7 @@ export function buildSlice<
 
     const useActions = (): typeof slice.actions => {
         const dispatch = useAppDispatch();
-
-        // TODO - fixme
-        // @ts-ignore
-        return useMemo(
-            // @ts-ignore
-            () => bindActionCreators(slice.actions, dispatch),
-            [dispatch],
-        );
+        return bindActionCreators(slice.actions, dispatch);
     };
 
     return {

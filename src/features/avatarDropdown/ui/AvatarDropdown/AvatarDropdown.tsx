@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import React, { memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Avatar as AvatarDeprecated } from '@/shared/ui/deprecated/Avatar';
@@ -23,7 +22,7 @@ interface AvatarDropdownProps {
     className?: string;
 }
 
-export const AvatarDropdown = memo((props: AvatarDropdownProps) => {
+export const AvatarDropdown = (props: AvatarDropdownProps) => {
     const { className } = props;
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -31,9 +30,9 @@ export const AvatarDropdown = memo((props: AvatarDropdownProps) => {
     const isManager = useSelector(isUserManager);
     const authData = useSelector(getUserAuthData);
 
-    const onLogout = useCallback(() => {
+    const onLogout = () => {
         dispatch(userActions.logout());
-    }, [dispatch]);
+    };
 
     const isAdminPanelAvailable = isAdmin || isManager;
 
@@ -91,4 +90,4 @@ export const AvatarDropdown = memo((props: AvatarDropdownProps) => {
             }
         />
     );
-});
+};

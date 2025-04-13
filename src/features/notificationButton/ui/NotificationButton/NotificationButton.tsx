@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from 'react';
+import { useState } from 'react';
 import { BrowserView, MobileView } from 'react-device-detect';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import {
@@ -20,17 +20,17 @@ interface NotificationButtonProps {
     className?: string;
 }
 
-export const NotificationButton = memo((props: NotificationButtonProps) => {
+export const NotificationButton = (props: NotificationButtonProps) => {
     const { className } = props;
     const [isOpen, setIsOpen] = useState(false);
 
-    const onOpenDrawer = useCallback(() => {
+    const onOpenDrawer = () => {
         setIsOpen(true);
-    }, []);
+    };
 
-    const onCloseDrawer = useCallback(() => {
+    const onCloseDrawer = () => {
         setIsOpen(false);
-    }, []);
+    };
 
     const trigger = (
         <ToggleFeatures
@@ -51,7 +51,6 @@ export const NotificationButton = memo((props: NotificationButtonProps) => {
 
     return (
         <div>
-            {/* @ts-ignore */}
             <BrowserView>
                 <ToggleFeatures
                     feature="isAppRedesigned"
@@ -79,7 +78,6 @@ export const NotificationButton = memo((props: NotificationButtonProps) => {
                     }
                 />
             </BrowserView>
-            {/* @ts-ignore */}
             <MobileView>
                 {trigger}
                 <Drawer isOpen={isOpen} onClose={onCloseDrawer}>
@@ -88,4 +86,4 @@ export const NotificationButton = memo((props: NotificationButtonProps) => {
             </MobileView>
         </div>
     );
-});
+};

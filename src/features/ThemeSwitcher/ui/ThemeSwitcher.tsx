@@ -1,4 +1,3 @@
-import React, { memo, useCallback } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import ThemeIconDeprecated from '@/shared/assets/icons/theme-light.svg';
 import ThemeIcon from '@/shared/assets/icons/theme.svg';
@@ -14,15 +13,15 @@ interface ThemeSwitcherProps {
     className?: string;
 }
 
-export const ThemeSwitcher = memo(({ className }: ThemeSwitcherProps) => {
+export const ThemeSwitcher = ({ className }: ThemeSwitcherProps) => {
     const { theme, toggleTheme } = useTheme();
     const dispatch = useAppDispatch();
 
-    const onToggleHandler = useCallback(() => {
+    const onToggleHandler = () => {
         toggleTheme((newTheme) => {
             dispatch(saveJsonSettings({ theme: newTheme }));
         });
-    }, [dispatch, toggleTheme]);
+    };
 
     return (
         <ToggleFeatures
@@ -44,4 +43,4 @@ export const ThemeSwitcher = memo(({ className }: ThemeSwitcherProps) => {
             }
         />
     );
-});
+};

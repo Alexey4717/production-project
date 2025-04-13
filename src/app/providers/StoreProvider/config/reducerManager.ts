@@ -1,37 +1,27 @@
 import {
-    type AnyAction,
     combineReducers,
     type ReducersMapObject,
     type Reducer,
+    type AnyAction,
 } from '@reduxjs/toolkit';
-import {
-    MountedReducers,
-    ReducerManager,
-    StateSchema,
-    StateSchemaKey,
-} from './StateSchema';
+import { ReducerManager, StateSchema, StateSchemaKey } from './StateSchema';
 
 export function createReducerManager(
     initialReducers: ReducersMapObject<StateSchema>,
 ): ReducerManager {
     const reducers = { ...initialReducers };
-
-    let combinedReducer = combineReducers(reducers);
-
-    // Названия редьюсеров, которые мы хотим удалить
+    let combinedReducer = combineReducers(reducers) as Reducer<StateSchema>; // Reducer<StateSchema>
     let keysToRemove: StateSchemaKey[] = [];
-
-    const mountedRedusers: MountedReducers = {};
 
     return {
         getReducerMap: () => reducers,
-        getMountedReducers: () => mountedRedusers, // TODO использовать getReducerMap
+
         reduce: (state: StateSchema, action: AnyAction) => {
             if (keysToRemove.length > 0) {
                 state = { ...state };
-                keysToRemove.forEach((key: StateSchemaKey) => {
+                for (const key of keysToRemove) {
                     delete state[key];
-                });
+                }
                 keysToRemove = [];
             }
             return combinedReducer(state, action);
@@ -41,17 +31,15 @@ export function createReducerManager(
                 return;
             }
             reducers[key] = reducer;
-            mountedRedusers[key] = true;
-            combinedReducer = combineReducers(reducers);
+            combinedReducer = combineReducers(reducers) as Reducer<StateSchema>;
         },
         remove: (key: StateSchemaKey) => {
             if (!key || !reducers[key]) {
                 return;
             }
             delete reducers[key];
-            mountedRedusers[key] = false;
             keysToRemove.push(key);
-            combinedReducer = combineReducers(reducers);
+            combinedReducer = combineReducers(reducers) as Reducer<StateSchema>;
         },
     };
 }

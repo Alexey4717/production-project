@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { Icon } from '@/shared/ui/redesigned/Icon';
 import CircleIcon from '@/shared/assets/icons/circle-up.svg';
 
@@ -6,7 +5,7 @@ interface ScrollToTopButtonProps {
     className?: string;
 }
 
-export const ScrollToTopButton = memo((props: ScrollToTopButtonProps) => {
+export const ScrollToTopButton = (props: ScrollToTopButtonProps) => {
     const { className } = props;
 
     const onCLick = () => {
@@ -24,4 +23,4 @@ export const ScrollToTopButton = memo((props: ScrollToTopButtonProps) => {
             height={32}
         />
     );
-});
+};

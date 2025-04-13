@@ -67,7 +67,8 @@ describe('profileSlice.test', () => {
         expect(
             profileReducer(
                 state as ProfileSchema,
-                updateProfileData.pending, // по-сути это экшен
+                // TODO проверить
+                updateProfileData.pending('requestId'), // по-сути это экшен
             ),
         ).toEqual({
             isLoading: true,

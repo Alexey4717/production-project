@@ -10,7 +10,7 @@ import {
 
 export const fetchNextArticlesPage = createAsyncThunk<
     void,
-    void,
+    undefined,
     ThunkConfig<string>
 >('articlesPage/fetchNextArticlesPage', async (_, thunkAPI) => {
     const { getState, dispatch } = thunkAPI;

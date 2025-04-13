@@ -1,5 +1,5 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { memo, useCallback, useState } from 'react';
 import { BrowserView, MobileView } from 'react-device-detect';
 import { Card as CardDeprecated } from '@/shared/ui/deprecated/Card';
 import { HStack, VStack } from '@/shared/ui/redesigned/Stack';
@@ -29,7 +29,7 @@ interface RatingCardProps {
     rate?: number;
 }
 
-export const RatingCard = memo((props: RatingCardProps) => {
+export const RatingCard = (props: RatingCardProps) => {
     const {
         className,
         onAccept,
@@ -44,27 +44,24 @@ export const RatingCard = memo((props: RatingCardProps) => {
     const [starsCount, setStarsCount] = useState(rate);
     const [feedback, setFeedback] = useState('');
 
-    const onSelectStars = useCallback(
-        (selectedStarsCount: number) => {
-            setStarsCount(selectedStarsCount);
-            if (hasFeedback) {
-                setIsModalOpen(true);
-            } else {
-                onAccept?.(selectedStarsCount);
-            }
-        },
-        [hasFeedback, onAccept],
-    );
+    const onSelectStars = (selectedStarsCount: number) => {
+        setStarsCount(selectedStarsCount);
+        if (hasFeedback) {
+            setIsModalOpen(true);
+        } else {
+            onAccept?.(selectedStarsCount);
+        }
+    };
 
-    const acceptHandle = useCallback(() => {
+    const acceptHandle = () => {
         setIsModalOpen(false);
         onAccept?.(starsCount, feedback);
-    }, [feedback, onAccept, starsCount]);
+    };
 
-    const cancelHandle = useCallback(() => {
+    const cancelHandle = () => {
         setIsModalOpen(false);
         onCancel?.(starsCount);
-    }, [onCancel, starsCount]);
+    };
 
     const modalContent = (
         <ToggleFeatures
@@ -211,4 +208,4 @@ export const RatingCard = memo((props: RatingCardProps) => {
             }
         />
     );
-});
+};

@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { memo, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import {
@@ -35,9 +34,9 @@ const ArticlesPage = (props: ArticlesPageProps) => {
     const dispatch = useAppDispatch();
     const [searchParams] = useSearchParams();
 
-    const onLoadNextPart = useCallback(() => {
+    const onLoadNextPart = () => {
         dispatch(fetchNextArticlesPage());
-    }, [dispatch]);
+    };
 
     useInitialEffect(() => {
         dispatch(initArticlesPage(searchParams));
@@ -87,4 +86,4 @@ const ArticlesPage = (props: ArticlesPageProps) => {
     );
 };
 
-export default memo(ArticlesPage);
+export default ArticlesPage;

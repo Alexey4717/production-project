@@ -1,10 +1,8 @@
-import { StateSchema } from '@/app/providers/StoreProvider';
-
-export const getArticleDetailsData = (state: StateSchema) =>
+export const getArticleDetailsData = (state: RootState) =>
     state?.articleDetails?.data;
 
-export const getArticleDetailsIsLoading = (state: StateSchema) =>
+export const getArticleDetailsIsLoading = (state: RootState) =>
     state?.articleDetails?.isLoading;
 
-export const getArticleDetailsError = (state: StateSchema) =>
+export const getArticleDetailsError = (state: RootState) =>
     state?.articleDetails?.error;

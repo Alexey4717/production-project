@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './ArticleListItemRedesigned.module.scss';
@@ -20,7 +19,7 @@ import {
     ArticleView,
 } from '../../../model/consts/articleConsts';
 
-export const ArticleListItemRedesigned = memo((props: ArticleListItemProps) => {
+export const ArticleListItemRedesigned = (props: ArticleListItemProps) => {
     const { className, article, view, target } = props;
     const { t } = useTranslation();
 
@@ -124,4 +123,4 @@ export const ArticleListItemRedesigned = memo((props: ArticleListItemProps) => {
             </Card>
         </AppLink>
     );
-});
+};

@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect, useMemo, useState } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 import { ThemeContext } from '@/shared/lib/context/ThemeContext';
 import { Theme } from '@/shared/consts/theme';
 import { LOCAL_STORAGE_THEME_KEY } from '@/shared/consts/localStorage';
@@ -30,19 +30,12 @@ const ThemeProvider = (props: ThemeProviderProps) => {
         localStorage.setItem(LOCAL_STORAGE_THEME_KEY, theme);
     }, [theme]);
 
-    const defaultProps = useMemo(
-        () => ({
-            theme,
-            setTheme,
-        }),
-        [theme],
-    );
+    const defaultProps = {
+        theme,
+        setTheme,
+    };
 
-    return (
-        <ThemeContext.Provider value={defaultProps}>
-            {children}
-        </ThemeContext.Provider>
-    );
+    return <ThemeContext value={defaultProps}>{children}</ThemeContext>;
 };
 
 export default ThemeProvider;

@@ -1,9 +1,4 @@
-import {
-    ButtonHTMLAttributes,
-    ForwardedRef,
-    forwardRef,
-    ReactNode,
-} from 'react';
+import type { ButtonHTMLAttributes, ReactNode, RefObject } from 'react';
 import { classNames, Mods } from '@/shared/lib/classNames/classNames';
 import cls from './Button.module.scss';
 
@@ -23,6 +18,7 @@ export enum ButtonSize {
 }
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+    ref?: RefObject<HTMLButtonElement>;
     className?: string;
     /**
      * Тема кнопки. Отвечает за визуал (в рамке, без стилей, противоположный теме приложения цвет и тд)
@@ -54,37 +50,36 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  * Устарел, используем новые компоненты из папки redesigned
  * @deprecated
  */
-export const Button = forwardRef(
-    (props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
-        const {
-            className,
-            children,
-            theme = ButtonTheme.OUTLINE,
-            square,
-            disabled,
-            fullWidth,
-            size = ButtonSize.M,
-            ...otherProps
-        } = props;
+export const Button = (props: ButtonProps) => {
+    const {
+        ref,
+        className,
+        children,
+        theme = ButtonTheme.OUTLINE,
+        square,
+        disabled,
+        fullWidth,
+        size = ButtonSize.M,
+        ...otherProps
+    } = props;
 
-        const mods: Mods = {
-            [cls[theme]]: true,
-            [cls.square]: square,
-            [cls[size]]: true,
-            [cls.disabled]: disabled,
-            [cls.fullWidth]: fullWidth,
-        };
+    const mods: Mods = {
+        [cls[theme]]: true,
+        [cls.square]: square,
+        [cls[size]]: true,
+        [cls.disabled]: disabled,
+        [cls.fullWidth]: fullWidth,
+    };
 
-        return (
-            <button
-                type="button"
-                className={classNames(cls.Button, mods, [className])}
-                disabled={disabled}
-                {...otherProps}
-                ref={ref}
-            >
-                {children}
-            </button>
-        );
-    },
-);
+    return (
+        <button
+            type="button"
+            className={classNames(cls.Button, mods, [className])}
+            disabled={disabled}
+            {...otherProps}
+            ref={ref}
+        >
+            {children}
+        </button>
+    );
+};

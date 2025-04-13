@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './ScrollToolbar.module.scss';
 import { VStack } from '@/shared/ui/redesigned/Stack';
@@ -8,7 +7,7 @@ interface ScrollToolbarProps {
     className?: string;
 }
 
-export const ScrollToolbar = memo((props: ScrollToolbarProps) => {
+export const ScrollToolbar = (props: ScrollToolbarProps) => {
     const { className } = props;
 
     return (
@@ -21,4 +20,4 @@ export const ScrollToolbar = memo((props: ScrollToolbarProps) => {
             <ScrollToTopButton />
         </VStack>
     );
-});
+};

@@ -87,7 +87,9 @@ describe('articleDetailsSlice.test', () => {
         expect(
             articleDetailsReducer(
                 state as ArticleDetailsSchema,
-                fetchArticleById.pending, // по-сути это экшен
+                // TODO fixme
+                // @ts-ignore
+                fetchArticleById.pending('requestId'), // по-сути это экшен
             ),
         ).toEqual({
             isLoading: true,

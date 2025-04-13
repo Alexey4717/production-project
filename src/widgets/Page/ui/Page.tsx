@@ -1,5 +1,4 @@
 import {
-    memo,
     type MutableRefObject,
     type ReactNode,
     type UIEvent,
@@ -8,7 +7,6 @@ import {
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { toggleFeatures } from '@/shared/lib/features';
-import { StateSchema } from '@/app/providers/StoreProvider';
 import { getUIScrollByPath, uiActions } from '@/features/UI';
 import { TestProps } from '@/shared/types/tests';
 import { PAGE_ID } from '@/shared/consts/page';
@@ -25,13 +23,17 @@ interface PageProps extends TestProps {
     onScrollEnd?: () => void;
 }
 
-export const Page = memo((props: PageProps) => {
+export const Page = (props: PageProps) => {
     const { className, children, onScrollEnd } = props;
-    const wrapperRef = useRef() as MutableRefObject<HTMLDivElement>;
-    const triggerRef = useRef() as MutableRefObject<HTMLDivElement>;
+    const wrapperRef = useRef<HTMLDivElement>(
+        undefined,
+    ) as MutableRefObject<HTMLDivElement>;
+    const triggerRef = useRef<HTMLDivElement>(
+        undefined,
+    ) as MutableRefObject<HTMLDivElement>;
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();
-    const scrollPosition = useSelector((state: StateSchema) =>
+    const scrollPosition = useSelector((state: RootState) =>
         getUIScrollByPath(state, pathname),
     );
 
@@ -80,4 +82,4 @@ export const Page = memo((props: PageProps) => {
             ) : null}
         </main>
     );
-});
+};

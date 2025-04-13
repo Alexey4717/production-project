@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { ArticleSortField, ArticleType, ArticleView } from '@/entities/Article';
 import { SortOrder } from '@/shared/types/sort';
@@ -23,54 +22,39 @@ export function useArticleFilters() {
 
     const dispatch = useAppDispatch();
 
-    const fetchData = useCallback(() => {
+    const fetchData = () => {
         dispatch(fetchArticlesList({ replace: true }));
-    }, [dispatch]);
+    };
 
     const debouncedFetchData = useDebounce(fetchData, 500);
 
-    const onChangeView = useCallback(
-        (view: ArticleView) => {
-            dispatch(articlesPageActions.setView(view));
-        },
-        [dispatch],
-    );
+    const onChangeView = (view: ArticleView) => {
+        dispatch(articlesPageActions.setView(view));
+    };
 
-    const onChangeSort = useCallback(
-        (newSort: ArticleSortField) => {
-            dispatch(articlesPageActions.setSort(newSort));
-            dispatch(articlesPageActions.setPage(1));
-            fetchData();
-        },
-        [dispatch, fetchData],
-    );
+    const onChangeSort = (newSort: ArticleSortField) => {
+        dispatch(articlesPageActions.setSort(newSort));
+        dispatch(articlesPageActions.setPage(1));
+        fetchData();
+    };
 
-    const onChangeOrder = useCallback(
-        (newOrder: SortOrder) => {
-            dispatch(articlesPageActions.setOrder(newOrder));
-            dispatch(articlesPageActions.setPage(1));
-            fetchData();
-        },
-        [dispatch, fetchData],
-    );
+    const onChangeOrder = (newOrder: SortOrder) => {
+        dispatch(articlesPageActions.setOrder(newOrder));
+        dispatch(articlesPageActions.setPage(1));
+        fetchData();
+    };
 
-    const onChangeSearch = useCallback(
-        (search: string) => {
-            dispatch(articlesPageActions.setSearch(search));
-            dispatch(articlesPageActions.setPage(1));
-            debouncedFetchData();
-        },
-        [dispatch, debouncedFetchData],
-    );
+    const onChangeSearch = (search: string) => {
+        dispatch(articlesPageActions.setSearch(search));
+        dispatch(articlesPageActions.setPage(1));
+        debouncedFetchData();
+    };
 
-    const onChangeType = useCallback(
-        (value: ArticleType) => {
-            dispatch(articlesPageActions.setType(value));
-            dispatch(articlesPageActions.setPage(1));
-            fetchData();
-        },
-        [dispatch, fetchData],
-    );
+    const onChangeType = (value: ArticleType) => {
+        dispatch(articlesPageActions.setType(value));
+        dispatch(articlesPageActions.setPage(1));
+        fetchData();
+    };
 
     return {
         view,

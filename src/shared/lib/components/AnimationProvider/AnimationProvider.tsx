@@ -1,9 +1,8 @@
 import {
     type ReactNode,
     createContext,
-    useContext,
+    use,
     useEffect,
-    useMemo,
     useRef,
     useState,
 } from 'react';
@@ -33,12 +32,12 @@ const getAsyncAnimationModules = async () => {
 
 export const useAnimationLibs = () => {
     // TODO добавить проверку что находимся внутри AnimationProvider с выбросом ошибки
-    return useContext(AnimationContext) as Required<AnimationContextPayload>;
+    return use(AnimationContext) as Required<AnimationContextPayload>;
 };
 
 export const AnimationProvider = ({ children }: { children: ReactNode }) => {
-    const SpringRef = useRef<SpringType | undefined>(undefined);
-    const GestureRef = useRef<GestureType | undefined>(undefined);
+    const SpringRef = useRef<SpringType>(undefined);
+    const GestureRef = useRef<GestureType>(undefined);
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
@@ -49,18 +48,11 @@ export const AnimationProvider = ({ children }: { children: ReactNode }) => {
         });
     }, []);
 
-    const value = useMemo(
-        () => ({
-            Gesture: GestureRef.current,
-            Spring: SpringRef.current,
-            isLoaded,
-        }),
-        [isLoaded],
-    );
+    const value = {
+        Gesture: GestureRef.current,
+        Spring: SpringRef.current,
+        isLoaded,
+    };
 
-    return (
-        <AnimationContext.Provider value={value}>
-            {children}
-        </AnimationContext.Provider>
-    );
+    return <AnimationContext value={value}>{children}</AnimationContext>;
 };

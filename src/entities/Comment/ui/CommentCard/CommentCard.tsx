@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Avatar as AvatarDeprecated } from '@/shared/ui/deprecated/Avatar';
 import { Text as TextDeprecated } from '@/shared/ui/deprecated/Text';
@@ -21,7 +20,7 @@ interface CommentCardProps {
     isLoading?: boolean;
 }
 
-export const CommentCard = memo((props: CommentCardProps) => {
+export const CommentCard = (props: CommentCardProps) => {
     const { className, comment, isLoading } = props;
 
     const Skeleton = toggleFeatures({
@@ -113,4 +112,4 @@ export const CommentCard = memo((props: CommentCardProps) => {
             }
         />
     );
-});
+};

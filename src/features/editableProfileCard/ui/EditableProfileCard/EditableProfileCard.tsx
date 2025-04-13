@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { memo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -32,7 +31,7 @@ const reducers: ReducersList = {
     profile: profileReducer,
 };
 
-export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
+export const EditableProfileCard = (props: EditableProfileCardProps) => {
     const { className, id } = props;
     const { t } = useTranslation('profile');
 
@@ -61,61 +60,37 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
         }
     });
 
-    const onChangeFirstname = useCallback(
-        (value?: string) => {
-            dispatch(profileActions.updateProfile({ first: value || '' }));
-        },
-        [dispatch],
-    );
+    const onChangeFirstname = (value?: string) => {
+        dispatch(profileActions.updateProfile({ first: value || '' }));
+    };
 
-    const onChangeLastname = useCallback(
-        (value?: string) => {
-            dispatch(profileActions.updateProfile({ lastname: value || '' }));
-        },
-        [dispatch],
-    );
+    const onChangeLastname = (value?: string) => {
+        dispatch(profileActions.updateProfile({ lastname: value || '' }));
+    };
 
-    const onChangeCity = useCallback(
-        (value?: string) => {
-            dispatch(profileActions.updateProfile({ city: value || '' }));
-        },
-        [dispatch],
-    );
+    const onChangeCity = (value?: string) => {
+        dispatch(profileActions.updateProfile({ city: value || '' }));
+    };
 
-    const onChangeAge = useCallback(
-        (value?: string) => {
-            dispatch(profileActions.updateProfile({ age: Number(value || 0) }));
-        },
-        [dispatch],
-    );
+    const onChangeAge = (value?: string) => {
+        dispatch(profileActions.updateProfile({ age: Number(value || 0) }));
+    };
 
-    const onChangeUsername = useCallback(
-        (value?: string) => {
-            dispatch(profileActions.updateProfile({ username: value || '' }));
-        },
-        [dispatch],
-    );
+    const onChangeUsername = (value?: string) => {
+        dispatch(profileActions.updateProfile({ username: value || '' }));
+    };
 
-    const onChangeAvatar = useCallback(
-        (value?: string) => {
-            dispatch(profileActions.updateProfile({ avatar: value || '' }));
-        },
-        [dispatch],
-    );
+    const onChangeAvatar = (value?: string) => {
+        dispatch(profileActions.updateProfile({ avatar: value || '' }));
+    };
 
-    const onChangeCurrency = useCallback(
-        (currency: Currency) => {
-            dispatch(profileActions.updateProfile({ currency }));
-        },
-        [dispatch],
-    );
+    const onChangeCurrency = (currency: Currency) => {
+        dispatch(profileActions.updateProfile({ currency }));
+    };
 
-    const onChangeCountry = useCallback(
-        (country: Country) => {
-            dispatch(profileActions.updateProfile({ country }));
-        },
-        [dispatch],
-    );
+    const onChangeCountry = (country: Country) => {
+        dispatch(profileActions.updateProfile({ country }));
+    };
 
     return (
         <DynamicModuleLoader reducers={reducers}>
@@ -147,4 +122,4 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
             </VStack>
         </DynamicModuleLoader>
     );
-});
+};

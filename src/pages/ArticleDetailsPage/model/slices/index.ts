@@ -5,6 +5,9 @@ import { ArticleDetailsPageSchema } from '../types';
 
 export const articleDetailsPageReducer =
     combineReducers<ArticleDetailsPageSchema>({
+        // TODO fixme
+        // @ts-ignore
         recommendations: articleDetailsPageRecommendationsReducer,
+        // @ts-ignore
         comments: articleDetailsCommentsReducer,
     });

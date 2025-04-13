@@ -1,4 +1,4 @@
-import { type HTMLAttributeAnchorTarget, memo } from 'react';
+import { type HTMLAttributeAnchorTarget } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Text, TextSize } from '@/shared/ui/deprecated/Text';
@@ -29,7 +29,7 @@ const getSkeletons = (view: ArticleView) =>
             />
         ));
 
-export const ArticleList = memo((props: ArticleListProps) => {
+export const ArticleList = (props: ArticleListProps) => {
     const {
         className,
         articles,
@@ -96,4 +96,4 @@ export const ArticleList = memo((props: ArticleListProps) => {
             }
         />
     );
-});
+};

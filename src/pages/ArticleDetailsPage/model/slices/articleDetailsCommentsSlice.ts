@@ -3,18 +3,17 @@ import {
     createSlice,
     PayloadAction,
 } from '@reduxjs/toolkit';
-import { StateSchema } from '@/app/providers/StoreProvider';
 import { Comment } from '@/entities/Comment';
 import { fetchCommentsByArticleId } from '../services/fetchCommentsByArticleId/fetchCommentsByArticleId';
 import { ArticleDetailsCommentsSchema } from '../types/ArticleDetailsCommentsSchema';
 
-const commentsAdapter = createEntityAdapter<Comment>({
+const commentsAdapter = createEntityAdapter({
     // указание поля объекта (идентификатора)
     // чтоб адаптер понимал, по какому полю будет идти нормализация
-    selectId: (comment) => comment.id,
+    selectId: (comment: Comment) => comment.id,
 });
 
-export const getArticleComments = commentsAdapter.getSelectors<StateSchema>(
+export const getArticleComments = commentsAdapter.getSelectors<RootState>(
     (state) =>
         state.articleDetailsPage?.comments || commentsAdapter.getInitialState(),
 );

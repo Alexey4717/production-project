@@ -1,4 +1,3 @@
-import { StateSchema } from '@/app/providers/StoreProvider';
 import { Country } from '@/entities/Country';
 import { Currency } from '@/entities/Currency';
 import { getProfileData } from './getProfileData';
@@ -15,19 +14,17 @@ const profileFormTestData = {
 
 describe('getProfileData.test', () => {
     test('should return error', () => {
-        const state: DeepPartial<StateSchema> = {
+        const state: DeepPartial<RootState> = {
             profile: {
                 data: profileFormTestData,
             },
         };
 
-        expect(getProfileData(state as StateSchema)).toEqual(
-            profileFormTestData,
-        );
+        expect(getProfileData(state as RootState)).toEqual(profileFormTestData);
     });
 
     test('should work with empty state', () => {
-        const state: DeepPartial<StateSchema> = {};
-        expect(getProfileData(state as StateSchema)).toEqual(undefined);
+        const state: DeepPartial<RootState> = {};
+        expect(getProfileData(state as RootState)).toEqual(undefined);
     });
 });

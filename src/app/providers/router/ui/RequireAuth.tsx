@@ -1,4 +1,4 @@
-import { type ReactNode, useMemo } from 'react';
+import { type ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import { getRouteForbidden, getRouteMain } from '@/shared/consts/router';
@@ -14,7 +14,7 @@ export const RequireAuth = ({ children, roles }: RequireAuthProps) => {
     const location = useLocation();
     const userRoles = useSelector(getUserRoles);
 
-    const hasRequiredRoles = useMemo(() => {
+    const hasRequiredRoles = () => {
         if (!roles) {
             return true;
         }
@@ -23,7 +23,7 @@ export const RequireAuth = ({ children, roles }: RequireAuthProps) => {
             const hasRole = userRoles?.includes(requiredRole);
             return Boolean(hasRole);
         });
-    }, [roles, userRoles]);
+    };
 
     if (!isAuth) {
         return (

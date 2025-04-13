@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { memo } from 'react';
 import { useParams } from 'react-router-dom';
 import { ArticleDetails } from '@/entities/Article';
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -91,4 +90,4 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
     );
 };
 
-export default memo(ArticleDetailsPage);
+export default ArticleDetailsPage;

@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { ArticleList } from '@/entities/Article';
@@ -15,7 +14,7 @@ interface ArticleInfiniteListProps {
     className?: string;
 }
 
-export const ArticleInfiniteList = memo((props: ArticleInfiniteListProps) => {
+export const ArticleInfiniteList = (props: ArticleInfiniteListProps) => {
     const { className } = props;
 
     const { t } = useTranslation('articles');
@@ -37,4 +36,4 @@ export const ArticleInfiniteList = memo((props: ArticleInfiniteListProps) => {
             className={classNames('', {}, [className])}
         />
     );
-});
+};

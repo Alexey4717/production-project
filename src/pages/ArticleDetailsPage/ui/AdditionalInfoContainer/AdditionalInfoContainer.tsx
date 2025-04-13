@@ -1,4 +1,3 @@
-import { memo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Card } from '@/shared/ui/redesigned/Card';
@@ -7,16 +6,16 @@ import { getArticleDetailsData } from '@/entities/Article';
 import cls from './AdditionalInfoContainer.module.scss';
 import { getRouteArticleEdit } from '@/shared/consts/router';
 
-export const AdditionalInfoContainer = memo(() => {
+export const AdditionalInfoContainer = () => {
     const article = useSelector(getArticleDetailsData);
 
     const navigate = useNavigate();
 
-    const onEditArticle = useCallback(() => {
+    const onEditArticle = () => {
         if (article) {
             navigate(getRouteArticleEdit(article.id));
         }
-    }, [article, navigate]);
+    };
 
     if (!article) {
         return null;
@@ -32,4 +31,4 @@ export const AdditionalInfoContainer = memo(() => {
             />
         </Card>
     );
-});
+};

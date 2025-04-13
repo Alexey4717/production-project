@@ -1,4 +1,4 @@
-import { memo, type ReactNode, useCallback } from 'react';
+import { type ReactNode } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Tabs.module.scss';
 import { Card, CardTheme } from '../Card/Card';
@@ -19,15 +19,12 @@ interface TabsProps<T extends string> {
  * Устарел, используем новые компоненты из папки redesigned
  * @deprecated
  */
-export const TabsComponent = <T extends string>(props: TabsProps<T>) => {
+export const Tabs = <T extends string>(props: TabsProps<T>) => {
     const { className, tabs, value, onTabClick } = props;
 
-    const clickHandle = useCallback(
-        (tab: TabItem<T>) => () => {
-            onTabClick(tab);
-        },
-        [onTabClick],
-    );
+    const clickHandle = (tab: TabItem<T>) => () => {
+        onTabClick(tab);
+    };
 
     return (
         <div className={classNames(cls.Tabs, {}, [className])}>
@@ -48,6 +45,3 @@ export const TabsComponent = <T extends string>(props: TabsProps<T>) => {
         </div>
     );
 };
-
-// из-за того, что теряются типы в memo
-export const Tabs = memo(TabsComponent) as typeof TabsComponent;

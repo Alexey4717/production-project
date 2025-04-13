@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { memo, useCallback } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import {
     Button as ButtonDeprecated,
@@ -36,7 +35,7 @@ const initialReducers: ReducersList = {
     loginForm: loginReducer,
 };
 
-const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
+const LoginForm = ({ className, onSuccess }: LoginFormProps) => {
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const username = useSelector(getLoginUsername);
@@ -45,27 +44,21 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
     const error = useSelector(getLoginError);
     const forceUpdate = useForceUpdate();
 
-    const onChangeUsername = useCallback(
-        (value: string) => {
-            dispatch(loginActions.setUsername(value));
-        },
-        [dispatch],
-    );
+    const onChangeUsername = (value: string) => {
+        dispatch(loginActions.setUsername(value));
+    };
 
-    const onChangePassword = useCallback(
-        (value: string) => {
-            dispatch(loginActions.setPassword(value));
-        },
-        [dispatch],
-    );
+    const onChangePassword = (value: string) => {
+        dispatch(loginActions.setPassword(value));
+    };
 
-    const onLoginClick = useCallback(async () => {
+    const onLoginClick = async () => {
         const result = await dispatch(loginByUsername({ username, password }));
         if (result.meta.requestStatus === 'fulfilled') {
             onSuccess();
             forceUpdate();
         }
-    }, [dispatch, username, password, onSuccess, forceUpdate]);
+    };
 
     return (
         <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
@@ -144,6 +137,6 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
             />
         </DynamicModuleLoader>
     );
-});
+};
 
 export default LoginForm;

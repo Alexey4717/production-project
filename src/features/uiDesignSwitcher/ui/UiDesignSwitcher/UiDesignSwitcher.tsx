@@ -1,5 +1,5 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useForceUpdate } from '@/shared/lib/render/forceUpdate';
 import { ListBox } from '@/shared/ui/redesigned/Popups';
@@ -14,7 +14,7 @@ interface UiDesignSwitcherProps {
     className?: string;
 }
 
-export const UiDesignSwitcher = memo((props: UiDesignSwitcherProps) => {
+export const UiDesignSwitcher = (props: UiDesignSwitcherProps) => {
     const { className } = props;
     const { t } = useTranslation();
     const isAppRedesigned = getFeatureFlag('isAppRedesigned');
@@ -71,4 +71,4 @@ export const UiDesignSwitcher = memo((props: UiDesignSwitcherProps) => {
             )}
         </HStack>
     );
-});
+};

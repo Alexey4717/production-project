@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { memo, useMemo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { Select, SelectOption } from '@/shared/ui/deprecated/Select';
+import { Select } from '@/shared/ui/deprecated/Select';
 import { SortOrder } from '@/shared/types/sort';
 import { ArticleSortField } from '@/entities/Article';
 import { ToggleFeatures } from '@/shared/lib/features';
@@ -18,41 +17,35 @@ interface ArticleSortSelectorProps {
     onChangeSort: (newSort: ArticleSortField) => void;
 }
 
-export const ArticleSortSelector = memo((props: ArticleSortSelectorProps) => {
+export const ArticleSortSelector = (props: ArticleSortSelectorProps) => {
     const { className, onChangeOrder, onChangeSort, order, sort } = props;
     const { t } = useTranslation();
 
-    const orderOptions = useMemo<SelectOption<SortOrder>[]>(
-        () => [
-            {
-                value: 'asc',
-                content: t('возрастанию'),
-            },
-            {
-                value: 'desc',
-                content: t('убыванию'),
-            },
-        ],
-        [t],
-    );
+    const orderOptions = [
+        {
+            value: 'asc',
+            content: t('возрастанию'),
+        },
+        {
+            value: 'desc',
+            content: t('убыванию'),
+        },
+    ];
 
-    const sortFieldOptions = useMemo<SelectOption<ArticleSortField>[]>(
-        () => [
-            {
-                value: ArticleSortField.CREATED,
-                content: t('дате создания'),
-            },
-            {
-                value: ArticleSortField.TITLE,
-                content: t('названию'),
-            },
-            {
-                value: ArticleSortField.VIEWS,
-                content: t('просмотрам'),
-            },
-        ],
-        [t],
-    );
+    const sortFieldOptions = [
+        {
+            value: ArticleSortField.CREATED,
+            content: t('дате создания'),
+        },
+        {
+            value: ArticleSortField.TITLE,
+            content: t('названию'),
+        },
+        {
+            value: ArticleSortField.VIEWS,
+            content: t('просмотрам'),
+        },
+    ];
 
     return (
         <ToggleFeatures
@@ -92,7 +85,9 @@ export const ArticleSortSelector = memo((props: ArticleSortSelectorProps) => {
                         value={sort}
                         onChange={onChangeSort}
                     />
-                    <Select
+                    <Select<SortOrder>
+                        // TODO fixme
+                        // @ts-ignore
                         options={orderOptions}
                         label={t('по')}
                         value={order}
@@ -103,4 +98,4 @@ export const ArticleSortSelector = memo((props: ArticleSortSelectorProps) => {
             }
         />
     );
-});
+};

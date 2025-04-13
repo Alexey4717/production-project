@@ -1,4 +1,3 @@
-import { StateSchema } from '@/app/providers/StoreProvider';
 import { ValidateProfileError } from '../../consts/editableProfileCardConsts';
 import { getProfileValidateErrors } from './getProfileValidateErrors';
 
@@ -8,21 +7,19 @@ describe('getProfileValidateErrors.test', () => {
             ValidateProfileError.NO_DATA,
             ValidateProfileError.INCORRECT_AGE,
         ];
-        const state: DeepPartial<StateSchema> = {
+        const state: DeepPartial<RootState> = {
             profile: {
                 validateErrors,
             },
         };
 
-        expect(getProfileValidateErrors(state as StateSchema)).toEqual(
+        expect(getProfileValidateErrors(state as RootState)).toEqual(
             validateErrors,
         );
     });
 
     test('should work with empty state', () => {
-        const state: DeepPartial<StateSchema> = {};
-        expect(getProfileValidateErrors(state as StateSchema)).toEqual(
-            undefined,
-        );
+        const state: DeepPartial<RootState> = {};
+        expect(getProfileValidateErrors(state as RootState)).toEqual(undefined);
     });
 });

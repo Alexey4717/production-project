@@ -1,4 +1,4 @@
-import { Fragment, memo, type ReactNode } from 'react';
+import { Fragment, type ReactNode } from 'react';
 import { Listbox as HListBox } from '@headlessui/react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { DropdownDirection } from '@/shared/types/ui';
@@ -29,7 +29,7 @@ interface ListBoxProps {
  * Устарел, используем новые компоненты из папки redesigned
  * @deprecated
  */
-export const ListBox = memo((props: ListBoxProps) => {
+export const ListBox = (props: ListBoxProps) => {
     const {
         className,
         items,
@@ -90,4 +90,4 @@ export const ListBox = memo((props: ListBoxProps) => {
             </HListBox>
         </HStack>
     );
-});
+};

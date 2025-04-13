@@ -1,3 +1,1 @@
-import { StateSchema } from '@/app/providers/StoreProvider';
-
-export const getCounter = (state: StateSchema) => state.counter;
+export const getCounter = (state: RootState) => state.counter;

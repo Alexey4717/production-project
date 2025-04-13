@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { memo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Input as InputDeprecated } from '@/shared/ui/deprecated/Input';
@@ -36,24 +35,21 @@ const reducers: ReducersList = {
     addCommentForm: addCommentFormReducer,
 };
 
-const AddCommentForm = memo((props: AddCommentFormProps) => {
+const AddCommentForm = (props: AddCommentFormProps) => {
     const { className, onSendComment } = props;
     const { t } = useTranslation();
     const text = useSelector(getAddCommentFormText);
     const error = useSelector(getAddCommentFormError);
     const dispatch = useAppDispatch();
 
-    const onCommentTextChange = useCallback(
-        (value: string) => {
-            dispatch(addCommentFormActions.setText(value));
-        },
-        [dispatch],
-    );
+    const onCommentTextChange = (value: string) => {
+        dispatch(addCommentFormActions.setText(value));
+    };
 
-    const onSendHandler = useCallback(() => {
+    const onSendHandler = () => {
         onSendComment(text || '');
         onCommentTextChange('');
-    }, [onCommentTextChange, onSendComment, text]);
+    };
 
     return (
         <DynamicModuleLoader reducers={reducers}>
@@ -116,6 +112,6 @@ const AddCommentForm = memo((props: AddCommentFormProps) => {
             />
         </DynamicModuleLoader>
     );
-});
+};
 
 export default AddCommentForm;

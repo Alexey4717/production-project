@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { memo, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
     DynamicModuleLoader,
@@ -114,7 +114,7 @@ export const ArticleDetailsSkeleton = () => {
     );
 };
 
-export const ArticleDetails = memo((props: ArticleDetailsProps) => {
+export const ArticleDetails = (props: ArticleDetailsProps) => {
     const { className, id } = props;
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
@@ -159,4 +159,4 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
             </VStack>
         </DynamicModuleLoader>
     );
-});
+};

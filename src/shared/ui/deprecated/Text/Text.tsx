@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { classNames, Mods } from '@/shared/lib/classNames/classNames';
 import cls from './Text.module.scss';
 
@@ -42,7 +41,7 @@ interface TextProps {
  * Устарел, используем новые компоненты из папки redesigned
  * @deprecated
  */
-export const Text = memo((props: TextProps) => {
+export const Text = (props: TextProps) => {
     const {
         className,
         title,
@@ -78,4 +77,4 @@ export const Text = memo((props: TextProps) => {
             )}
         </div>
     );
-});
+};

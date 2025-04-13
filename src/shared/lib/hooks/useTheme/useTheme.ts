@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { use } from 'react';
 import { ThemeContext } from '../../context/ThemeContext';
 import { Theme } from '../../../consts/theme';
 
@@ -8,7 +8,7 @@ interface UseThemeResult {
 }
 
 export function useTheme(): UseThemeResult {
-    const { theme, setTheme } = useContext(ThemeContext);
+    const { theme, setTheme } = use(ThemeContext);
 
     const toggleTheme = (saveAction?: (theme: Theme) => void) => {
         let newTheme: Theme;

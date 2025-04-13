@@ -19,8 +19,6 @@ if (!container) {
 const root = createRoot(container);
 
 root.render(
-    // TODO remove
-    // @ts-ignore
     <BrowserRouter>
         <StoreProvider>
             {/* @ts-ignore */}

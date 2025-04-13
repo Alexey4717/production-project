@@ -1,10 +1,9 @@
-import { memo } from 'react';
 import { Skeleton } from '@/shared/ui/redesigned/Skeleton';
 import { HStack, VStack } from '@/shared/ui/redesigned/Stack';
 import { MainLayout } from '../MainLayout';
 import cls from './AppLoaderLayout.module.scss';
 
-export const AppLoaderLayout = memo(() => {
+export const AppLoaderLayout = () => {
     return (
         <MainLayout
             header={
@@ -25,4 +24,4 @@ export const AppLoaderLayout = memo(() => {
             sidebar={<Skeleton border="32px" width={220} height="100%" />}
         />
     );
-});
+};

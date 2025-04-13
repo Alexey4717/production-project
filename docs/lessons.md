@@ -434,7 +434,7 @@ config.plugins.push(new DefinePlugin({ __IS_DEV__: true }));
 Так же на asyncThunk loginByUsername. Там нужно мокать запросы (jest.mock('axios') и потом использовать модуль axios).
 jest для замоканных модулей добавляет функции (например axios.post.mockReturnValue()), которые позволяют замокать какое-то
 возвращаемое значение. Но TS по-умолчанию эти типы не подхватывает, поэтому можно воспользоваться конструкцией:
-const mockedAxios = jest.mocked(axios, true).
+const mockedAxios = jest.mocked(axios, { shallow: false }).
 1 аргумент это модуль, который хотим замокать. 
 2 (true) - это флаг с глубоким моком (т.е. мокаем не только сам модуль, но и внутренние поля).
 asyncThunk это actionCreator, который по итогу вызова возвращает action.

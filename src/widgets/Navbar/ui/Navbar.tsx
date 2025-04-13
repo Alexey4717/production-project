@@ -1,5 +1,5 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import React, { memo, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import {
@@ -22,18 +22,18 @@ interface NavbarProps {
     className?: string;
 }
 
-export const Navbar = memo(({ className }: NavbarProps) => {
+export const Navbar = ({ className }: NavbarProps) => {
     const { t } = useTranslation();
     const [isAuthModal, setIsAuthModal] = useState(false);
     const authData = useSelector(getUserAuthData);
 
-    const onCloseModal = useCallback(() => {
+    const onCloseModal = () => {
         setIsAuthModal(false);
-    }, []);
+    };
 
-    const onShowModal = useCallback(() => {
+    const onShowModal = () => {
         setIsAuthModal(true);
-    }, []);
+    };
 
     const mainClass = toggleFeatures({
         name: 'isAppRedesigned',
@@ -106,4 +106,4 @@ export const Navbar = memo(({ className }: NavbarProps) => {
             )}
         </header>
     );
-});
+};

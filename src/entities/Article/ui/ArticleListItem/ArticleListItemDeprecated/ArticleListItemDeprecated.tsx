@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from '../ArticleListItem.module.scss';
@@ -20,7 +19,7 @@ import { getRouteArticleDetails } from '@/shared/consts/router';
 import { Button, ButtonTheme } from '@/shared/ui/deprecated/Button';
 import { ArticleListItemProps } from '../ArticleListItem';
 
-export const ArticleListItemDeprecated = memo((props: ArticleListItemProps) => {
+export const ArticleListItemDeprecated = (props: ArticleListItemProps) => {
     const { className, article, view, target } = props;
     const { t } = useTranslation();
 
@@ -112,4 +111,4 @@ export const ArticleListItemDeprecated = memo((props: ArticleListItemProps) => {
             </Card>
         </AppLink>
     );
-});
+};

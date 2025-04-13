@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import ListIconDeprecated from '@/shared/assets/icons/list-24-24.svg';
 import TiledIconDeprecated from '@/shared/assets/icons/tiled-24-24.svg';
@@ -41,7 +40,7 @@ const viewTypes = [
     },
 ];
 
-export const ArticleViewSelector = memo((props: ArticleViewSelectorProps) => {
+export const ArticleViewSelector = (props: ArticleViewSelectorProps) => {
     const { className, view, onViewClick } = props;
 
     const onClick = (newView: ArticleView) => () => {
@@ -101,4 +100,4 @@ export const ArticleViewSelector = memo((props: ArticleViewSelectorProps) => {
             }
         />
     );
-});
+};

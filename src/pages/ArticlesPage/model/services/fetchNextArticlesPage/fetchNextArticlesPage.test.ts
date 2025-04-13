@@ -39,5 +39,24 @@ describe('fetchNextArticlesPage.test', () => {
         expect(thunk.dispatch).toBeCalledTimes(2);
         expect(fetchArticlesList).not.toHaveBeenCalled();
     });
+
     // TODO написать 3 тестовый сценарий когда isLoading === true, убедиться что данные не подгружаются
+    // TODO проверить
+    test('fetchArticleList not called if isLoading === true', async () => {
+        const thunk = new TestAsyncThunk(fetchNextArticlesPage, {
+            articlesPage: {
+                page: 2,
+                ids: [],
+                entities: {},
+                limit: 5,
+                isLoading: true,
+                hasMore: true,
+            },
+        });
+
+        await thunk.callThunk();
+
+        expect(thunk.dispatch).toBeCalledTimes(2);
+        expect(fetchArticlesList).not.toHaveBeenCalled();
+    });
 });

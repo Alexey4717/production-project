@@ -16,6 +16,8 @@ const initialProfileTestData = {
 
 describe('updateProfileData.test', () => {
     test('success', async () => {
+        // TODO fixme
+        // @ts-ignore
         const thunk = new TestAsyncThunk(updateProfileData, {
             profile: {
                 form: { ...initialProfileTestData, first: 'Andrew' },
@@ -34,6 +36,8 @@ describe('updateProfileData.test', () => {
     });
 
     test('error', async () => {
+        // TODO fixme
+        // @ts-ignore
         const thunk = new TestAsyncThunk(updateProfileData, {
             profile: {
                 form: initialProfileTestData,
@@ -48,6 +52,8 @@ describe('updateProfileData.test', () => {
     });
 
     test('validate error', async () => {
+        // TODO fixme
+        // @ts-ignore
         const thunk = new TestAsyncThunk(updateProfileData, {
             profile: {
                 form: { ...initialProfileTestData, lastname: '' },

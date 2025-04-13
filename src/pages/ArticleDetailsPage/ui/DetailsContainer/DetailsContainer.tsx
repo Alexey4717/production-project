@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { useParams } from 'react-router-dom';
 import { ArticleDetails } from '@/entities/Article';
 import { Card } from '@/shared/ui/redesigned/Card';
@@ -7,7 +6,7 @@ interface DetailsContainterProps {
     className?: string;
 }
 
-export const DetailsContainer = memo((props: DetailsContainterProps) => {
+export const DetailsContainer = (props: DetailsContainterProps) => {
     const { className } = props;
     const { id } = useParams<{ id: string }>();
 
@@ -16,4 +15,4 @@ export const DetailsContainer = memo((props: DetailsContainterProps) => {
             <ArticleDetails id={id} />
         </Card>
     );
-});
+};

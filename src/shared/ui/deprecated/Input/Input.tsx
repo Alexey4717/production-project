@@ -1,11 +1,4 @@
-import {
-    memo,
-    useRef,
-    useState,
-    useEffect,
-    type InputHTMLAttributes,
-    type ChangeEvent,
-} from 'react';
+import { useRef, useState, useEffect, type InputHTMLAttributes, type ChangeEvent } from 'react';
 import { classNames, type Mods } from '@/shared/lib/classNames/classNames';
 import cls from './Input.module.scss';
 
@@ -26,7 +19,7 @@ interface InputProps extends HTMLInputProps {
  * Устарел, используем новые компоненты из папки redesigned
  * @deprecated
  */
-export const Input = memo((props: InputProps) => {
+export const Input = (props: InputProps) => {
     const {
         className,
         value,
@@ -104,4 +97,4 @@ export const Input = memo((props: InputProps) => {
             </div>
         </div>
     );
-});
+};

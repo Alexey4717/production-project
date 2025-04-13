@@ -1,6 +1,6 @@
 import { type ComponentType } from 'react';
 import type { ReducersMapObject } from '@reduxjs/toolkit';
-import { StateSchema, StoreProvider } from '@/app/providers/StoreProvider';
+import { StoreProvider } from '@/app/providers/StoreProvider';
 import { profileReducer } from '@/features/editableProfileCard/testing';
 import { articleDetailsPageReducer } from '@/pages/ArticleDetailsPage/testing';
 import { addCommentFormReducer } from '@/features/addCommentForm/testing';
@@ -18,7 +18,7 @@ const defaultAsyncReducers: ReducersList = {
 };
 
 export const StoreDecorator =
-    (state: DeepPartial<StateSchema>, asyncReducers?: ReducersList) =>
+    (state: DeepPartial<RootState>, asyncReducers?: ReducersList) =>
     (StoryComponent: ComponentType) => (
         <StoreProvider
             initialState={state}
@@ -26,7 +26,7 @@ export const StoreDecorator =
                 {
                     ...defaultAsyncReducers,
                     ...(asyncReducers ?? {}),
-                } as ReducersMapObject<StateSchema>
+                } as ReducersMapObject<RootState>
             }
         >
             <StoryComponent />

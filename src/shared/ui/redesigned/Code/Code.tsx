@@ -1,4 +1,3 @@
-import { memo, useCallback } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import CopyIcon from '@/shared/assets/icons/copy-20-20.svg';
 import CopyIconNew from '@/shared/assets/icons/copy.svg';
@@ -12,12 +11,12 @@ interface CodeProps {
     text: string;
 }
 
-export const Code = memo((props: CodeProps) => {
+export const Code = (props: CodeProps) => {
     const { className, text } = props;
 
-    const onCopy = useCallback(() => {
+    const onCopy = () => {
         navigator.clipboard.writeText(text);
-    }, [text]);
+    };
 
     return (
         <ToggleFeatures
@@ -49,4 +48,4 @@ export const Code = memo((props: CodeProps) => {
             }
         />
     );
-});
+};

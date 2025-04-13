@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/shared/ui/deprecated/Button';
 import { useCounterValue } from '../model/selectors/getCounterValue/getCounterValue';
@@ -13,13 +12,13 @@ export const Counter = () => {
     // Обертка в функцию нужна, т.к. если передать в кнопку в чистом виде как increment
     // То будет ворнинг в консоли передача несериализуемого значения (из-за event)
     // Если в аргументах ничего не передается, то можно юзать в чистом виде
-    const handleIncrement = useCallback(() => {
+    const handleIncrement = () => {
         increment();
-    }, [increment]);
+    };
 
-    const handleDecrement = useCallback(() => {
+    const handleDecrement = () => {
         decrement();
-    }, [decrement]);
+    };
 
     return (
         <div>

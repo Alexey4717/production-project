@@ -1,4 +1,4 @@
-import { Fragment, type ReactNode, useMemo } from 'react';
+import { Fragment, type ReactNode } from 'react';
 import { Listbox as HListBox } from '@headlessui/react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { DropdownDirection } from '@/shared/types/ui';
@@ -41,9 +41,7 @@ export function ListBox<T extends string>(props: ListBoxProps<T>) {
 
     const optionsClasses = [mapDirectionClass[direction], popupCls.menu];
 
-    const selectedItem = useMemo(() => {
-        return items?.find((item) => item.value === value);
-    }, [items, value]);
+    const selectedItem = items?.find((item) => item.value === value);
 
     return (
         <HStack gap="4">

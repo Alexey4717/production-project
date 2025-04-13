@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { memo, useCallback } from 'react';
 import { ListBox as ListBoxDeprecated } from '@/shared/ui/deprecated/Popups';
 import { Currency } from '../../model/types/currency';
 import { ToggleFeatures } from '@/shared/lib/features';
@@ -18,34 +17,29 @@ const options = [
     { value: Currency.USD, content: Currency.USD },
 ];
 
-export const CurrencySelect = memo(
-    ({ className, value, onChange, readonly }: CurrencySelectProps) => {
-        const { t } = useTranslation();
+export const CurrencySelect = ({ className, value, onChange, readonly }: CurrencySelectProps) => {
+    const { t } = useTranslation();
 
-        const onChangeHandler = useCallback(
-            (value: string) => {
-                onChange?.(value as Currency);
-            },
-            [onChange],
-        );
+    const onChangeHandler = (value: string) => {
+        onChange?.(value as Currency);
+    };
 
-        const props = {
-            className,
-            value,
-            defaultValue: t('Укажите валюту'),
-            label: t('Укажите валюту'),
-            items: options,
-            onChange: onChangeHandler,
-            readonly,
-            direction: 'top right' as const,
-        };
+    const props = {
+        className,
+        value,
+        defaultValue: t('Укажите валюту'),
+        label: t('Укажите валюту'),
+        items: options,
+        onChange: onChangeHandler,
+        readonly,
+        direction: 'top right' as const,
+    };
 
-        return (
-            <ToggleFeatures
-                feature="isAppRedesigned"
-                on={<ListBox {...props} />}
-                off={<ListBoxDeprecated {...props} />}
-            />
-        );
-    },
-);
+    return (
+        <ToggleFeatures
+            feature="isAppRedesigned"
+            on={<ListBox {...props} />}
+            off={<ListBoxDeprecated {...props} />}
+        />
+    );
+};

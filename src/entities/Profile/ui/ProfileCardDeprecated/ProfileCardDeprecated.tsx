@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames, Mods } from '@/shared/lib/classNames/classNames';
 import cls from './ProfileCardDeprecated.module.scss';
@@ -46,7 +45,7 @@ export const ProfileCardDeprecatedLoader = () => {
     );
 };
 
-export const ProfileCardDeprecated = memo((props: ProfileCardProps) => {
+export const ProfileCardDeprecated = (props: ProfileCardProps) => {
     const {
         className,
         data,
@@ -135,4 +134,4 @@ export const ProfileCardDeprecated = memo((props: ProfileCardProps) => {
             />
         </VStack>
     );
-});
+};

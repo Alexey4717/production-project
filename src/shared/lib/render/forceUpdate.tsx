@@ -1,10 +1,4 @@
-import {
-    createContext,
-    type ReactNode,
-    useContext,
-    useMemo,
-    useState,
-} from 'react';
+import { createContext, type ReactNode, use, useState } from 'react';
 
 const ForceUpdateContext = createContext({
     value: true,
@@ -12,7 +6,7 @@ const ForceUpdateContext = createContext({
 });
 
 export const useForceUpdate = () => {
-    const { forceUpdate } = useContext(ForceUpdateContext);
+    const { forceUpdate } = use(ForceUpdateContext);
 
     return forceUpdate;
 };
@@ -27,17 +21,13 @@ export function ForceUpdateProvider({ children }: { children: ReactNode }) {
         }, 120);
     };
 
-    const valueContext = useMemo(() => {
-        return { value, forceUpdate };
-    }, [value]);
+    const valueContext = { value, forceUpdate };
 
     if (!value) {
         return null;
     }
 
     return (
-        <ForceUpdateContext.Provider value={valueContext}>
-            {children}
-        </ForceUpdateContext.Provider>
+        <ForceUpdateContext value={valueContext}>{children}</ForceUpdateContext>
     );
 }
