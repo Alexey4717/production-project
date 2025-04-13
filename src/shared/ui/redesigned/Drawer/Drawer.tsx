@@ -94,6 +94,8 @@ export const DrawerContent = memo((props: DrawerProps) => {
                 ])}
             >
                 <Overlay onClick={close} />
+                {/* TODO fixme */}
+                {/* @ts-ignore */}
                 <Spring.a.div
                     className={cls.sheet}
                     style={{

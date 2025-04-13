@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import { ArticleListItem } from './ArticleListItem';
 import { Article } from '../../model/types/article';
 import { ArticleView } from '../../model/consts/articleConsts';
@@ -10,9 +10,9 @@ export default {
     argTypes: {
         backgroundColor: { control: 'color' },
     },
-} as ComponentMeta<typeof ArticleListItem>;
+} as Meta<typeof ArticleListItem>;
 
-const Template: ComponentStory<typeof ArticleListItem> = (args) => (
+const Template: StoryFn<typeof ArticleListItem> = (args) => (
     <ArticleListItem {...args} />
 );
 

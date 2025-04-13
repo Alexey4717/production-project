@@ -1,5 +1,5 @@
+import { type ComponentType } from 'react';
 import type { ReducersMapObject } from '@reduxjs/toolkit';
-import { Story } from '@storybook/react';
 import { StateSchema, StoreProvider } from '@/app/providers/StoreProvider';
 import { profileReducer } from '@/features/editableProfileCard/testing';
 import { articleDetailsPageReducer } from '@/pages/ArticleDetailsPage/testing';
@@ -19,17 +19,16 @@ const defaultAsyncReducers: ReducersList = {
 
 export const StoreDecorator =
     (state: DeepPartial<StateSchema>, asyncReducers?: ReducersList) =>
-    (StoryComponent: Story) =>
-        (
-            <StoreProvider
-                initialState={state}
-                asyncReducers={
-                    {
-                        ...defaultAsyncReducers,
-                        ...(asyncReducers ?? {}),
-                    } as ReducersMapObject<StateSchema>
-                }
-            >
-                <StoryComponent />
-            </StoreProvider>
-        );
+    (StoryComponent: ComponentType) => (
+        <StoreProvider
+            initialState={state}
+            asyncReducers={
+                {
+                    ...defaultAsyncReducers,
+                    ...(asyncReducers ?? {}),
+                } as ReducersMapObject<StateSchema>
+            }
+        >
+            <StoryComponent />
+        </StoreProvider>
+    );

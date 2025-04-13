@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import { Avatar } from './Avatar';
 import AvatarImg from '../../../assets/tests/storybook.jpg';
 
@@ -9,9 +9,9 @@ export default {
     argTypes: {
         backgroundColor: { control: 'color' },
     },
-} as ComponentMeta<typeof Avatar>;
+} as Meta<typeof Avatar>; // Используем Meta вместо ComponentMeta
 
-const Template: ComponentStory<typeof Avatar> = (args) => <Avatar {...args} />;
+const Template: StoryFn<typeof Avatar> = (args) => <Avatar {...args} />; // Используем StoryFn вместо Story
 
 export const Primary = Template.bind({});
 Primary.args = {

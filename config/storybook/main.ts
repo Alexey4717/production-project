@@ -4,6 +4,7 @@ import { buildCssLoader } from '../build/loaders/buildCssLoader';
 
 export default {
     stories: ['../../src/**/*.stories.@(js|jsx|ts|tsx)'],
+
     addons: [
         '@storybook/addon-links',
         {
@@ -16,11 +17,14 @@ export default {
         'storybook-addon-mock',
         'storybook-addon-themes',
     ],
-    framework: '@storybook/react',
-    core: {
-        builder: 'webpack5',
+
+    framework: {
+        name: '@storybook/react-webpack5',
+        options: {},
     },
+
     staticDirs: ['../../public'],
+
     webpackFinal: async (config: Configuration) => {
         const paths = {
             build: '',

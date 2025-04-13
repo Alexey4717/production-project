@@ -15,6 +15,6 @@
 Так же будет отправляться put запрос (т.к. на обновление данных). В json-server/db.json они тоже изменятся.
 
 Посмотреть как работает пагинация можно посмотреть в доке json-server#paginate (2 квери-параметра: номер страницы и лимит сущностей на 1 стр).
-В ArticlePageSchema добавили поля page, limit, hasMore. 
+В ArticlePageSchema добавили поля page, limit, hasMore.
 
 Судя по документации json server можно отправлять фильтры по вложенных полям типа ?author.name=aleksei

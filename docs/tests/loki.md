@@ -1,4 +1,5 @@
 ## Screenshot testing (loki)
+
 Есть платные и бесплатные библиотеки. Тут используется Loki.
 Инициализация - Сначала установка пакета loki в devDep, потом npx loki init --config <путь до конфига storybook>
 В package.json добавится конфигурация loki

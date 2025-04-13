@@ -1,4 +1,3 @@
-import { addDecorator } from '@storybook/react';
 import { Theme } from '../../src';
 import { FeaturesFlagsDecorator } from '../../src/shared/config/storybook/FeaturesFlagsDecorator/FeaturesFlagsDecorator';
 import { StyleDecorator } from '../../src/shared/config/storybook/StyleDecorator/StyleDecorator';
@@ -7,7 +6,7 @@ import { ThemeDecorator } from '../../src/shared/config/storybook/ThemeDecorator
 import { RouterDecorator } from '../../src/shared/config/storybook/RouterDecorator/RouterDecorator';
 
 export const parameters = {
-    actions: { argTypesRegex: '^on[A-Z].*' },
+    actions: { argTypesRegex: '^on[A-Z].*' }, // TODO проверить, нужно мокать явно используя import { fn } from '@storybook/test'
     controls: {
         matchers: {
             color: /(background|color)$/i,
@@ -23,10 +22,11 @@ export const parameters = {
             { name: 'orange', class: Theme.ORANGE, color: '#ffb005' },
         ],
     },
+    decorators: [
+        StyleDecorator,
+        ThemeDecorator(Theme.LIGHT),
+        RouterDecorator,
+        SuspenseDecorator,
+        FeaturesFlagsDecorator({}),
+    ],
 };
-
-addDecorator(StyleDecorator);
-addDecorator(ThemeDecorator(Theme.LIGHT));
-addDecorator(RouterDecorator);
-addDecorator(SuspenseDecorator);
-addDecorator(FeaturesFlagsDecorator({}));

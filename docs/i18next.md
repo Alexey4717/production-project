@@ -6,7 +6,7 @@
 В классовом компоненте нужно использовать HOK withTranslation from react-i18next
 
 Для тестов:
-В shared/config/i18n дабавили i18nForTests.ts (скопировали из https://react.i18next.com/misc/testing#example-configuration-for-testing  и немного изменили)
+В shared/config/i18n дабавили i18nForTests.ts (скопировали из https://react.i18next.com/misc/testing#example-configuration-for-testing и немного изменили)
 создали в shared/lib/test/renderWithTranslation helper
 Эта функция оборачивает тестируемый компонент в обертку и добавляет нужную конфигурация для переводов.
 
@@ -24,6 +24,7 @@
 После этого, если сделать снова сборку прод, то в build появятся папки с json файлами переводов.
 
 ## Плюральные формы.
+
 Можно загуглить i18n plural.
 Плюральные формы - это когда в зависимости от числа, которое мы передаём, отображается разный текст.
 Например, 1 просмотр, 2 просмотра, 5 просмотров.
