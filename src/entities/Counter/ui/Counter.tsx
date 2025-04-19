@@ -1,12 +1,18 @@
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/shared/ui/deprecated/Button';
-import { useCounterValue } from '../model/selectors/getCounterValue/getCounterValue';
+import {
+    useCounterValue,
+    useCounterValue2,
+    useCounterValue3,
+} from '../model/selectors/getCounterValue/getCounterValue';
 import { useCounterActions } from '../model/slice/counterSlice';
 
 export const Counter = () => {
     const { t } = useTranslation();
 
     const counterValue = useCounterValue();
+    const counterValue2 = useCounterValue2();
+    const counterValue3 = useCounterValue3();
     const { increment, decrement } = useCounterActions();
 
     // Обертка в функцию нужна, т.к. если передать в кнопку в чистом виде как increment
@@ -23,6 +29,8 @@ export const Counter = () => {
     return (
         <div>
             <h1 data-testid="value-title">{counterValue}</h1>
+            <h1 data-testid="value-title">{counterValue2}</h1>
+            <h1 data-testid="value-title">{counterValue3}</h1>
             <Button onClick={handleIncrement} data-testid="increment-btn">
                 {t('increment')}
             </Button>
