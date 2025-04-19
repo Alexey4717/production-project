@@ -18,11 +18,5 @@ export const StoreProvider = (props: StoreProviderProps) => {
         asyncReducers as ReducersMapObject<StateSchema>,
     );
 
-    return (
-        <Provider store={store}>
-            {/* судя по всему несовместимости версий */}
-            {/* @ts-ignore */}
-            {children}
-        </Provider>
-    );
+    return <Provider store={store}>{children}</Provider>;
 };

@@ -33,7 +33,7 @@ export const ArticleTextBlockComponent = (
                     }
                 />
             )}
-            {block.paragraphs.map((paragraph, index) => (
+            {block.paragraphs.map((paragraph) => (
                 <ToggleFeatures
                     key={paragraph}
                     feature="isAppRedesigned"

@@ -11,7 +11,7 @@ import popupCls from '../../styles/popup.module.scss';
 import { Icon } from '../../../Icon';
 
 export interface ListBoxItem<T extends string> {
-    value: string;
+    value: T;
     content: ReactNode;
     disabled?: boolean;
 }

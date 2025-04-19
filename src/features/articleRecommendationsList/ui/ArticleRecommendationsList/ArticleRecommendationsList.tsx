@@ -11,7 +11,9 @@ interface ArticleRecommendationsListProps {
     className?: string;
 }
 
-export const ArticleRecommendationsList = (props: ArticleRecommendationsListProps) => {
+export const ArticleRecommendationsList = (
+    props: ArticleRecommendationsListProps,
+) => {
     const { className } = props;
     const { t } = useTranslation();
     const {

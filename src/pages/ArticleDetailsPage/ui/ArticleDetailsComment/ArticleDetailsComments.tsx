@@ -51,10 +51,7 @@ export const ArticleDetailsComments = (props: ArticleDetailsCommentsProps) => {
             <Suspense fallback={<Loader />}>
                 <AddCommentForm onSendComment={onSendComment} />
             </Suspense>
-            <CommentList
-                isLoading={commentsIsLoading}
-                comments={comments}
-            />
+            <CommentList isLoading={commentsIsLoading} comments={comments} />
         </VStack>
     );
 };

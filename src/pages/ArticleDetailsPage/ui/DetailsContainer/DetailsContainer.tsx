@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { ArticleDetails } from '@/entities/Article';
 import { Card } from '@/shared/ui/redesigned/Card';
 

@@ -89,3 +89,8 @@ import { loginReducer } from '@/features/AuthByUsername/testing'
 Globs - паттерны для работы с путями.
 Поле fixable: 'code', чтобы автоматически он исправлялся
 
+UPD:
+перешел на 9 версию eslint, заменил на flat config eslint.config.js
+При настройке для проверки можно логировать, запускать команду npx eslint . --debug
+если какие-то настройки undefined будет падать ошибка и линтер не будет работать.
+Так же пока нет плагина airbnb, выпилил его (но вообще можно делать compat и extend старые плагины).

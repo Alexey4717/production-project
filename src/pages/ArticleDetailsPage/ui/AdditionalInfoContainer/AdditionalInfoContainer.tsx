@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Card } from '@/shared/ui/redesigned/Card';
 import { ArticleAdditionalInfo } from '@/widgets/ArticleAdditionalInfo';
 import { getArticleDetailsData } from '@/entities/Article';

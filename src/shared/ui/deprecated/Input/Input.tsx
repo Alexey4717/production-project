@@ -1,4 +1,11 @@
-import { useRef, useState, useEffect, type InputHTMLAttributes, type ChangeEvent } from 'react';
+import {
+    useRef,
+    useState,
+    useEffect,
+    type InputHTMLAttributes,
+    type ChangeEvent,
+    SyntheticEvent,
+} from 'react';
 import { classNames, type Mods } from '@/shared/lib/classNames/classNames';
 import cls from './Input.module.scss';
 
@@ -61,7 +68,9 @@ export const Input = (props: InputProps) => {
     };
 
     // Для перемещения каретки в произвольную область внутри текста
-    const onSelect = (e: any) => {
+    const onSelect = (e: SyntheticEvent<any>) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         setCarriagePosition(e?.target?.selectionStart || 0);
     };
 

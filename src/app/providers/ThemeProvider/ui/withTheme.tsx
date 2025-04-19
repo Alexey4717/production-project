@@ -7,7 +7,6 @@ export const withTheme = (Component: React.ComponentType) => {
         const { theme: defaultTheme } = useJsonSettings();
         return (
             <ThemeProvider initialTheme={defaultTheme}>
-                {/* @ts-ignore */}
                 <Component />
             </ThemeProvider>
         );

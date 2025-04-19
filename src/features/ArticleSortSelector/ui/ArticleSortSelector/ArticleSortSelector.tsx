@@ -66,6 +66,9 @@ export const ArticleSortSelector = (props: ArticleSortSelectorProps) => {
                             onChange={onChangeSort}
                         />
                         <ListBox
+                            // TODO fixme
+                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                            // @ts-ignore
                             items={orderOptions}
                             value={order}
                             onChange={onChangeOrder}
@@ -87,6 +90,7 @@ export const ArticleSortSelector = (props: ArticleSortSelectorProps) => {
                     />
                     <Select<SortOrder>
                         // TODO fixme
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                         // @ts-ignore
                         options={orderOptions}
                         label={t('по')}

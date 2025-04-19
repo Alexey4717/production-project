@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 import { useSelector } from 'react-redux';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router';
 import { getRouteForbidden, getRouteMain } from '@/shared/consts/router';
 import { getUserAuthData, getUserRoles, UserRole } from '@/entities/User';
 

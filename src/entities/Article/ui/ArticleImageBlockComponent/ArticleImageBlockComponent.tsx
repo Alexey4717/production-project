@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Text as TextDeprecated, TextAlign } from '@/shared/ui/deprecated/Text';
 import { Text } from '@/shared/ui/redesigned/Text';
@@ -11,9 +10,10 @@ interface ArticleImageBlockComponentProps {
     block: ArticleImageBlock;
 }
 
-export const ArticleImageBlockComponent = (props: ArticleImageBlockComponentProps) => {
+export const ArticleImageBlockComponent = (
+    props: ArticleImageBlockComponentProps,
+) => {
     const { className, block } = props;
-    const { t } = useTranslation();
 
     return (
         <div

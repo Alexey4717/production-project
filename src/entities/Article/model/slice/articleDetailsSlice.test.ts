@@ -88,6 +88,7 @@ describe('articleDetailsSlice.test', () => {
             articleDetailsReducer(
                 state as ArticleDetailsSchema,
                 // TODO fixme
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 fetchArticleById.pending('requestId'), // по-сути это экшен
             ),

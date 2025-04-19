@@ -17,6 +17,7 @@ const initialProfileTestData = {
 describe('updateProfileData.test', () => {
     test('success', async () => {
         // TODO fixme
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         const thunk = new TestAsyncThunk(updateProfileData, {
             profile: {
@@ -37,6 +38,7 @@ describe('updateProfileData.test', () => {
 
     test('error', async () => {
         // TODO fixme
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         const thunk = new TestAsyncThunk(updateProfileData, {
             profile: {
@@ -53,6 +55,7 @@ describe('updateProfileData.test', () => {
 
     test('validate error', async () => {
         // TODO fixme
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         const thunk = new TestAsyncThunk(updateProfileData, {
             profile: {

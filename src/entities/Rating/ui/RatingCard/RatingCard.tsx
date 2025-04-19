@@ -113,7 +113,6 @@ export const RatingCard = (props: RatingCardProps) => {
                     onSelect={onSelectStars}
                 />
             </VStack>
-            {/* @ts-ignore */}
             <BrowserView>
                 <Modal isOpen={isModalOpen} lazy>
                     <VStack max gap="32">
@@ -157,7 +156,6 @@ export const RatingCard = (props: RatingCardProps) => {
                     </VStack>
                 </Modal>
             </BrowserView>
-            {/* @ts-ignore */}
             <MobileView>
                 <Drawer isOpen={isModalOpen} lazy onClose={cancelHandle}>
                     <VStack gap="32">

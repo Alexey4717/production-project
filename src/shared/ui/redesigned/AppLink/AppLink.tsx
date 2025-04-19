@@ -1,5 +1,5 @@
 import { type ReactNode, type RefObject } from 'react';
-import { LinkProps, NavLink } from 'react-router-dom';
+import { LinkProps, NavLink } from 'react-router';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './AppLink.module.scss';
 

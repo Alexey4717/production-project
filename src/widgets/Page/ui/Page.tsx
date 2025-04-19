@@ -5,7 +5,7 @@ import {
     useRef,
 } from 'react';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { toggleFeatures } from '@/shared/lib/features';
 import { getUIScrollByPath, uiActions } from '@/features/UI';
 import { TestProps } from '@/shared/types/tests';

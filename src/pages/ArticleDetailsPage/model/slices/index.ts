@@ -6,8 +6,10 @@ import { ArticleDetailsPageSchema } from '../types';
 export const articleDetailsPageReducer =
     combineReducers<ArticleDetailsPageSchema>({
         // TODO fixme
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         recommendations: articleDetailsPageRecommendationsReducer,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         comments: articleDetailsCommentsReducer,
     });

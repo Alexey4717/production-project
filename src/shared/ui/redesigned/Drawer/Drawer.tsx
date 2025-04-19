@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect } from 'react';
+import { type ReactNode, useCallback, useEffect } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import {
     AnimationProvider,
@@ -24,11 +24,11 @@ export const DrawerContent = (props: DrawerProps) => {
     const { Spring, Gesture } = useAnimationLibs();
     const [{ y }, api] = Spring.useSpring(() => ({ y: height }));
     const { theme } = useTheme();
-    const { className, children, onClose, isOpen, lazy } = props;
+    const { className, children, onClose, isOpen } = props;
 
-    const openDrawer = () => {
+    const openDrawer = useCallback(() => {
         api.start({ y: 0, immediate: false });
-    };
+    }, [api]);
 
     useEffect(() => {
         if (isOpen) {
@@ -95,6 +95,7 @@ export const DrawerContent = (props: DrawerProps) => {
             >
                 <Overlay onClick={close} />
                 {/* TODO fixme */}
+                {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
                 {/* @ts-ignore */}
                 <Spring.a.div
                     className={cls.sheet}

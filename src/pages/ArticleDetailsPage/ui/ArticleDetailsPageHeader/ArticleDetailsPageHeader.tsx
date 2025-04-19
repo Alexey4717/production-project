@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { getRouteArticleEdit, getRouteArticles } from '@/shared/consts/router';
 import { getArticleDetailsData } from '@/entities/Article';
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -12,7 +12,9 @@ interface ArticleDetailsPageHeaderProps {
     className?: string;
 }
 
-export const ArticleDetailsPageHeader = (props: ArticleDetailsPageHeaderProps) => {
+export const ArticleDetailsPageHeader = (
+    props: ArticleDetailsPageHeaderProps,
+) => {
     const { className } = props;
 
     const { t } = useTranslation('article-details');
@@ -40,10 +42,7 @@ export const ArticleDetailsPageHeader = (props: ArticleDetailsPageHeaderProps) =
                 {t('Назад к списку')}
             </Button>
             {canEdit && (
-                <Button
-                    theme={ButtonTheme.OUTLINE}
-                    onClick={handleEditArticle}
-                >
+                <Button theme={ButtonTheme.OUTLINE} onClick={handleEditArticle}>
                     {t('Редактировать')}
                 </Button>
             )}
