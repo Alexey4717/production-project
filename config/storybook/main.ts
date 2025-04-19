@@ -1,12 +1,19 @@
 import { Configuration, DefinePlugin, RuleSetRule } from 'webpack';
+import { type StorybookConfig } from '@storybook/react-webpack5';
 import path from 'path';
 import { buildCssLoader } from '../build/loaders/buildCssLoader';
 
-export default {
+const storybookConfig: StorybookConfig = {
+    framework: {
+        name: '@storybook/react-webpack5',
+        options: {},
+    },
+    staticDirs: ['../../public'],
     stories: ['../../src/**/*.stories.@(js|jsx|ts|tsx)'],
 
     addons: [
         '@storybook/addon-links',
+        '@storybook/addon-themes',
         {
             name: '@storybook/addon-essentials',
             options: {
@@ -14,16 +21,19 @@ export default {
             },
         },
         '@storybook/addon-interactions',
-        'storybook-addon-mock',
+        '@storybook/addon-docs',
         'storybook-addon-themes',
     ],
 
-    framework: {
-        name: '@storybook/react-webpack5',
-        options: {},
+    typescript: {
+        check: false, // optional
+        reactDocgen: false,
     },
 
-    staticDirs: ['../../public'],
+    babel: async (options: any) => ({
+        ...options,
+        presets: [...(options.presets || []), '@babel/preset-typescript'],
+    }),
 
     webpackFinal: async (config: Configuration) => {
         const paths = {
@@ -44,6 +54,7 @@ export default {
         };
 
         config!.module!.rules = config!.module!.rules!.map(
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             (rule: RuleSetRule) => {
                 if (/svg/.test(rule.test as string)) {
@@ -60,6 +71,26 @@ export default {
         });
         config!.module!.rules.push(buildCssLoader({ isDev: true }));
 
+        config!.module!.rules.push({
+            test: /\.(ts|tsx)$/,
+            exclude: /node_modules/,
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: [
+                        '@babel/preset-env',
+                        '@babel/preset-typescript',
+                        [
+                            '@babel/preset-react',
+                            {
+                                runtime: 'automatic',
+                            },
+                        ],
+                    ],
+                },
+            },
+        });
+
         config!.plugins!.push(
             new DefinePlugin({
                 __IS_DEV__: JSON.stringify(true),
@@ -71,3 +102,5 @@ export default {
         return config;
     },
 };
+
+export default storybookConfig;

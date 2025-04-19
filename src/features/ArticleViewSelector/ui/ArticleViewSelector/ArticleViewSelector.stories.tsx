@@ -1,19 +1,16 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
-
+import type { Meta, StoryObj } from '@storybook/react';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { ArticleViewSelector } from './ArticleViewSelector';
 
-export default {
+const meta: Meta<typeof ArticleViewSelector> = {
     title: 'features/ArticleViewSelector',
     component: ArticleViewSelector,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
-} as Meta<typeof ArticleViewSelector>;
+    decorators: [StoreDecorator({})],
+} satisfies Meta<typeof ArticleViewSelector>;
 
-const Template: StoryFn<typeof ArticleViewSelector> = (args) => (
-    <ArticleViewSelector {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Normal = Template.bind({});
-Normal.args = {};
+export const Normal: Story = {
+    args: {},
+};

@@ -1,19 +1,16 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
-
+import type { Meta, StoryObj } from '@storybook/react';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { ArticleSortSelector } from './ArticleSortSelector';
 
-export default {
+const meta: Meta<typeof ArticleSortSelector> = {
     title: 'features/ArticleSortSelector',
     component: ArticleSortSelector,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
-} as Meta<typeof ArticleSortSelector>;
+    decorators: [StoreDecorator({})],
+} satisfies Meta<typeof ArticleSortSelector>;
 
-const Template: StoryFn<typeof ArticleSortSelector> = (args) => (
-    <ArticleSortSelector {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Normal = Template.bind({});
-Normal.args = {};
+export const Normal: Story = {
+    args: {},
+};

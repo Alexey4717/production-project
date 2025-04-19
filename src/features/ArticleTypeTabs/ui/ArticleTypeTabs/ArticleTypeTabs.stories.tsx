@@ -1,19 +1,16 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
-
+import type { Meta, StoryObj } from '@storybook/react';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { ArticleTypeTabs } from './ArticleTypeTabs';
 
-export default {
+const meta: Meta<typeof ArticleTypeTabs> = {
     title: 'features/ArticleTypeTabs',
     component: ArticleTypeTabs,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
-} as Meta<typeof ArticleTypeTabs>;
+    decorators: [StoreDecorator({})],
+} satisfies Meta<typeof ArticleTypeTabs>;
 
-const Template: StoryFn<typeof ArticleTypeTabs> = (args) => (
-    <ArticleTypeTabs {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Normal = Template.bind({});
-Normal.args = {};
+export const Normal: Story = {
+    args: {},
+};

@@ -1,78 +1,87 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { Theme } from '@/shared/consts/theme';
 import { ThemeDecorator } from '@/shared/config/storybook/ThemeDecorator/ThemeDecorator';
 import { Text, TextSize, TextTheme } from './Text';
 
-export default {
+const meta: Meta<typeof Text> = {
     title: 'shared/Text',
     component: Text,
-    argTypes: {
-        backgroundColor: { control: 'color' },
+    decorators: [StoreDecorator({})],
+} satisfies Meta<typeof Text>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Primary: Story = {
+    args: {
+        title: 'Title lorem',
+        text: 'Text lorem',
     },
-} as Meta<typeof Text>;
-
-const Template: StoryFn<typeof Text> = (args) => <Text {...args} />;
-
-export const Primary = Template.bind({});
-Primary.args = {
-    title: 'Title lorem',
-    text: 'Text lorem',
 };
 
-export const Error = Template.bind({});
-Error.args = {
-    title: 'Title lorem',
-    text: 'Text lorem',
-    theme: TextTheme.ERROR,
+export const Error: Story = {
+    args: {
+        title: 'Title lorem',
+        text: 'Text lorem',
+        theme: TextTheme.ERROR,
+    },
 };
 
-export const onlyTitle = Template.bind({});
-onlyTitle.args = {
-    title: 'Title lorem',
+export const onlyTitle: Story = {
+    args: {
+        title: 'Title lorem',
+    },
 };
 
-export const onlyText = Template.bind({});
-onlyText.args = {
-    text: 'Text lorem',
+export const onlyText: Story = {
+    args: {
+        text: 'Text lorem',
+    },
 };
 
-export const PrimaryDark = Template.bind({});
-PrimaryDark.args = {
-    title: 'Title lorem',
-    text: 'Text lorem',
-};
-PrimaryDark.decorators = [ThemeDecorator(Theme.DARK)];
-
-export const onlyTitleDark = Template.bind({});
-onlyTitleDark.args = {
-    title: 'Title lorem',
-};
-onlyTitleDark.decorators = [ThemeDecorator(Theme.DARK)];
-
-export const onlyTextDark = Template.bind({});
-onlyTextDark.args = {
-    text: 'Text lorem',
-};
-onlyTextDark.decorators = [ThemeDecorator(Theme.DARK)];
-
-export const SizeS = Template.bind({});
-SizeS.args = {
-    title: 'Title lorem',
-    text: 'Text lorem',
-    size: TextSize.S,
+export const PrimaryDark: Story = {
+    args: {
+        title: 'Title lorem',
+        text: 'Text lorem',
+    },
+    decorators: [ThemeDecorator(Theme.DARK)],
 };
 
-export const SizeM = Template.bind({});
-SizeM.args = {
-    title: 'Title lorem',
-    text: 'Text lorem',
-    size: TextSize.M,
+export const onlyTitleDark: Story = {
+    args: {
+        title: 'Title lorem',
+    },
+    decorators: [ThemeDecorator(Theme.DARK)],
 };
 
-export const SizeL = Template.bind({});
-SizeL.args = {
-    title: 'Title lorem',
-    text: 'Text lorem',
-    size: TextSize.L,
+export const onlyTextDark: Story = {
+    args: {
+        text: 'Text lorem',
+    },
+    decorators: [ThemeDecorator(Theme.DARK)],
+};
+
+export const SizeS: Story = {
+    args: {
+        title: 'Title lorem',
+        text: 'Text lorem',
+        size: TextSize.S,
+    },
+};
+
+export const SizeM: Story = {
+    args: {
+        title: 'Title lorem',
+        text: 'Text lorem',
+        size: TextSize.M,
+    },
+};
+
+export const SizeL: Story = {
+    args: {
+        title: 'Title lorem',
+        text: 'Text lorem',
+        size: TextSize.L,
+    },
 };

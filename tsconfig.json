@@ -8,7 +8,7 @@
         "module": "ESNext",
         // чтобы работал динамический импорт (lazy)
         // В какую спецификацию компилируем: для поддержки большинства браузеров
-        "target": "es5",
+        "target": "ES6",
         "jsx": "react-jsx",
         // react-jsx, чтобы не импортить React from react и читался jsx
         // Компилятор будет обрабатывать не только TS файлы, но и JS файлы
@@ -23,6 +23,8 @@
         // c флагом результат [object Object]
         // console.log(Moment);
         "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "types": ["node"],
         // Если какая-либо библиотека не имеет default import,
         // лоадеры вроде ts-loader или babel-loader автоматически создают их
         // вместо такого импорта
@@ -46,6 +48,7 @@
     },
     "include": [
         "./config/jest/setupTests.ts",
+        "./config/storybook",
         "./src/**/*.ts",
         "./src/**/*.tsx"
     ]

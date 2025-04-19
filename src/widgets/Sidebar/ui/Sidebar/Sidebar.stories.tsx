@@ -1,41 +1,41 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Theme } from '@/shared/consts/theme';
 import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { ThemeDecorator } from '@/shared/config/storybook/ThemeDecorator/ThemeDecorator';
 import { Sidebar } from './Sidebar';
 
-export default {
+const meta: Meta<typeof Sidebar> = {
     title: 'widgets/Sidebar',
     component: Sidebar,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
-} as Meta<typeof Sidebar>;
+} satisfies Meta<typeof Sidebar>;
 
-const Template: StoryFn<typeof Sidebar> = (args) => <Sidebar {...args} />;
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Light = Template.bind({});
-Light.args = {};
-Light.decorators = [
-    StoreDecorator({
-        user: { authData: {} },
-    }),
-];
+export const Normal: Story = {
+    args: {},
+    decorators: [
+        StoreDecorator({
+            user: { authData: {} },
+        }),
+    ],
+};
 
-export const Dark = Template.bind({});
-Dark.args = {};
-Dark.decorators = [
-    ThemeDecorator(Theme.DARK),
-    StoreDecorator({
-        user: { authData: {} },
-    }),
-];
+export const Dark: Story = {
+    args: {},
+    decorators: [
+        ThemeDecorator(Theme.DARK),
+        StoreDecorator({
+            user: { authData: {} },
+        }),
+    ],
+};
 
-export const NoAuth = Template.bind({});
-NoAuth.args = {};
-NoAuth.decorators = [
-    StoreDecorator({
-        user: {},
-    }),
-];
+export const NoAuth: Story = {
+    args: {},
+    decorators: [
+        StoreDecorator({
+            user: {},
+        }),
+    ],
+};

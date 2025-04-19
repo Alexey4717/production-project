@@ -1,24 +1,23 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { Theme } from '@/shared/consts/theme';
 import { ThemeDecorator } from '@/shared/config/storybook/ThemeDecorator/ThemeDecorator';
 import { ThemeSwitcher } from './ThemeSwitcher';
 
-export default {
+const meta: Meta<typeof ThemeSwitcher> = {
     title: 'features/ThemeSwitcher',
     component: ThemeSwitcher,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
-} as Meta<typeof ThemeSwitcher>;
+    decorators: [StoreDecorator({})],
+} satisfies Meta<typeof ThemeSwitcher>;
 
-const Template: StoryFn<typeof ThemeSwitcher> = (args) => (
-    <ThemeSwitcher {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Normal = Template.bind({});
-Normal.args = {};
+export const Normal: Story = {
+    args: {},
+};
 
-export const Dark = Template.bind({});
-Dark.args = {};
-Dark.decorators = [ThemeDecorator(Theme.DARK)];
+export const Dark: Story = {
+    args: {},
+    decorators: [ThemeDecorator(Theme.DARK)],
+};

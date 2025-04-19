@@ -1,70 +1,74 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
-
+import { type ComponentType } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { ListBox } from './ListBox';
 
-export default {
+const meta: Meta<typeof ListBox> = {
     title: 'shared/ListBox',
     component: ListBox,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
     decorators: [
-        (Story) => (
+        StoreDecorator({}),
+        (Story: ComponentType) => (
             <div style={{ padding: 100 }}>
                 <Story />
             </div>
         ),
     ],
-} as Meta<typeof ListBox>;
+} satisfies Meta<typeof ListBox>;
 
-const Template: StoryFn<typeof ListBox> = (args) => <ListBox {...args} />;
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Normal = Template.bind({});
-Normal.args = {
-    value: '123',
-    items: [
-        { content: '1asfasfasf23', value: '123' },
-        { content: '1asfasfasf21233', value: '1232' },
-    ],
+export const Normal: Story = {
+    args: {
+        value: '123',
+        items: [
+            { content: '1asfasfasf23', value: '123' },
+            { content: '1asfasfasf21233', value: '1232' },
+        ],
+    },
 };
 
-export const topLeft = Template.bind({});
-topLeft.args = {
-    direction: 'top left',
-    value: '123',
-    items: [
-        { content: '1asfasfasf23', value: '123' },
-        { content: '1asfasfasf21233', value: '1232' },
-    ],
+export const topLeft: Story = {
+    args: {
+        direction: 'top left',
+        value: '123',
+        items: [
+            { content: '1asfasfasf23', value: '123' },
+            { content: '1asfasfasf21233', value: '1232' },
+        ],
+    },
 };
 
-export const topRight = Template.bind({});
-topRight.args = {
-    direction: 'top right',
-    value: '123',
-    items: [
-        { content: '1asfasfasf23', value: '123' },
-        { content: '1asfasfasf21233', value: '1232' },
-    ],
+export const topRight: Story = {
+    args: {
+        direction: 'top right',
+        value: '123',
+        items: [
+            { content: '1asfasfasf23', value: '123' },
+            { content: '1asfasfasf21233', value: '1232' },
+        ],
+    },
 };
 
-export const bottomLeft = Template.bind({});
-bottomLeft.args = {
-    direction: 'bottom left',
-    value: '123',
-    items: [
-        { content: '1asfasfasf23', value: '123' },
-        { content: '1asfasfasf21233', value: '1232' },
-    ],
+export const bottomLeft: Story = {
+    args: {
+        direction: 'bottom left',
+        value: '123',
+        items: [
+            { content: '1asfasfasf23', value: '123' },
+            { content: '1asfasfasf21233', value: '1232' },
+        ],
+    },
 };
 
-export const bottomRight = Template.bind({});
-bottomRight.args = {
-    direction: 'bottom right',
-    value: '123',
-    items: [
-        { content: '1asfasfasf23', value: '123' },
-        { content: '1asfasfasf21233', value: '1232' },
-    ],
+export const bottomRight: Story = {
+    args: {
+        direction: 'bottom right',
+        value: '123',
+        items: [
+            { content: '1asfasfasf23', value: '123' },
+            { content: '1asfasfasf21233', value: '1232' },
+        ],
+    },
 };

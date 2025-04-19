@@ -1,16 +1,16 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { Page } from './Page';
 
-export default {
+const meta: Meta<typeof Page> = {
     title: 'widgets/Page',
     component: Page,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
-} as Meta<typeof Page>;
+    decorators: [StoreDecorator({})],
+} satisfies Meta<typeof Page>;
 
-const Template: StoryFn<typeof Page> = (args) => <Page {...args} />;
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Normal = Template.bind({});
-Normal.args = {};
+export const Normal: Story = {
+    args: {},
+};

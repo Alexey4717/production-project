@@ -1,5 +1,4 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { ArticleDetails } from './ArticleDetails';
 import { Article } from '../../model/types/article';
@@ -8,13 +7,13 @@ import {
     ArticleType,
 } from '../../model/consts/articleConsts';
 
-export default {
+const meta: Meta<typeof ArticleDetails> = {
     title: 'entities/Article/ArticleDetails',
     component: ArticleDetails,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
-} as Meta<typeof ArticleDetails>;
+} satisfies Meta<typeof ArticleDetails>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 const article: Article = {
     id: '1',
@@ -23,10 +22,10 @@ const article: Article = {
         id: '1',
         username: 'Aleksei',
     },
-    subtitle: 'Что нового в JS за 2022 год?',
+    subtitle: 'Что нового в JS за 2025 год?',
     img: 'https://teknotower.com/wp-content/uploads/2020/11/js.png',
     views: 1022,
-    createdAt: '26.02.2022',
+    createdAt: '26.02.2025',
     type: [ArticleType.IT],
     blocks: [
         {
@@ -90,36 +89,35 @@ const article: Article = {
     ],
 };
 
-const Template: StoryFn<typeof ArticleDetails> = (args) => (
-    <ArticleDetails {...args} />
-);
+export const Normal: Story = {
+    args: {},
+    decorators: [
+        StoreDecorator({
+            articleDetails: {
+                data: article,
+            },
+        }),
+    ],
+};
 
-export const Normal = Template.bind({});
-Normal.args = {};
-Normal.decorators = [
-    StoreDecorator({
-        articleDetails: {
-            data: article,
-        },
-    }),
-];
+export const Loading: Story = {
+    args: {},
+    decorators: [
+        StoreDecorator({
+            articleDetails: {
+                isLoading: true,
+            },
+        }),
+    ],
+};
 
-export const Loading = Template.bind({});
-Loading.args = {};
-Loading.decorators = [
-    StoreDecorator({
-        articleDetails: {
-            isLoading: true,
-        },
-    }),
-];
-
-export const Error = Template.bind({});
-Error.args = {};
-Error.decorators = [
-    StoreDecorator({
-        articleDetails: {
-            error: 'error text',
-        },
-    }),
-];
+export const Error: Story = {
+    args: {},
+    decorators: [
+        StoreDecorator({
+            articleDetails: {
+                error: 'error text',
+            },
+        }),
+    ],
+};

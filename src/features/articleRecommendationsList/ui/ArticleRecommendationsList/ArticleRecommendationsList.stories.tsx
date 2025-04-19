@@ -1,21 +1,17 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import { http, HttpResponse } from 'msw';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Article } from '@/entities/Article';
 import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
-
 import { ArticleRecommendationsList } from './ArticleRecommendationsList';
 
-export default {
+const meta: Meta<typeof ArticleRecommendationsList> = {
     title: 'features/ArticleRecommendationsList',
     component: ArticleRecommendationsList,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
-} as Meta<typeof ArticleRecommendationsList>;
+    decorators: [StoreDecorator({})],
+} satisfies Meta<typeof ArticleRecommendationsList>;
 
-const Template: StoryFn<typeof ArticleRecommendationsList> = (args) => (
-    <ArticleRecommendationsList {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 const article: Article = {
     id: '1',
@@ -29,20 +25,22 @@ const article: Article = {
     subtitle: 'asfsa',
 };
 
-export const Normal = Template.bind({});
-Normal.args = {};
-Normal.decorators = [StoreDecorator({})];
-Normal.parameters = {
-    mockData: [
-        {
-            url: `${__API__}/articles?_limit=3`,
-            method: 'GET',
-            status: 200,
-            response: [
-                { ...article, id: '1' },
-                { ...article, id: '2' },
-                { ...article, id: '3' },
+export const Normal: Story = {
+    args: {},
+    parameters: {
+        msw: {
+            handlers: [
+                http.get(`${__API__}/articles?_limit=3`, () => {
+                    return HttpResponse.json(
+                        [
+                            { ...article, id: '1' },
+                            { ...article, id: '2' },
+                            { ...article, id: '3' },
+                        ],
+                        { status: 200 },
+                    );
+                }),
             ],
         },
-    ],
+    },
 };

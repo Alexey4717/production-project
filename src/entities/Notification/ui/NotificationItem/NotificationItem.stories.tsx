@@ -1,19 +1,17 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 
 import { NotificationItem } from './NotificationItem';
 
-export default {
+const meta: Meta<typeof NotificationItem> = {
     title: 'entities/Notification/NotificationItem',
     component: NotificationItem,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
-} as Meta<typeof NotificationItem>;
+    decorators: [StoreDecorator({})],
+} satisfies Meta<typeof NotificationItem>;
 
-const Template: StoryFn<typeof NotificationItem> = (args) => (
-    <NotificationItem {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Normal = Template.bind({});
-Normal.args = {};
+export const Normal: Story = {
+    args: {},
+};

@@ -1,22 +1,19 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { Country } from '@/entities/Country';
 import { Currency } from '@/entities/Currency';
 import avatar from '@/shared/assets/tests/storybook.jpg';
 import { ProfileCard } from './ProfileCard';
 import { NewDesignDecorator } from '@/shared/config/storybook/NewDesignDecorator/NewDesignDecorator';
 
-export default {
+const meta: Meta<typeof ProfileCard> = {
     title: 'entities/ProfileCard',
     component: ProfileCard,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
-} as Meta<typeof ProfileCard>;
+    decorators: [StoreDecorator({})],
+} satisfies Meta<typeof ProfileCard>;
 
-const Template: StoryFn<typeof ProfileCard> = (args) => (
-    <ProfileCard {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 const primaryArgs = {
     data: {
@@ -31,19 +28,23 @@ const primaryArgs = {
     },
 };
 
-export const Primary = Template.bind({});
-Primary.args = primaryArgs;
-
-export const PrimaryRedesigned = Template.bind({});
-PrimaryRedesigned.args = primaryArgs;
-PrimaryRedesigned.decorators = [NewDesignDecorator];
-
-export const withError = Template.bind({});
-withError.args = {
-    error: 'true',
+export const Normal: Story = {
+    args: primaryArgs,
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-    isLoading: true,
+export const NormalRedesigned: Story = {
+    args: primaryArgs,
+    decorators: [NewDesignDecorator],
+};
+
+export const withError: Story = {
+    args: {
+        error: 'true',
+    },
+};
+
+export const Loading: Story = {
+    args: {
+        isLoading: true,
+    },
 };

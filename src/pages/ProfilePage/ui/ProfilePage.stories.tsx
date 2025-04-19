@@ -1,5 +1,4 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Theme } from '@/shared/consts/theme';
 import { Country } from '@/entities/Country';
 import { Currency } from '@/entities/Currency';
@@ -19,37 +18,27 @@ const profileFormTestData = {
     avatar: TestAvatar,
 };
 
-export default {
+const meta: Meta<typeof ProfilePage> = {
     title: 'pages/ProfilePage',
     component: ProfilePage,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
-} as Meta<typeof ProfilePage>;
+    decorators: [
+        StoreDecorator({
+            profile: {
+                form: profileFormTestData,
+                readonly: true,
+            },
+        }),
+    ],
+} satisfies Meta<typeof ProfilePage>;
 
-const Template: StoryFn<typeof ProfilePage> = (args: any) => (
-    <ProfilePage {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Normal = Template.bind({});
-Normal.args = {};
-Normal.decorators = [
-    StoreDecorator({
-        profile: {
-            form: profileFormTestData,
-            readonly: true,
-        },
-    }),
-];
+export const Normal: Story = {
+    args: {},
+};
 
-export const Dark = Template.bind({});
-Dark.args = {};
-Dark.decorators = [
-    ThemeDecorator(Theme.DARK),
-    StoreDecorator({
-        profile: {
-            form: profileFormTestData,
-            readonly: true,
-        },
-    }),
-];
+export const Dark: Story = {
+    args: {},
+    decorators: [ThemeDecorator(Theme.DARK)],
+};

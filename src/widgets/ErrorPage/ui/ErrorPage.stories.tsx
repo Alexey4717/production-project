@@ -1,22 +1,23 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { Theme } from '@/shared/consts/theme';
 import { ThemeDecorator } from '@/shared/config/storybook/ThemeDecorator/ThemeDecorator';
 import { ErrorPage } from './ErrorPage';
 
-export default {
+const meta: Meta<typeof ErrorPage> = {
     title: 'widgets/ErrorPage',
     component: ErrorPage,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
-} as Meta<typeof ErrorPage>;
+    decorators: [StoreDecorator({})],
+} satisfies Meta<typeof ErrorPage>;
 
-const Template: StoryFn<typeof ErrorPage> = (args) => <ErrorPage {...args} />;
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Light = Template.bind({});
-Light.args = {};
+export const Normal: Story = {
+    args: {},
+};
 
-export const Dark = Template.bind({});
-Dark.args = {};
-Dark.decorators = [ThemeDecorator(Theme.DARK)];
+export const Dark: Story = {
+    args: {},
+    decorators: [ThemeDecorator(Theme.DARK)],
+};

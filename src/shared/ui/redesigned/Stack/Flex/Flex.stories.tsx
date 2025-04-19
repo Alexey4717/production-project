@@ -1,106 +1,111 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
-
+import type { Meta, StoryObj } from '@storybook/react';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { Flex } from './Flex';
 
-export default {
+const meta: Meta<typeof Flex> = {
     title: 'shared/Flex',
     component: Flex,
-    argTypes: {
-        backgroundColor: { control: 'color' },
+    decorators: [StoreDecorator({})],
+} satisfies Meta<typeof Flex>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Row: Story = {
+    args: {
+        children: (
+            <>
+                <div>first</div>
+                <div>second</div>
+                <div>third</div>
+                <div>fourth</div>
+            </>
+        ),
     },
-} as Meta<typeof Flex>;
-
-const Template: StoryFn<typeof Flex> = (args) => <Flex {...args} />;
-
-export const Row = Template.bind({});
-Row.args = {
-    children: (
-        <>
-            <div>first</div>
-            <div>second</div>
-            <div>third</div>
-            <div>fourth</div>
-        </>
-    ),
 };
 
-export const RowGap4 = Template.bind({});
-RowGap4.args = {
-    gap: '4',
-    children: (
-        <>
-            <div>first</div>
-            <div>second</div>
-            <div>third</div>
-            <div>fourth</div>
-        </>
-    ),
+export const RowGap4: Story = {
+    args: {
+        gap: '4',
+        children: (
+            <>
+                <div>first</div>
+                <div>second</div>
+                <div>third</div>
+                <div>fourth</div>
+            </>
+        ),
+    },
 };
 
-export const RowGap8 = Template.bind({});
-RowGap8.args = {
-    gap: '8',
-    children: (
-        <>
-            <div>first</div>
-            <div>second</div>
-            <div>third</div>
-            <div>fourth</div>
-        </>
-    ),
+export const RowGap8: Story = {
+    args: {
+        gap: '8',
+        children: (
+            <>
+                <div>first</div>
+                <div>second</div>
+                <div>third</div>
+                <div>fourth</div>
+            </>
+        ),
+    },
 };
 
-export const RowGap16 = Template.bind({});
-RowGap16.args = {
-    gap: '16',
-    children: (
-        <>
-            <div>first</div>
-            <div>second</div>
-            <div>third</div>
-            <div>fourth</div>
-        </>
-    ),
+export const RowGap16: Story = {
+    args: {
+        gap: '16',
+        children: (
+            <>
+                <div>first</div>
+                <div>second</div>
+                <div>third</div>
+                <div>fourth</div>
+            </>
+        ),
+    },
 };
 
-export const Column = Template.bind({});
-Column.args = {
-    direction: 'column',
-    children: (
-        <>
-            <div>first</div>
-            <div>second</div>
-            <div>third</div>
-            <div>fourth</div>
-        </>
-    ),
+export const Column: Story = {
+    args: {
+        direction: 'column',
+        children: (
+            <>
+                <div>first</div>
+                <div>second</div>
+                <div>third</div>
+                <div>fourth</div>
+            </>
+        ),
+    },
 };
 
-export const ColumnGap16 = Template.bind({});
-ColumnGap16.args = {
-    gap: '16',
-    direction: 'column',
-    children: (
-        <>
-            <div>first</div>
-            <div>second</div>
-            <div>third</div>
-            <div>fourth</div>
-        </>
-    ),
+export const ColumnGap16: Story = {
+    args: {
+        gap: '16',
+        direction: 'column',
+        children: (
+            <>
+                <div>first</div>
+                <div>second</div>
+                <div>third</div>
+                <div>fourth</div>
+            </>
+        ),
+    },
 };
 
-export const ColumnAlignEnd = Template.bind({});
-ColumnAlignEnd.args = {
-    direction: 'column',
-    align: 'end',
-    children: (
-        <>
-            <div>first</div>
-            <div>second</div>
-            <div>third</div>
-            <div>fourth</div>
-        </>
-    ),
+export const ColumnAlignEnd: Story = {
+    args: {
+        direction: 'column',
+        align: 'end',
+        children: (
+            <>
+                <div>first</div>
+                <div>second</div>
+                <div>third</div>
+                <div>fourth</div>
+            </>
+        ),
+    },
 };

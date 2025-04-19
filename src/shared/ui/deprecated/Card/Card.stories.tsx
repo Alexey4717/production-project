@@ -1,19 +1,19 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { Card } from './Card';
 import { Text } from '../Text/Text';
 
-export default {
+const meta: Meta<typeof Card> = {
     title: 'shared/Card',
     component: Card,
-    argTypes: {
-        backgroundColor: { control: 'color' },
+    decorators: [StoreDecorator({})],
+} satisfies Meta<typeof Card>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Normal: Story = {
+    args: {
+        children: <Text title="test" text="text text" />,
     },
-} as Meta<typeof Card>;
-
-const Template: StoryFn<typeof Card> = (args) => <Card {...args} />;
-
-export const Normal = Template.bind({});
-Normal.args = {
-    children: <Text title="test" text="text text" />,
 };

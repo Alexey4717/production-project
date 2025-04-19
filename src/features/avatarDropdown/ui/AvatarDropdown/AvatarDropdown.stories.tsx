@@ -1,19 +1,16 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
-
+import type { Meta, StoryObj } from '@storybook/react';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { AvatarDropdown } from './AvatarDropdown';
 
-export default {
+const meta: Meta<typeof AvatarDropdown> = {
     title: 'features/AvatarDropdown',
     component: AvatarDropdown,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
-} as Meta<typeof AvatarDropdown>;
+    decorators: [StoreDecorator({})],
+} satisfies Meta<typeof AvatarDropdown>;
 
-const Template: StoryFn<typeof AvatarDropdown> = (args) => (
-    <AvatarDropdown {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Normal = Template.bind({});
-Normal.args = {};
+export const Normal: Story = {
+    args: {},
+};
