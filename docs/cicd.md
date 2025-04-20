@@ -1,3 +1,304 @@
+# Введение в CI/CD
+
+CI/CD (Continuous Integration / Continuous Delivery) — это практика автоматизации процессов разработки:
+- **CI (Непрерывная интеграция)**:
+    - Автоматический запуск тестов
+    - Проверка стиля кода
+    - Проверка типизации
+    - Сборка приложения
+- **CD (Непрерывная доставка)**:
+    - Автоматический деплой на тестовые/продакшен окружения
+    - Публикация релизов
+
+Преимущества:
+- Устранение человеческого фактора
+- Раннее обнаружение ошибок
+- Ускорение процесса разработки
+- Избавление от ручного запуска скриптов проверки
+
+### Как работает CI:
+- Запускаются скрипты, описанные в package.json
+- Проверяется корректность кода:
+- - линтеры (eslint, stylelint)
+- - юнит-тесты (jest, vitest)
+- - сборка (webpack, vite)
+- - проверка UI-скриншотов (loki)
+- на каждый push, или только на pull request запускаются workflow
+- блокируется возможность вмерджить ветку в main до тех пор, пока все процессы отработают без ошибок
+- когда CI закончен без ошибок, мерджится код в main ветку, затем идёт сборка приложения (если это требуется)
+
+### Как работает CD:
+- После успешного CI дальнейшая публикация этой сборки на тестовое/прод окружение/GitHub Pages
+- автоматизация на облачном сервере процессов pull свежей кодовой базы, запуск скрипта прод сборки, при необходимости выполнения скриптов переноса папки билда, перезапуска бэкенда
+- обычно настройка этих процессов описана в docker или bash-script файле и выполняется на облачном сервере (хранится в папке .deploy)
+
+----
+
+## Настройка GitHub Actions
+
+### 1. Создание workflow
+
+В корне проекта создайте папку .github/workflows/
+
+### 2. Добавьте файл `main.yml` с базовой конфигурацией:
+
+```yaml
+name: CI Pipeline
+on:
+push:
+  branches: [ main ]
+pull_request:
+  branches: [ main ]
+```
+
+----
+
+## Основные компоненты workflow
+
+```yaml
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: yarn test
+```
+
+----
+
+## Параллельное выполнение задач
+
+Оптимизированный workflow с параллельными jobs:
+
+```yaml
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint:ts
+      - run: yarn lint:scss
+
+  build-and-test:
+    runs-on: ubuntu-latest
+    needs: checks
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+      - run: yarn install --frozen-lockfile
+      - run: yarn build:prod
+      - run: yarn test:unit
+      - run: yarn storybook:build
+      - run: yarn test:ui:ci
+```
+
+if: always() — гарантирует выполнение шага, даже если предыдущий упал
+
+----
+
+## Интеграция инструментов
+
+1. Линтеры
+
+```yaml
+- name: Run ESLint
+  run: yarn lint:ts
+  continue-on-error: false
+
+- name: Run Stylelint
+  run: yarn lint:scss
+```
+
+2. Тестирование
+
+```yaml
+- name: Unit tests
+  run: yarn test:unit
+
+- name: Screenshot tests (Loki)
+  run: yarn test:ui:ci
+```
+
+3. Сборка Storybook
+
+```yaml
+- name: Build Storybook
+  run: yarn storybook:build
+
+- name: Upload Storybook
+  uses: actions/upload-artifact@v3
+  with:
+    name: storybook
+    path: storybook-static
+```
+
+----
+
+## Деплой на GitHub Pages
+
+```yaml
+deploy:
+  needs: build-and-test
+  runs-on: ubuntu-latest
+  environment:
+    name: github-pages
+    url: ${{ steps.deployment.outputs.page_url }}
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/configure-pages@v2
+    - uses: actions/upload-pages-artifact@v3
+      with:
+        path: 'dist'
+    - uses: actions/deploy-pages@v1
+      id: deployment
+```
+
+----
+
+## Продвинутые настройки
+
+1. Кеширование зависимостей
+
+```yaml
+- name: Cache node_modules
+  uses: actions/cache@v3
+  with:
+    path: node_modules
+    key: ${{ runner.os }}-modules-${{ hashFiles('yarn.lock') }}
+```
+
+2. Условное выполнение
+
+```yaml
+- name: Run expensive tests
+  if: github.ref == 'refs/heads/main'
+  run: yarn test:all
+```
+
+3. Матрица сборок
+
+```yaml
+strategy:
+  matrix:
+    os: [ubuntu-latest, windows-latest]
+    node: [16.x, 18.x]
+```
+
+----
+
+## Пример полного workflow
+
+```yaml
+name: Full CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint:ts
+      - run: yarn lint:scss
+
+  build:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+      - run: yarn install --frozen-lockfile
+      - run: yarn build:prod
+      - run: yarn storybook:build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: production-build
+          path: build
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+      - run: yarn install --frozen-lockfile
+      - run: yarn test:unit
+      - run: yarn test:ui:ci
+
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+      - run: yarn install --frozen-lockfile
+      - run: yarn build:prod
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+      - uses: actions/deploy-pages@v1
+```
+
+----
+
+## Решение проблем
+
+1. Проблема: Workflow не запускается. Для решения, проверьте:
+
+- Правильность пути к файлу workflow
+- Наличие триггеров (push/pull_request)
+- Права доступа к репозиторию
+
+2. Проблема: Тесты падают случайным образом. Для решения добавьте повторный запуск:
+
+```yaml
+- name: Run flaky tests
+  run: yarn test:unit
+  continue-on-error: true
+```
+
+3. Проблема: Долгая установка зависимостей. Для решения добавьте кеширование (см. выше).
+
+----
+
+## Полезные ссылки
+
+1. [Официальная документация GitHub Actions](https://docs.github.com/ru/actions)
+2. [Примеры workflow](https://github.com/actions/starter-workflows)
+3. [Настройка Node.js в Actions](https://github.com/actions/setup-node)
+4. [Документация Loki для CI](https://loki.js.org/continuous-integration.html)
+
+----
+
+## На нашем проекте
+
 Старый скрипт main.yml
 
 <pre>
@@ -43,60 +344,88 @@ jobs:
                 run: yarn test:ui:ci
 </pre>
 
-У нас стало появляться много скриптов (линтеры, сборка, разные виды тестирования, сборка сторибука).
-Запускать это вручную становится неудобно. Хочется автоматизировать процесс запуска этих скриптов.
-Будем использовать Github-actions для настройки CI/CD.
+Новый скрипт main.yml с распараллеливанием процессов
 
-CI/CD переводится как непрерывная интеграция и непрерывное развертывание (доставка).
-Это конвейер, который позволяет автоматизировать рутинные процессы
-(сборка приложения, прогон тестов, прогон линтеров, проверка типизации (CI) / деплой, релиз (CD) и т.д.).
+<pre>
+name: linting, testing, building
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+jobs:
+  build-and-ui-testing:
+    runs-on: ubuntu-latest
+    concurrency: ci-${{ github.ref }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Staring Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: install modules
+        run: yarn install --frozen-lockfile
+      - name: build production project
+        run: yarn build:prod
+        if: always()
+      - name: build storybook
+        run: yarn storybook:build
+        if: always()
+      - name: screenshot testing
+        run: yarn test:ui:ci
+        if: always()
+      - name: unit testing
+        if: always()
+        run: yarn run test:unit
+      - name: Generate HTML report
+        run: yarn run test:ui:report
+        if: always()
+      - name: move loki
+        run: mv .loki reports/
+        if: always()
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+        if: always()
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        if: always()
+        with:
+          name: build-artifact
+          path: 'reports'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        if: always()
+        uses: actions/deploy-pages@v1
 
-Сначала CI.
-CI процессы обычно запускаются скриптами, описанными в package.json.
-Нужна автоматизация чтобы:
-
-- Не делегировать эту ответственность (ручной запуск скриптов) на разработчика и нивелировать человеческий фактор
-- Не загружать разработчика лишней работой (т.к. она стоит дорого)
-- Повышение надежности приложения в целом
-  Хотелось бы, чтобы при создании pull request (PR) и при последующих коммитах в ветку
-  автоматически запускались бы все эти процессы (сборка, тесты, линтеры и пр. проверки (CI), которые необходимы в нашем приложении)
-  и чтобы мы не могли вмерджить ветку в main до тех пор, пока мы не убедились, что все эти процессы отработали без ошибок.
-  И если хотябы 1 из таких проверок упала, то нам нужно запретить merge в основную (main) ветку, чтобы не сломать код.
-
-Настройка:
-Примеры для настройки можно брать из guthub, либо сделать запрос github actions frontend, chat-gpt и т.д.
-Создали папку .github в корне приложения, а внутри неё папку workflows (рабочий процесс).
-Далее нужно внутри этой папки создать файл с расширением .yml (название любое).
-Скопируем пример кода для файла из https://docs.github.com/ru/actions/writing-workflows/quickstart
-Далее отдельным коммитов нужно запушить yml файл в github (commit m: "add main pipeline github actions")
-Потом заходим в github репозиторий / actions.
-Там будет этот workflow, в который можно провалиться и посмотреть на процессы, описанные в yml файле.
-В начале скрипты будут в виде echo (т.е. логи текстов, моки для проверки).
-Там могут быть любые сложные скрипты, например npm run build.
-В файле main.yml поменяли name: linting, testing, building.
-В начале укажем что все проверки будут запускаться на push в ветку master и при создании pull_request.
-Далее нужно описать jobs. Удаляем старую.
-Создадим новую с названием pipeline (можно называть как угодно).
-В поле runs-on указывается ОС, в которой будет запускаться job.
-Затем необходимо указать версию NodeJS, которая будет использоваться
-Для работы с фронтом, нужно всегда устанавливать в первую очень NodeJS, чтобы код мог работать.
-В steps указаны наши скрипты
-Там (после стэпов по установке NodeJS) первым делом нужно установить node_modules.
-Далее можно например запускать сборку
-Потом сделаем запуск скрипта линтера для ts, потом линтер для css, потом все виды тестов, потом сборку storybook.
-Далее пушим в репозиторий, наблюдаем как выполняются jobs. (появится желтая точка в репозитории, из неё перейти быстрее).
-Bundle-analyser отключил, т.к. он не дает завершиться процессу сборки.
-В документации loki есть описание интеграции unit тестов в CI pipeline (https://loki.js.org/continuous-integration.html).
-В начале нужно сделать сборку storybook, потом на основании этой сборки (storybook-static) можно делать скриншоты.
-Т.е. запускать его в CI pipeline не обязательно. Добавили сборку в gitignore.
-И добавили скрипт test:ui:ci для loki, который будет запускаться после сборки storybook и снимать с неё скриншоты.
-Не забываем добавить скрипты в yml файл
-
-Далее когда CI закончен без ошибок, мы мерджим код в main ветку, затем идёт сборка приложения (если это требуется).
-И дальнейшая публикация этой сборки на тестовое или прод окружение (CD).
-Т.е. CI/CD касается как ежедневных процессов (для тестирования), так и еженедельных (смотря какой спринт, релиз на прод).
-Так же можно отдельно ознакомиться с темой CI/CD тут https://www.youtube.com/watch?v=ANj7qUgzNq4
-
-Следующие тесты не запустились, т.к. конфиг был настроен так, что jobs выполняются последовательно.
-Если одна из них падает, то следующие не запускаются. Нужно в step добавить проверку if: always(), чтобы они запускались в любом случае.
-Сделали это для всего, что может идти последовательно (билд, линтеры, тесты, кроме инсталяции пакетов в начале).
+  checks:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Staring Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: install modules
+        run: yarn install --frozen-lockfile
+      - name: linting typescript
+        run: yarn run lint:ts
+        if: always()
+      - name: linting css
+        run: yarn run lint:scss
+</pre>
