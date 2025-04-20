@@ -76,7 +76,6 @@
         "@typescript-eslint/parser": "^8.29.1",
         "@vitejs/plugin-react": "4.3.4",
         "babel-loader": "^10.0.0",
-        "babel-plugin-i18next-extract": "^1.0.0",
         "circular-dependency-plugin": "^5.2.2",
         "copy-webpack-plugin": "^13.0.0",
         "css-loader": "^7.1.2",
