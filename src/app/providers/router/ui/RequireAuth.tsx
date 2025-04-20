@@ -1,8 +1,11 @@
 import { type ReactNode } from 'react';
-import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router';
 import { getRouteForbidden, getRouteMain } from '@/shared/consts/router';
-import { getUserAuthData, getUserRoles, UserRole } from '@/entities/User';
+import {
+    useUserAuthDataSelector,
+    useUserRolesSelector,
+    UserRole,
+} from '@/entities/User';
 
 interface RequireAuthProps {
     children: ReactNode;
@@ -10,9 +13,10 @@ interface RequireAuthProps {
 }
 
 export const RequireAuth = ({ children, roles }: RequireAuthProps) => {
-    const isAuth = useSelector(getUserAuthData);
     const location = useLocation();
-    const userRoles = useSelector(getUserRoles);
+
+    const isAuth = useUserAuthDataSelector();
+    const userRoles = useUserRolesSelector();
 
     const hasRequiredRoles = () => {
         if (!roles) {

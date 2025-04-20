@@ -1,6 +1,6 @@
-import { getLoginError } from './getLoginError';
+import { selectLoginError } from './selectLoginError';
 
-describe('getLoginError.test', () => {
+describe('selectLoginError.test', () => {
     test('should return error', () => {
         const errorString = 'error';
         const state: DeepPartial<RootState> = {
@@ -9,11 +9,11 @@ describe('getLoginError.test', () => {
             },
         };
 
-        expect(getLoginError(state as RootState)).toEqual(errorString);
+        expect(selectLoginError(state as RootState)).toEqual(errorString);
     });
 
     test('should work with empty state', () => {
         const state: DeepPartial<RootState> = {};
-        expect(getLoginError(state as RootState)).toEqual(undefined);
+        expect(selectLoginError(state as RootState)).toEqual(undefined);
     });
 });

@@ -10,7 +10,7 @@ import {
     Button as ButtonDeprecated,
     ButtonTheme,
 } from '@/shared/ui/deprecated/Button';
-import { getUserAuthData } from '@/entities/User';
+import { useUserAuthDataSelector } from '@/entities/User';
 import { profileActions } from '../../model/slice/profileSlice';
 import { getProfileReadonly } from '../../model/selectors/getProfileReadonly/getProfileReadonly';
 import { getProfileData } from '../../model/selectors/getProfileData/getProfileData';
@@ -29,7 +29,7 @@ export const EditableProfileCardHeader = (
     const { className } = props;
 
     const { t } = useTranslation('profile');
-    const authData = useSelector(getUserAuthData);
+    const authData = useUserAuthDataSelector();
     const profileData = useSelector(getProfileData);
     const canEdit = authData?.id === profileData?.id;
     const readonly = useSelector(getProfileReadonly);

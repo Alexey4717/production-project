@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import {
     AppLink as AppLinkDeprecated,
     AppLinkTheme,
 } from '@/shared/ui/deprecated/AppLink';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { getUserAuthData } from '@/entities/User';
+import { useUserAuthDataSelector } from '@/entities/User';
 import { ToggleFeatures } from '@/shared/lib/features';
 import { AppLink } from '@/shared/ui/redesigned/AppLink';
 import { Icon } from '@/shared/ui/redesigned/Icon';
@@ -19,7 +18,7 @@ interface SidebarItemProps {
 
 export const SidebarItem = ({ item, collapsed }: SidebarItemProps) => {
     const { t } = useTranslation();
-    const isAuth = useSelector(getUserAuthData);
+    const isAuth = useUserAuthDataSelector();
 
     if (item?.authOnly && !isAuth) return null;
 

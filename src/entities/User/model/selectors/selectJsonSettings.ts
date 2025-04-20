@@ -3,6 +3,6 @@ import { JsonSettings } from '../types/jsonSettings';
 
 const defaultJsonSettings: JsonSettings = {};
 
-export const [useJsonSettings, getJsonSettings] = buildSelector(
+export const [useJsonSettingsSelector, selectJsonSettings] = buildSelector(
     (state) => state.user?.authData?.jsonSettings ?? defaultJsonSettings,
 );

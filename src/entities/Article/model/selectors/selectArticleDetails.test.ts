@@ -1,8 +1,8 @@
 import {
-    getArticleDetailsData,
-    getArticleDetailsIsLoading,
-    getArticleDetailsError,
-} from './articleDetails';
+    selectArticleDetailsData,
+    selectArticleDetailsIsLoading,
+    selectArticleDetailsError,
+} from './selectArticleDetails';
 
 const articleDetailsTestData = {
     fid: '1',
@@ -17,10 +17,12 @@ describe('getArticleDetailsData.test', () => {
             },
         };
 
-        expect(getArticleDetailsData(state as RootState)).toEqual(
+        expect(selectArticleDetailsData(state as RootState)).toEqual(
             articleDetailsTestData,
         );
-        expect(getArticleDetailsIsLoading(state as RootState)).toBe(undefined);
+        expect(selectArticleDetailsIsLoading(state as RootState)).toBe(
+            undefined,
+        );
     });
 
     test('should return isLoading', () => {
@@ -30,7 +32,7 @@ describe('getArticleDetailsData.test', () => {
             },
         };
 
-        expect(getArticleDetailsIsLoading(state as RootState)).toBe(true);
+        expect(selectArticleDetailsIsLoading(state as RootState)).toBe(true);
     });
 
     test('should return error', () => {
@@ -41,15 +43,17 @@ describe('getArticleDetailsData.test', () => {
             },
         };
 
-        expect(getArticleDetailsError(state as RootState)).toBe(errorString);
+        expect(selectArticleDetailsError(state as RootState)).toBe(errorString);
     });
 
     test('should work with empty state', () => {
         const state: DeepPartial<RootState> = {};
-        expect(getArticleDetailsData(state as RootState)).toEqual(undefined);
-        expect(getArticleDetailsIsLoading(state as RootState)).toEqual(
+        expect(selectArticleDetailsData(state as RootState)).toEqual(undefined);
+        expect(selectArticleDetailsIsLoading(state as RootState)).toEqual(
             undefined,
         );
-        expect(getArticleDetailsError(state as RootState)).toEqual(undefined);
+        expect(selectArticleDetailsError(state as RootState)).toEqual(
+            undefined,
+        );
     });
 });

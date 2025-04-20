@@ -1,6 +1,6 @@
-import { getLoginIsLoading } from './getLoginIsLoading';
+import { selectLoginIsLoading } from './selectLoginIsLoading';
 
-describe('getLoginIsLoading.test', () => {
+describe('selectLoginIsLoading.test', () => {
     test('should return isLoading true', () => {
         const state: DeepPartial<RootState> = {
             loginForm: {
@@ -8,11 +8,11 @@ describe('getLoginIsLoading.test', () => {
             },
         };
 
-        expect(getLoginIsLoading(state as RootState)).toEqual(true);
+        expect(selectLoginIsLoading(state as RootState)).toEqual(true);
     });
 
     test('should work with empty state', () => {
         const state: DeepPartial<RootState> = {};
-        expect(getLoginIsLoading(state as RootState)).toEqual(false);
+        expect(selectLoginIsLoading(state as RootState)).toEqual(false);
     });
 });

@@ -1,13 +1,12 @@
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Avatar as AvatarDeprecated } from '@/shared/ui/deprecated/Avatar';
 import { Dropdown as DropdownDeprecated } from '@/shared/ui/deprecated/Popups';
 import {
-    getUserAuthData,
-    isUserAdmin,
-    isUserManager,
-    userActions,
+    useUserAuthDataSelector,
+    useIsUserAdminSelector,
+    useIsUserManagerSelector,
+    useUserActions,
 } from '@/entities/User';
 import {
     getRouteAdmin,
@@ -25,13 +24,14 @@ interface AvatarDropdownProps {
 export const AvatarDropdown = (props: AvatarDropdownProps) => {
     const { className } = props;
     const { t } = useTranslation();
-    const dispatch = useDispatch();
-    const isAdmin = useSelector(isUserAdmin);
-    const isManager = useSelector(isUserManager);
-    const authData = useSelector(getUserAuthData);
+
+    const authData = useUserAuthDataSelector();
+    const isAdmin = useIsUserAdminSelector();
+    const isManager = useIsUserManagerSelector();
+    const { logout } = useUserActions();
 
     const onLogout = () => {
-        dispatch(userActions.logout());
+        logout();
     };
 
     const isAdminPanelAvailable = isAdmin || isManager;

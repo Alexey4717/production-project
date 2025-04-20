@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { getRouteArticleEdit, getRouteArticles } from '@/shared/consts/router';
-import { getArticleDetailsData } from '@/entities/Article';
+import { useArticleDetailsDataSelector } from '@/entities/Article';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Button, ButtonTheme } from '@/shared/ui/deprecated/Button';
 import { HStack } from '@/shared/ui/redesigned/Stack';
@@ -21,7 +21,7 @@ export const ArticleDetailsPageHeader = (
     const navigate = useNavigate();
 
     const canEdit = useSelector(getCanEditArticle);
-    const article = useSelector(getArticleDetailsData);
+    const article = useArticleDetailsDataSelector();
 
     const handleBackToList = () => {
         navigate(getRouteArticles());

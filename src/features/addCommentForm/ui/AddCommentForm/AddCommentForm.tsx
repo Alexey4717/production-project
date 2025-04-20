@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Input as InputDeprecated } from '@/shared/ui/deprecated/Input';
 import {
@@ -17,9 +16,9 @@ import {
     addCommentFormReducer,
 } from '../../model/slice/addCommentFormSlice';
 import {
-    getAddCommentFormError,
-    getAddCommentFormText,
-} from '../../model/selectors/addCommentFormSelectors';
+    useAddCommentFormErrorSelector,
+    useAddCommentFormTextSelector,
+} from '../../model/selectors/selectAddCommentForm';
 import cls from './AddCommentForm.module.scss';
 import { ToggleFeatures } from '@/shared/lib/features';
 import { Input } from '@/shared/ui/redesigned/Input';
@@ -38,8 +37,8 @@ const reducers: ReducersList = {
 const AddCommentForm = (props: AddCommentFormProps) => {
     const { className, onSendComment } = props;
     const { t } = useTranslation();
-    const text = useSelector(getAddCommentFormText);
-    const error = useSelector(getAddCommentFormError);
+    const text = useAddCommentFormTextSelector();
+    const error = useAddCommentFormErrorSelector();
     const dispatch = useAppDispatch();
 
     const onCommentTextChange = (value: string) => {

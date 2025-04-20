@@ -1,13 +1,12 @@
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { Card } from '@/shared/ui/redesigned/Card';
 import { ArticleAdditionalInfo } from '@/widgets/ArticleAdditionalInfo';
-import { getArticleDetailsData } from '@/entities/Article';
+import { useArticleDetailsDataSelector } from '@/entities/Article';
 import cls from './AdditionalInfoContainer.module.scss';
 import { getRouteArticleEdit } from '@/shared/consts/router';
 
 export const AdditionalInfoContainer = () => {
-    const article = useSelector(getArticleDetailsData);
+    const article = useArticleDetailsDataSelector();
 
     const navigate = useNavigate();
 

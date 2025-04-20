@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { useForceUpdate } from '@/shared/lib/render/forceUpdate';
 import { ListBox } from '@/shared/ui/redesigned/Popups';
 import { Text } from '@/shared/ui/redesigned/Text';
 import { getFeatureFlag, updateFeatureFlag } from '@/shared/lib/features';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { getUserAuthData } from '@/entities/User';
+import { useUserAuthDataSelector } from '@/entities/User';
 import { HStack } from '@/shared/ui/redesigned/Stack';
 import { Skeleton } from '@/shared/ui/redesigned/Skeleton';
 
@@ -19,7 +18,7 @@ export const UiDesignSwitcher = (props: UiDesignSwitcherProps) => {
     const { t } = useTranslation();
     const isAppRedesigned = getFeatureFlag('isAppRedesigned');
     const dispatch = useAppDispatch();
-    const authData = useSelector(getUserAuthData);
+    const authData = useUserAuthDataSelector();
     const [isLoading, setIsLoading] = useState(false);
     const forceUpdate = useForceUpdate();
 

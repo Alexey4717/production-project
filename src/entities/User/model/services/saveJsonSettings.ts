@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { JsonSettings } from '../types/jsonSettings';
-import { getUserAuthData } from '../selectors/getUserAuthData/getUserAuthData';
-import { getJsonSettings } from '../selectors/jsonSettings';
+import { selectUserAuthData } from '../selectors/selectUserData';
+import { selectJsonSettings } from '../selectors/selectJsonSettings';
 import { setJsonSettingsMutation } from '../../api/userApi';
 
 export const saveJsonSettings = createAsyncThunk<
@@ -11,8 +11,9 @@ export const saveJsonSettings = createAsyncThunk<
     ThunkConfig<string>
 >('user/saveJsonSettings', async (newJsonSettings, thunkApi) => {
     const { rejectWithValue, getState, dispatch } = thunkApi;
-    const userData = getUserAuthData(getState());
-    const currentSettings = getJsonSettings(getState());
+    const state = getState();
+    const userData = selectUserAuthData(state);
+    const currentSettings = selectJsonSettings(state);
 
     if (!userData) {
         return rejectWithValue('');

@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
-import { getArticleDetailsData } from '@/entities/Article';
+import { selectArticleDetailsData } from '@/entities/Article';
 import { Comment } from '@/entities/Comment';
-import { getUserAuthData } from '@/entities/User';
+import { selectUserAuthData } from '@/entities/User';
 import { fetchCommentsByArticleId } from '../../services/fetchCommentsByArticleId/fetchCommentsByArticleId';
 
 export const addCommentForArticle = createAsyncThunk<
@@ -11,9 +11,9 @@ export const addCommentForArticle = createAsyncThunk<
     ThunkConfig<string>
 >('articleDetails/addCommentForArticle', async (text, thunkAPI) => {
     const { extra, dispatch, rejectWithValue, getState } = thunkAPI;
-
-    const userData = getUserAuthData(getState());
-    const article = getArticleDetailsData(getState());
+    const state = getState();
+    const userData = selectUserAuthData(state);
+    const article = selectArticleDetailsData(state);
 
     if (!userData || !article || !text) {
         return rejectWithValue('no data');

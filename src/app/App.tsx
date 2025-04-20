@@ -1,7 +1,6 @@
 import { Suspense, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { getUserInited, initAuthData } from '@/entities/User';
+import { useUserInitedSelector, initAuthData } from '@/entities/User';
 import { AppRouter } from './providers/router';
 import { Navbar } from '@/widgets/Navbar';
 import { Sidebar } from '@/widgets/Sidebar';
@@ -17,7 +16,7 @@ import { withTheme } from './providers/ThemeProvider/ui/withTheme';
 const App = () => {
     const { theme } = useTheme();
     const dispatch = useAppDispatch();
-    const inited = useSelector(getUserInited);
+    const inited = useUserInitedSelector();
     const toolbar = useAppToolbar();
 
     useEffect(() => {

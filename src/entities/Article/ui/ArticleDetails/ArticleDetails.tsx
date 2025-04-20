@@ -1,6 +1,5 @@
-import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import {
     DynamicModuleLoader,
     ReducersList,
@@ -24,10 +23,10 @@ import { fetchArticleById } from '../../model/services/fetchArticleById/fetchArt
 import { articleDetailsReducer } from '../../model/slice/articleDetailsSlice';
 import cls from './ArticleDetails.module.scss';
 import {
-    getArticleDetailsData,
-    getArticleDetailsError,
-    getArticleDetailsIsLoading,
-} from '../../model/selectors/articleDetails';
+    useArticleDetailsDataSelector,
+    useArticleDetailsErrorSelector,
+    useArticleDetailsIsLoadingSelector,
+} from '../../model/selectors/selectArticleDetails';
 import { renderArticleBlock } from './renderBlock';
 import { toggleFeatures, ToggleFeatures } from '@/shared/lib/features';
 import { AppImage } from '@/shared/ui/redesigned/AppImage';
@@ -42,7 +41,7 @@ const reducers: ReducersList = {
 };
 
 const Deprecated = () => {
-    const article = useSelector(getArticleDetailsData);
+    const article = useArticleDetailsDataSelector();
     return (
         <>
             <HStack justify="center" max className={cls.avatarWrapper}>
@@ -70,7 +69,7 @@ const Deprecated = () => {
 };
 
 const Redesigned = () => {
-    const article = useSelector(getArticleDetailsData);
+    const article = useArticleDetailsDataSelector();
 
     return (
         <>
@@ -118,8 +117,8 @@ export const ArticleDetails = (props: ArticleDetailsProps) => {
     const { className, id } = props;
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const isLoading = useSelector(getArticleDetailsIsLoading);
-    const error = useSelector(getArticleDetailsError);
+    const isLoading = useArticleDetailsIsLoadingSelector();
+    const error = useArticleDetailsErrorSelector();
 
     useEffect(() => {
         if (__PROJECT__ !== 'storybook') {

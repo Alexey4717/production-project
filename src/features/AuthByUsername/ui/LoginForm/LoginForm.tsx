@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import {
     Button as ButtonDeprecated,
@@ -13,18 +12,18 @@ import {
     ReducersList,
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { getLoginUsername } from '../../model/selectors/getLoginUsername/getLoginUsername';
-import { getLoginPassword } from '../../model/selectors/getLoginPassword/getLoginPassword';
-import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading';
-import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
-import { loginByUsername } from '../../model/services/loginByUsername/loginByUsername';
-import { loginActions, loginReducer } from '../../model/slice/loginSlice';
-import cls from './LoginForm.module.scss';
 import { ToggleFeatures } from '@/shared/lib/features';
 import { Button } from '@/shared/ui/redesigned/Button';
 import { Input } from '@/shared/ui/redesigned/Input';
 import { VStack } from '@/shared/ui/redesigned/Stack';
 import { useForceUpdate } from '@/shared/lib/render/forceUpdate';
+import { useLoginUsernameSelector } from '../../model/selectors/selectLoginUsername/selectLoginUsername';
+import { useLoginPasswordSelector } from '../../model/selectors/selectLoginPassword/selectLoginPassword';
+import { useLoginIsLoadingSelector } from '../../model/selectors/selectLoginIsLoading/selectLoginIsLoading';
+import { useLoginErrorSelector } from '../../model/selectors/selectLoginError/selectLoginError';
+import { loginByUsername } from '../../model/services/loginByUsername/loginByUsername';
+import { useLoginActions, loginReducer } from '../../model/slice/loginSlice';
+import cls from './LoginForm.module.scss';
 
 export interface LoginFormProps {
     className?: string;
@@ -38,18 +37,20 @@ const initialReducers: ReducersList = {
 const LoginForm = ({ className, onSuccess }: LoginFormProps) => {
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const username = useSelector(getLoginUsername);
-    const password = useSelector(getLoginPassword);
-    const isLoading = useSelector(getLoginIsLoading);
-    const error = useSelector(getLoginError);
+    const username = useLoginUsernameSelector();
+    const password = useLoginPasswordSelector();
+    const isLoading = useLoginIsLoadingSelector();
+    const error = useLoginErrorSelector();
     const forceUpdate = useForceUpdate();
 
+    const { setUsername, setPassword } = useLoginActions();
+
     const onChangeUsername = (value: string) => {
-        dispatch(loginActions.setUsername(value));
+        setUsername(value);
     };
 
     const onChangePassword = (value: string) => {
-        dispatch(loginActions.setPassword(value));
+        setPassword(value);
     };
 
     const onLoginClick = async () => {
