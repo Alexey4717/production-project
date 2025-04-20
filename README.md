@@ -4,7 +4,7 @@
 Версия yarn - 1.22.22
 Версия node - 22.14.0
 yarn install - устанавливаем зависимости
-yarn start:dev или yarn start:dev:vite - запуск сервера + frontend проекта в dev режиме
+yarn start:dev - запуск сервера + frontend проекта в dev режиме
 ```
 
 ----
@@ -12,9 +12,7 @@ yarn start:dev или yarn start:dev:vite - запуск сервера + fronte
 ## Скрипты
 
 - `yarn start` - Запуск frontend проекта на webpack dev server
-- `yarn start:vite` - Запуск frontend проекта на vite
 - `yarn start:dev` - Запуск frontend проекта на webpack dev server + backend
-- `yarn start:dev:vite` - Запуск frontend проекта на vite + backend
 - `yarn start:dev:server` - Запуск backend сервера
 - `yarn build:prod` - Сборка в prod режиме
 - `yarn build:dev` - Сборка в dev режиме (не минимизирован)
@@ -134,12 +132,6 @@ Clear.args = {
 ----
 
 ## Конфигурация проекта
-
-Для разработки проект содержит 2 конфига:
-1. Webpack - ./config/build
-2. vite - vite.config.ts
-
-Оба сборщика адаптированы под основные фичи приложения.
 
 Вся конфигурация хранится в /config
 - /config/babel - babel
