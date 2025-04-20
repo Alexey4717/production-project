@@ -6,10 +6,7 @@ export const [useCounterValue, getCounterValue] = buildSelector(
 
 export const [useCounterValue2, getCounterValue2] = buildSelector(
     getCounterValue,
-    // TODO разобраться с типизацией
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    (state: number) => {
+    (state) => {
         return state! + 5;
     },
 );
@@ -17,9 +14,16 @@ export const [useCounterValue2, getCounterValue2] = buildSelector(
 export const [useCounterValue3, getCounterValue3] = buildSelector(
     getCounterValue,
     getCounterValue2,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    (state1: number, state2: number) => {
+    (state1, state2) => {
         return state1 + state2;
+    },
+);
+
+export const [useCounterValue4, getCounterValue4] = buildSelector(
+    getCounterValue,
+    getCounterValue2,
+    getCounterValue3,
+    (state1, state2, state3) => {
+        return state1 + state2 + state3;
     },
 );

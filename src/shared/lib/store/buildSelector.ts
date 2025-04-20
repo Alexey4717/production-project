@@ -1,35 +1,60 @@
-import { useSelector, type TypedUseSelectorHook } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
-import type { Combiner, SelectorArray } from 'reselect';
 
-const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+type Selector<TResult, TArgs extends unknown[] = []> = (
+    state: RootState,
+    ...args: TArgs
+) => TResult;
 
-type Selector<T, Args extends any[]> = (state: RootState, ...args: Args) => T;
-type Hook<T, Args extends any[]> = (...args: Args) => T;
-type Result<T, Args extends any[]> = [Hook<T, Args>, Selector<T, Args>];
-type CreateSelectorArgs<T> = [
-    ...inputSelectors: SelectorArray<RootState>,
-    combiner: Combiner<SelectorArray<RootState>, T>,
-];
+type UseSelectorHook<TResult, TArgs extends unknown[] = []> = (
+    ...args: TArgs
+) => TResult;
 
-export function buildSelector<T, Args extends any[]>(
-    ...selectors: Selector<T, Args>[]
-): Result<T, Args> {
-    const useSelectorHook: Hook<T, Args> = (...args: Args) => {
-        return useAppSelector((state: RootState) => {
-            return selectors.length === 1
-                ? selectors[0](state, ...args)
-                : createSelector(...(selectors as CreateSelectorArgs<T>))(
-                      state,
-                      ...args,
-                  );
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type SelectorResults<T extends Selector<any, any>[]> = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [K in keyof T]: T[K] extends Selector<infer R, any> ? R : never;
+};
+
+export function buildSelector<TResult, TArgs extends unknown[] = []>(
+    selector: Selector<TResult, TArgs>,
+): [UseSelectorHook<TResult, TArgs>, Selector<TResult, TArgs>];
+
+export function buildSelector<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    TSelectors extends Selector<any, any>[],
+    TResult,
+    TArgs extends unknown[] = [],
+>(
+    ...args: [
+        ...selectors: TSelectors,
+        combiner: (...values: SelectorResults<TSelectors>) => TResult,
+    ]
+): [UseSelectorHook<TResult, TArgs>, Selector<TResult, TArgs>];
+
+export function buildSelector(...args: unknown[]): unknown {
+    const selectors = [...args.slice(0, -1)] as Selector<unknown, unknown[]>[];
+    const combiner = args[args.length - 1] as (...values: unknown[]) => unknown;
+
+    const useSelectorHook = (...hookArgs: unknown[]) => {
+        return useSelector((state: RootState) => {
+            if (selectors.length === 0) {
+                return combiner(state, ...hookArgs);
+            }
+
+            const createdSelector = createSelector(selectors, combiner);
+            return createdSelector(state, ...hookArgs);
         });
     };
 
-    const selector: Selector<T, Args> | ReturnType<typeof createSelector> =
-        selectors.length === 1
-            ? selectors[0]
-            : createSelector(...(selectors as CreateSelectorArgs<T>));
+    const selector = (state: RootState, ...selectorArgs: unknown[]) => {
+        if (selectors.length === 0) {
+            return combiner(state, ...selectorArgs);
+        }
+
+        const createdSelector = createSelector(selectors, combiner);
+        return createdSelector(state, ...selectorArgs);
+    };
 
     return [useSelectorHook, selector];
 }
