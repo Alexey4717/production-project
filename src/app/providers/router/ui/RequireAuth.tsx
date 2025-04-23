@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import { type ReactNode, useMemo } from 'react';
 import { Navigate, useLocation } from 'react-router';
 import { getRouteForbidden, getRouteMain } from '@/shared/consts/router';
 import {
@@ -18,16 +18,13 @@ export const RequireAuth = ({ children, roles }: RequireAuthProps) => {
     const isAuth = useUserAuthDataSelector();
     const userRoles = useUserRolesSelector();
 
-    const hasRequiredRoles = () => {
+    const hasRequiredRoles = useMemo(() => {
         if (!roles) {
             return true;
         }
 
-        return roles.some((requiredRole) => {
-            const hasRole = userRoles?.includes(requiredRole);
-            return Boolean(hasRole);
-        });
-    };
+        return roles.some((requiredRole) => userRoles?.includes(requiredRole));
+    }, [roles, userRoles]);
 
     if (!isAuth) {
         return (
@@ -49,6 +46,5 @@ export const RequireAuth = ({ children, roles }: RequireAuthProps) => {
         );
     }
 
-    // eslint-disable-next-line react/jsx-no-useless-fragment
     return <>{children}</>;
 };
