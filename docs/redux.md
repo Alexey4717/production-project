@@ -1,157 +1,550 @@
-Redux-toolkit. Если устанавливать redux-toolkit, то отдельно redux устанавливать не нужно.
-Тулкит нужен для уменьшения бойлерплэйт кода (не нужно создавать экшены, экшен-криэйтэры...).
-Внутри есть библа immerJs, которая позволяет изменять state.
-Так же с коробки есть redux-thunk и инструменты разработчика, их не нужно ставить отдельно.
-Чтоб редакс работал нужно все приложение обернуть в провайдер.
-Создадим app/providers/StoreProvider(ui/config).
-В конфиге будет конфигурация провайдера редакса (корневые редьюсеры, мидлвэры, вкл/откл тулзы и т.д.).
-Для StoreProvider конфиг сделали рядом с ним в этой же папке.
-Девтулзы включаем только в режиме разработки (из глобального флага).
-Создали интерфейс StateSchema, в котором будет описание типов глобального состояния (передается в джинерике в конфигурацию стора).
-Все типы стэйта будем называть с окончанием Schema (т.е. это часть схемы).
+# Документация по Redux
 
-В FSD сегмент model внутри уровней будет отвечать за state, операции с этим state.
-В model будут папки slice (со слайсом редакса), selectors (с селекторами, которые достают данные) и types (типы данных).
-По методологии иногда типы могут импортироваться из вышестоящего слоя (например в models импорт из app). TODO сделать объявление в global.d.ts.
+## Введение
 
-createSelector из toolkit (под капотом reselect внутри тулкита) позволяет переиспользовать другие селекторы.
-Он хорош тем, что, во-первых, не нужно дублировать код.
-Во-вторых, мемоизирует значение (зависимость - данные, возвращаемые переданным селектором).
-В-третьих, можно использовать несколько селекторов, комбинировать/объединять их и в одной функции получать одно значение.
-тип DeepPartial из тулкита позволяет типизировать стейт с отдельным куском.
-для каждого редьюса, слайса пишутся тесты.
-Если какое-то поле кто-то поменяет, то тест упадет, может предотвратиться баг.
+Redux — это предсказуемый контейнер состояния для JavaScript-приложений.
+Redux Toolkit (RTK) — официальный инструмент для эффективной работы с Redux, который:
 
-Ошибки обрабатываются в санках с thunkAPI.rejectWithValue. Вообще из thunkAPI можно получить dispatch,
-редьюсер для получения данных и стора и т.д.
-Санки в extraReducers. Т.е. обычные reducers для обычного изменения состояния, а extraReducers для asyncThunk.
-У каждого asyncThunk есть 3 состояния:
-pending (запрос еще идет), fullfilled (запрос выполнен успешно), rejected (запрос выполнен с ошибкой).
-Можно их все обработать в extraReducers, через builder.addCase.
-Для каждого case типы action.payload подтягиваются такие, как были указаны в санках (для error свой, для fulfilled свой).
+- Уменьшает количество шаблонного кода
+- Предоставляет встроенные лучшие практики (например поддержка redux-thunk)
+- Включает полезные утилиты (например immer)
+- тип DeepPartial из тулкита позволяет типизировать стейт с отдельным куском
 
-Так же есть ньюанс, что даже если использовать данные стора в асинхронных компонентах.
-То редьюсер с экшенами не будут асинхронно подгружаться (т.к. они подключаются по итогу к корневому редьюсеру),
-поэтому они уходят в главный бандл.
-В редьюсерах, как правило, достаточно много строк кода и можно неплохо урезать главный бандл,
-если подгружать его асинхронно.
-100 строк кода примерно равно 3кб в прод-сборке
-Можно загуглить "redux code splitting" и найти инфу как асинхронно подгружать редаксовский код.
-Можно использовать store.injectReducer/replaceReducer.
-Создали рядом файл reducerManager.ts (там будет логика для асинхронного добавления или удаления редьюсеров из стора).
-Он используется в связке с асинхронными компонентами, чтобы код редьюсера так же не попадал в main чанк.
-Подключили его store.reducerManager в store.ts. Убрали там LoginForm редьюсер (он будет асинхронно подгружаться).
-Обязательно передать в поле reducer: reducerManager.reduce, чтоб передать новые редьюсеры.
+## Установка
 
-Вынесли логику по lazy подгрузке в отдельный компонент shared/lib/components/DynamicModuleLoader/DynamicModuleLoader.tsx
-в useEffect при монтировании компонента store.reducerManager.add(reducerName, reducer);
-Из экспорта модуля убрали экспорт наружу (т.е. он используется самим модулем и асинхронно подгрузится).
-При размонтировании компонента нужно так же убрать его store.reducerManager.remove(reducerName);
-Им нужно будет оборачивать асинхронные (lazy) компоненты
-логику по асинхронному добавлению редьюсера (не в shared/ui т.к. пол сути рендера разметки интерфейса нет).
-Вообще есть отдельные библиотеки для Lazy подгрузки редьюсеров, но тут реализовано свое решение.
-Так же была проблема что несколько раз глобально монтируется редьюсер (глоабльно это ни на что не влияет, но не очень хорошо).
-В DynamicModuleLoader в useEffect где происходит монрирование редьюсеров нужно проверять, вмонтирован он уже или еще нет.
-В ReducerManager добавили еще одно поле mountedReducers: Record<StateSchemaKey, boolean>.
-Если значение true, значит редьюсер с данным ключем уже монтирован, иначе нет (или был удален).
+```bash
+npm install @reduxjs/toolkit react-redux
+```
 
-Падали скриншотные тесты, т.к. в сторибуке не отображаются ошибки неверных кредов для авторизации.
-Т.к. при инициализации не определяется асинхронный редьюсер.
-Добавили в StoreProvider передачу asyncReducers, которые передаются в createReduxStore.
+## Базовая настройка
 
-Хук useDispatch не возвращает все типы результата вызова диспатча.
-Что бы это исправить можно загуглить https://redux-toolkit.js.org/usage/usage-with-typescript.
-Создать тип (AppDispatch в store.ts) и хук useAppDispatch (в shared/lib/hooks).
-Например подтянутся типы для result.meta.requestStatus, можно будет делать проверку по нему.
+В FSD хранится в app/providers/StoreProvider
 
-Внутри thunk (например в loginByUsername.ts) нужно получить доступ до инстанса апи (axios).
-Это можно делать обычным импортом/экспортом, но мы использовали другой способ.
-Есть агрумент thunkAPI.extra, в которой можно положить любые вспомогательные функции, данные.
-В thunkAPI.extra мы и поместили инстанс апи (в файле store.ts в конфигурации рутового стора указывается поле middleware).
-В redux-toolkit уже есть по-дефолту набор мидлвар (thunk, с помощью которого можно удобно работать с изменениями стейта).
-Когда поместим в extra инстанс апи, можно будет в санках делать запросы extra.api.post.
-Так же указан в инстансе baseURL, и его можно в запросах уже не писать.
-Так же можно navigate (из useNafigate from react-router-dom) поместить в extra.
-Далее нужна настройка типизации extra, т.к. ts не подхватывает типы в инстансе санки.
-Описание типов в app/providers/StoreProvider/config/StateSchema.ts.
+### Создание хранилища (Store)
 
-В компонентах для получения стэйта мы используем хук useSelector, а внутри asyncThunk мы используем getState.
-Указывается тип в джинерике ThunkConfig.state (добавили в тип ThunkConfig state: StateSchema) для типизации стэйта getState().
+```ts
+// app/providers/StoreProvider/config/store.ts
+import { configureStore } from '@reduxjs/toolkit';
+import { StateSchema } from './StateSchema';
 
-Применили проверку в санке updateProfileData, перед совершением запроса. Если ошибки есть, то rejectWithValue.
+export function createReduxStore(initialState?: StateSchema) {
+  return configureStore({
+    reducer: rootReducer,
+    devTools: __IS_DEV__,
+    preloadedState: initialState,
+  });
+}
+```
 
-Нормализация данных - концепция (redux-toolkit entity adapter).
-Проблематика: пример с 4 списками товаров (все, измененные, черновик, на модерации).
+### Провайдер хранилища
+
+```tsx
+// app/providers/StoreProvider/ui/StoreProvider.tsx
+import { Provider } from 'react-redux';
+import { createReduxStore } from '../config/store';
+
+export const StoreProvider = ({ children }: { children: ReactNode }) => {
+  const store = createReduxStore();
+
+  return <Provider store={store}>{children}</Provider>;
+};
+```
+В app/providers/StoreProvider/config/store.ts задаются:
+
+- корневые редьюсеры;
+- middleware (включая thunk);
+- devtools (включаем только в режиме разработки).
+
+## Создание слайсов
+
+### Пример слайса
+
+```ts
+// features/Counter/model/slice/counterSlice.ts
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+interface CounterState {
+  value: number;
+}
+
+const initialState: CounterState = {
+  value: 0,
+};
+
+export const counterSlice = createSlice({
+  name: 'counter',
+  initialState,
+  reducers: {
+    increment: (state) => {
+      state.value += 1;
+    },
+    decrement: (state) => {
+      state.value -= 1;
+    },
+    incrementByAmount: (state, action: PayloadAction<number>) => {
+      state.value += action.payload;
+    },
+  },
+});
+
+export const { actions: counterActions } = counterSlice;
+export const { reducer: counterReducer } = counterSlice;
+```
+
+Создали shared/lib/store/buildSlice.ts для улучшенной работой со слайсами.
+
+Можно создать слайс и вернуть оттуда хук useActions.
+В компонентах использовать useActions, который возвращает экшены для использования без dispatch (меньше кода).
+Нативные экшены так же остаются, чтоб использовать вне компонентов (для санок, тестов и т.п.).
+
+## Работа с асинхронными операциями
+
+### Создание асинхронной санки
+
+```ts
+// features/AuthByUsername/model/services/loginByUsername.ts
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { ThunkConfig } from 'app/providers/StoreProvider';
+
+export const loginByUsername = createAsyncThunk<
+  User,
+  LoginFormData,
+  ThunkConfig<string>
+>(
+  'login/loginByUsername',
+  async (authData, thunkAPI) => {
+    const { extra, rejectWithValue } = thunkAPI;
+    
+    try {
+      const response = await extra.api.post<User>('/login', authData);
+      return response.data;
+    } catch (e) {
+      return rejectWithValue('Неверный логин или пароль');
+    }
+  }
+);
+```
+
+В санке можно использовать из результата запроса метод unwrap() для разворачивания промиса (чтоб reject тоже обрабатывался в санке).
+
+### Обработка состояний в слайсе
+
+У каждого thunk есть три состояния:
+
+- pending — запрос отправлен;
+- fulfilled — получен ответ;
+- rejected — произошла ошибка.
+
+```ts
+// features/AuthByUsername/model/slice/loginSlice.ts
+extraReducers: (builder) => {
+  builder
+    .addCase(loginByUsername.pending, (state) => {
+      state.error = undefined;
+      state.isLoading = true;
+    })
+    .addCase(loginByUsername.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.authData = action.payload;
+    })
+    .addCase(loginByUsername.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+},
+```
+
+### Обработка ошибок через rejectWithValue
+
+В thunk используем thunkAPI.rejectWithValue:
+
+```ts
+return thunkAPI.rejectWithValue('Ошибка при авторизации');
+```
+
+Можно получить доступ к dispatch, getState, extra, переданным в thunk.
+Вообще в конфиге в extraArgument можно передать что угодно (api, navigate, apolloClient и т.п.),
+чтоб обращаться к этому внутри санок.
+
+### Типизация thunk и extra
+
+Для корректной типизации thunk используем ThunkConfig:
+
+```ts
+interface ThunkConfig<T> {
+  rejectValue: T;
+  extra: ThunkExtraArg;
+  state: StateSchema;
+}
+```
+
+Передаётся в createAsyncThunk<T, Arg, ThunkConfig<ErrorType>>.
+
+## Селекторы
+
+### Базовые селекторы
+
+Используем createSelector из RTK (основан на reselect) для:
+
+- переиспользования логики;
+- мемоизации значений;
+- комбинирования селекторов.
+
+```ts
+// features/AuthByUsername/model/selectors/getLoginState.ts
+import { createSelector } from '@reduxjs/toolkit';
+import { StateSchema } from 'app/providers/StoreProvider';
+
+export const getLoginState = (state: StateSchema) => state?.loginForm;
+
+export const getLoginUsername = createSelector(
+  getLoginState,
+  (loginForm) => loginForm?.username || ''
+);
+```
+
+### Улучшенная работа с селекторами
+
+Создали src/shared/lib/store/buildSelector.ts
+который позволяет уменьшить количество бойлерплэйт кода:
+
+Создание:
+
+```ts
+import { buildSelector } from '@/shared/lib/store';
+
+export const [useFirstSelector, firstSelector] = buildSelector(
+    (state) => state.counter.value,
+);
+
+export const [useSecondSelector, secondSelector] = buildSelector(
+    firstSelector,
+    (state) => {
+        return state! + 5;
+    },
+);
+```
+
+Можно использовать хук в компонентах без useDispatch (меньше импортов).
+Можно переиспользовать селектор в reselect, санках, тестах и т.д.
+
+## Хуки useSelector и useDispatch
+
+- Для доступа к стейту используем useSelector.
+- Для отправки экшенов — useDispatch.
+
+### Типизация dispatch
+
+useDispatch не знает о типах thunk'ов. Создаем кастомный хук useAppDispatch.
+Например, подтянутся типы для result.meta.requestStatus, можно будет делать проверку по нему.
+
+## Динамическая загрузка редьюсеров
+
+Редьюсеры по умолчанию подключаются к корневому стору и попадают в главный бандл. Это плохо для производительности.
+
+### ReducerManager
+
+В app/providers/StoreProvider/config/reducerManager.ts реализован менеджер,
+который используется для асинхронного инжектирования редьюсеров и выпиливания из стора.
+Технически редьюсеры подгружаются отдельными чанками.
+
+### DynamicModuleLoader
+
+В src/shared/lib/components/DynamicModuleLoader реализован компонент-обертка,
+который имплементирует функционал reducerManager в компонентах.
+
+Использование в компонентах:
+
+```tsx
+import {
+    DynamicModuleLoader,
+    ReducersList,
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+
+const reducers: ReducersList = {
+    someReducerKey: someReducer,
+    // Произвольное количество редьюсеров для инжектирования
+};
+
+const Component = () => {
+    return (
+        <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
+            {content}
+        </DynamicModuleLoader>
+    );
+};
+```
+
+Опция removeAfterUnmount позволяет управлять поведением динамического удаления редьюсера при размонтировании компонента.
+
+## Нормализация данных
+
+### Проблема: дублирование сущностей
+
+#### Пример 1.
+Допустим есть 4 списками товаров (все, измененные, черновик, на модерации).
 При изменении состояния одной сущности из списка "все", она улетает в "измененные" и т.д.
-Это та же сушность по сути. Дублировать её для всех для нескольких списков это избыточно,
-плюс необходимо, чтобы все эти дублируемые данные были одинаковыми (реально частая проблема, которая возникает на практике).
-Другой пример, у нас есть массив объектов и нам надо изменить одно из полей объекта.
+Это та же сушность по сути. Дублировать её для нескольких списков это избыточно.
+Плюс необходимо, чтобы все эти дублируемые данные были одинаковыми (реально частая проблема, которая возникает на практике).
+
+#### Пример 2.
+Допустим есть массив объектов и нам надо изменить одно из полей объекта.
 Чтобы это сделать, нужно проитерироваться по всему массиву, найти нужный объект, заменить у него поле, а во всех остальных случаях возвращается старый объект.
 Здесь приходит на помощь нормализация. Тут нужно относитья к данным на клиенте примерно так же, как к данным, хранящимся в БД на сервере.
 При нормализации у объектов не хранятся вложенные объекты, хранятся только идентификаторы (foreign_key как в БД).
 Так мы избавляемся от дублирования данных и плюс, при изменении в одном месте, изменения произойдут везде, где используется ссылка-id.
 Так же данные хранятся не в массиве, а в объекте, где ключ это id. Уменьшается константное время допуска к объекту.
 В redux-tooklit есть обстракция, с помощью которой можно делать нормализацию с минимумом строк кода.
-С помощью createEntityAdapter, создается адаптер, с помощью которого реализуется большое количество функционала.
-Он генерит набор базовых экшенов (CRUD-functions), предназначенных для работы с коллекциями, Набор базовых селекторов.
-Данные достаем как useSelector(getArticleComments.selectAll). Так же есть другие полезные методы.
-Теперь нет необходимости писать руками селекторы.
-Но для кастомных, типа isLoading и error нужно писать селекторы.
-В extraReducers в fulfilled можно использовать Adapter.setAll(state, action.payload);
-Этот метод адаптера сам нормализует список (сформирует ids, entities и т.п.).
-Для подгрузки на скролл используется addMany (чтобы полностью не перезатирался весь массив сущностей, а новые добавлялись в конец).
 
-Решили формировать массив ссылок для сайдбара в селекторе редакса, подставлять там id текущего пользователя.
-Воспользовались createSelector из редакса, чтобы переиспользовать селектор и создать на основе него другой для сайдбара.
+### Решение: createEntityAdapter
 
-При переходах на страницы зачищается история redux-devtools.
-Это из-за того, что происходил новый рендер компонента StoreProvider, а в нем происходит новая инициализация стора.
-Ререндер происходил из-за передачи функции navigate (из react-router).
+```ts
+const commentsAdapter = createEntityAdapter<Comment>();
+```
 
-Чтобы отливливать ошибки присвоения редьюсеров по названию (например в StoreDecorator в defaultAsyncReducers), обновили тип более строго
-export type ReducersList = {
-    [name in StateSchemaKey]?: Reducer<NonNullable<StateSchema[name]>>;
-}
+Он создаёт:
 
-RTK-Query генерирует хуки для апи (в зависимости от названия эндпоинта),
-которые запускаются в теле функционального компонента (похож на хуки graphql).
-В них содержится генерируемая логика, типа индикация загрузки, error при запросе, refetch и т.п.
+- объект entities по id;
+- массив ids;
+- базовые экшены (addOne, removeMany, и др.);
+- селекторы (selectAll, selectById).
+
+```ts
+adapter.setAll(state, action.payload); // нормализует массив
+adapter.addMany(state, newItems);      // добавляет новые
+```
+
+### Использование EntityAdapter
+
+```ts
+// entities/Article/model/slice/articleDetailsCommentsSlice.ts
+import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+
+const commentsAdapter = createEntityAdapter<Comment>({
+  selectId: (comment) => comment.id,
+  sortComparer: (a, b) => a.text.localeCompare(b.text),
+});
+
+export const articleDetailsCommentsSlice = createSlice({
+  name: 'articleDetailsComments',
+  initialState: commentsAdapter.getInitialState<ArticleDetailsCommentsSchema>({
+    isLoading: false,
+    error: undefined,
+    ids: [],
+    entities: {},
+  }),
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCommentsByArticleId.fulfilled, (state, action) => {
+        commentsAdapter.setAll(state, action.payload);
+        state.isLoading = false;
+      });
+  },
+});
+
+export const { selectAll: selectArticleComments } = commentsAdapter.getSelectors<StateSchema>(
+  (state) => state.articleDetailsComments || commentsAdapter.getInitialState()
+);
+```
+
+### Использование в компонентах
+
+```ts
+useSelector(getArticleComments.selectAll)
+```
+
+## RTK Query
+
+### Настройка API
+
+```ts
+// shared/api/rtkApi.ts
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+export const rtkApi = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({
+    baseUrl: __API__,
+  }),
+  endpoints: () => ({}),
+});
+```
+
+### Инжектирование эндпоинтов в api rtk-query и код сплиттинг в разные части приложения
+
+```ts
+import { rtkApi } from '@/shared/api/rtkApi';
+import { Notification } from '../model/types/notification';
+
+const notificationApi = rtkApi.injectEndpoints({
+    endpoints: (build) => ({
+        getNotifications: build.query<Notification[], null>({
+            query: () => ({
+                url: '/notifications',
+            }),
+        }),
+    }),
+});
+
+export const useNotifications = notificationApi.useGetNotificationsQuery; // генерация хуков
+export const getNotificationsQuery = notificationApi.endpoints.getNotifications.initiate; // генерация функции для отправки запроса вне компонента
+```
+
+Но при такой реализации нужно в корневом файле rtk-api указывать типы
+tagTypes: ['Notification']
+
+### Использование в компонентах
+
+```tsx
+// entities/Article/ui/ArticleRecommendationsList/ArticleRecommendationsList.tsx
+import { useArticleRecommendationsListQuery } from '../../api/articleRecommendationsApi';
+
+export const ArticleRecommendationsList = () => {
+  const { data, isLoading, error } = useArticleRecommendationsListQuery(3);
+
+  if (isLoading || error || !data) {
+    return null;
+  }
+
+  return (
+    <div>
+      {data.map((article) => (
+        <ArticleView key={article.id} article={article} />
+      ))}
+    </div>
+  );
+};
+```
+
 Если запускать хук с одним и тем же запросом в нескольких местах, то запрос технически будет отправляться один,
 т.к. данные сохраняются в хранилище. Rtk-query сам кеширует и своевременно обновляет данные.
 В хуках так же есть longPulling, чтобы с интервалом отправлять запросы.
 
-Так же на проекте используется rtk-query, который надо так же адаптировать под storybook.
+Хуки бывают query (запрос при инициализации компонента, управление через skip) и lazyQuery (запрос через явный запуск функции).
+
+## Адаптация со сторибуком
+
 Есть Addon decorator для сторибука (storybook mock api).
-Установили пакет storybook-addon-mock в devDeps (он для 6 версии или выше сторибука).
-https://storybook.js.org/addons/storybook-addon-mock
-В конфиге сторибука передать api в DefinePlugin.
-Пример использования в сторисах ArticleRecommendationsList.stories.tsx.
+Установили пакет [storybook-addon-mock](https://storybook.js.org/addons/storybook-addon-mock)
 
-Для сторисов если есть мок rtk-query запросов обязательно нужно добавлять StoreDecorator, т.к. это апи redux, и withMock декоратор.
+В конфиге сторибука (main.ts) передать api в DefinePlugin.
 
-Раньше всегда для rtk-query использовали хуки для запросов.
-В rtk-query есть возможность выполнения запроса и без хуков (метод initiate()).
-С помощью него можно отправлять запрос не только в компонентах.
-В санке используем, с методом unwrap() для разворачивания промиса (чтоб reject тоже обрабатывался в санке).
+```ts
+config!.plugins!.push(
+    new DefinePlugin({
+        __IS_DEV__: JSON.stringify(true),
+        __API__: JSON.stringify('https://testapi.ru'), // тестовое апи для моканных запросов
+        __PROJECT__: JSON.stringify('storybook'), // Определение значения для глобальной переменной, можно использовать в разных местах приложения для определения текущей сборки
+    }),
+);
+```
 
-## BuildSlice. BuildSelector. Улучшаем работу со state. useActions.
-Основная работа со стейтом происходит через диспатчи и селекторы.
-И не очень удобно постоянно диспатчить экшены, получать данные через селекторы.
-Нужен механизм, с помощью которого можно будет напрямую получать данные без useSelector и напрямую диспатчить экшены без dispatch.
-Будем напрямую биндить диспатч и селектор к данным.
-Создали src/shared/lib/store/buildSlice.ts и buildSelector.ts
-На примере Counter использовали.
-const [useCounterValue, getCounterValue] = buildSelector((state) => state.counter.value)
-Сам селектор (getCounterValue) можно использовать например в asyncThunk, а useCounterValue уже напрямую в компонентах (вместо useSelector(getCounterValue)).
-Т.е. с помощью хука buildSelector биндится селектор и мы избавляемся от нужны постоянно использовать useSelector с компонентом (меньше кода).
-В buildSlice обертка (вместо createSlice), которая внутри себя будет добавлять нужный нам функционал.
-Джинерик взяли из createSlice (можно провалиться в либу).
-@reduxjs/toolkit/dist - папка куда билдится редакс, можно оттуда брать типы
-Из buildSlice вернется хук useActions, внутри которого все экшены будут сразу оборачиваться в dispatch и их можно было переиспользовать без диспатча.
-Action-creators биндятся через bindActionCreators к диспатчу (мемоизируются, чтоб ссылки не менялись).
-Добавили @ts-ignore, т.к. возвращаемый результат не соотносится с typeof slice.actions.
-В counterSlice.ts сбилдили своим хуком слайс, извлекли из него useCounterActions
-Использовали так: const { increment, decrement } = useCounterActions(). Не нужно использовать диспатч, это удобно, меньше бойлерплейт-кода.
-Нужно улучшить buildSelector, чтобы в него можно было передать аргумент.
-Добавили передачу args в хук и типизации.
-Можно не использовать useSelector со сложными колбеками внутри.
+Для сторисов если есть мок rtk-query запросов обязательно нужно добавлять StoreDecorator
+Для мока запросов установили пакеты msw и msw-storybook-addon, так же создали сервис воркер в public.
+
+Пример использования в сторисах:
+
+```tsx
+import { http, HttpResponse } from 'msw';
+import type { Meta, StoryObj } from '@storybook/react';
+import { Article } from '@/entities/Article';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
+import { ArticleRecommendationsList } from './ArticleRecommendationsList';
+
+const meta: Meta<typeof ArticleRecommendationsList> = {
+    title: 'features/ArticleRecommendationsList',
+    component: ArticleRecommendationsList,
+    decorators: [StoreDecorator({})],
+} satisfies Meta<typeof ArticleRecommendationsList>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+const article: Article = {
+    id: '1',
+    img: '',
+    createdAt: '',
+    views: 123,
+    user: { id: '1', username: '123' },
+    blocks: [],
+    type: [],
+    title: '123',
+    subtitle: 'asfsa',
+};
+
+export const Normal: Story = {
+    args: {},
+    parameters: {
+        msw: {
+            handlers: [
+                http.get(`${__API__}/articles?_limit=3`, () => {
+                    return HttpResponse.json(
+                        [
+                            { ...article, id: '1' },
+                            { ...article, id: '2' },
+                            { ...article, id: '3' },
+                        ],
+                        { status: 200 },
+                    );
+                }),
+            ],
+        },
+    },
+};
+```
+
+## Тестирование через jest
+
+TODO написать про тестирование в jest
+
+## Best Practices
+
+### 1. Структура FSD:
+
+Обычно хранится в model, где описывается бизнес-логика
+- model/slice - редьюсеры и экшены
+- model/selectors - селекторы
+- model/services - асинхронные операции (санки)
+- model/types - типы, схемы
+
+### 2. Типизация:
+
+- Используйте StateSchema для типизации всего состояния
+- PayloadAction для типизации экшенов
+- ThunkConfig для типизации санок
+- Типизируйте useDispatch для более глубокого подхватывания типов (пример в useAppDispatch)
+- Допускается декларировать в global.d.ts схему стора, чтоб не импортировать везде из App
+
+### 3. Оптимизация:
+
+- Динамическая загрузка редьюсеров
+- Мемоизация селекторов
+- Использование EntityAdapter для нормализации
+
+### 4. Тестирование:
+
+- Тестируйте редьюсеры и селекторы
+- Проверяйте все состояния санок (pending/fulfilled/rejected)
+
+### 5. Инструменты:
+
+- Redux DevTools для отладки
+- RTK Query для API-запросов
+- Immer для иммутабельных обновлений
+
+## Проблемы и решения
+
+- Redux DevTools теряют историю при переходах — проблема в повторной инициализации стора.
+Нужно следить за ререндерами в провайдере, например передача navigate из роутера, заставляла лишний раз ререндериться).
+- Падают скриншотные тесты — нужно передавать asyncReducers в StoreProvider.
+- Ошибки при совпадении названия редьюсера — используем строгую типизацию ключей.
+
+## Полезные ссылки
+
+- [Официальная документация Redux Toolkit](https://redux-toolkit.js.org/)
+- [RTK Query документация](https://redux-toolkit.js.org/rtk-query/overview)
+- [Примеры использования](https://github.com/reduxjs/redux-toolkit/tree/master/examples)
+- [Immer.js](https://immerjs.github.io/immer/)
+- [Code splitting redux](https://redux.js.org/usage/code-splitting)
+- [Code splitting redux-toolkit](https://redux-toolkit.js.org/rtk-query/usage/code-splitting)
