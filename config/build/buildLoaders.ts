@@ -1,29 +1,12 @@
 import { type RuleSetRule } from 'webpack';
 import { BuildOptions } from './types/config';
+import { buildSvgLoader } from './loaders/buildSvgLoader';
 import { buildBabelLoader } from './loaders/buildBabelLoader';
 import { buildCssLoader } from './loaders/buildCssLoader';
+import { buildFileLoader } from './loaders/buildFileLoader';
 
 export function buildLoaders(options: BuildOptions): RuleSetRule[] {
-    const svgLoader = {
-        test: /\.svg$/,
-        use: [{
-            loader: '@svgr/webpack',
-            options: {
-                icon: true, // для замены ширины и высоты кастомным значением
-                svgoConfig: {
-                    // плагин для конвертации цветов (автоматически заменяет цвета в файлах на current color)
-                    plugins: [
-                        {
-                            name: 'convertColors',
-                            params: {
-                                currentColor: true,
-                            },
-                        },
-                    ],
-                },
-            },
-        }],
-    };
+    const svgLoader = buildSvgLoader();
 
     // Babel это транспилятор js из одного стандарта в другой,
     // чтобы поддерживался код во всех браузерах
@@ -34,17 +17,9 @@ export function buildLoaders(options: BuildOptions): RuleSetRule[] {
 
     // Если не используем typescript, то нужен babel-loader (он умеет работать с jsx)
     // который берет новый стандарт js и билдит его в старый, чтобы во всех браузерах поддерживался
-    // const typescriptLoader = {
-    //     // можно проверить определение регулярки (между //) на https://regex101.com/
-    //     test: /\.tsx?$/, // находит соответствие ts и tsx
-    //     use: 'ts-loader', // какой лоадер использовать
-    //     exclude: /node_modules/, // исключение для обработки
-    // };
+    // const typescriptLoader = buildTypescriptLoader();
 
-    const fileLoader = {
-        test: /\.(png|jpe?g|gif|woff2|woff)$/i,
-        type: 'asset/resource', // file-loader уже не обязателен в 5 версии webpack
-    };
+    const fileLoader = buildFileLoader();
 
     // Порядок в массиве лоадеров имеет значение
     return [

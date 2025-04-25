@@ -16,7 +16,7 @@ export function buildWebpackConfig(
         output: {
             // браузер кеширует файлы по названию и может использовать
             // старые бандлы, поэтому добавляем генерацию уникальных постфиксов
-            filename: '[name].[contenthash].js',
+            filename: '[name].[contenthash].js', // main.0a8e7fd5e3294937b2fb.js
             path: paths?.build,
             clean: true, // для подчищения папки build при каждой сборке
             publicPath: '/', // Указывает корень для загрузки всех статических файлов, для обеспечения корректного определение пути независимо от текущего URL

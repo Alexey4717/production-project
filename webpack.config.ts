@@ -8,8 +8,8 @@ import { BuildEnv } from './config/build/types/config';
 
 export default (env: BuildEnv) => {
     const paths = {
-        entry: path.resolve(__dirname, 'src', 'index.tsx'),
-        build: path.resolve(__dirname, 'build'),
+        entry: path.resolve(__dirname, 'src', 'index.tsx'), // Стартовая точка приложения
+        build: path.resolve(__dirname, 'build'), // Куда делаем сборку приложения
         html: path.resolve(__dirname, 'public', 'index.html'),
         src: path.resolve(__dirname, 'src'),
         locales: path.resolve(__dirname, 'public', 'locales'),
